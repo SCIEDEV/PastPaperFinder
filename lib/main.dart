@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:past_paper/downloads_page.dart';
+import 'package:past_paper/settings_page.dart';
 import 'package:window_manager/window_manager.dart';
 import 'sidebar.dart';
 import 'batch_download.dart';
@@ -32,6 +33,7 @@ void main() async {
     ChangeNotifierProvider(create: (_) => BrowsePreferences()),
     ChangeNotifierProvider(create: (_) => CollectionStates()),
     ChangeNotifierProvider(create: (_) => DownloadStates()),
+    ChangeNotifierProvider(create: (_) => Settings()),
   ], child: const MyApp()));
 }
 
@@ -78,6 +80,11 @@ class MyApp extends StatelessWidget {
                                     .currentSelection ==
                                 3) ...[
                               const DownloadsPage(),
+                            ] else if (context
+                                    .watch<SidebarStates>()
+                                    .currentSelection ==
+                                4) ...[
+                              const SettingsPage(),
                             ] else ...[
                               const Padding(
                                 padding: EdgeInsets.all(24.0),
@@ -299,6 +306,15 @@ class BrowsePreferences with ChangeNotifier {
   List<String> get entries => _entries;
   void changeEntries(List<String> entries) {
     _entries = entries;
+    notifyListeners();
+  }
+}
+
+class Settings with ChangeNotifier {
+  int _appearance = 0;
+  int get appearance => _appearance;
+  void changeAppearance(int appearance) {
+    _appearance = appearance;
     notifyListeners();
   }
 }
