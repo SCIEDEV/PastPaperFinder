@@ -317,6 +317,34 @@ class Settings with ChangeNotifier {
     _appearance = appearance;
     notifyListeners();
   }
+
+  String _path = "";
+  String get path => _path;
+  void changePath(String path) {
+    _path = path;
+    notifyListeners();
+  }
+
+  int _simultaneous = 3;
+  int get simultaneous => _simultaneous;
+  void changeSimultaneous(int simultaneous) {
+    _simultaneous = simultaneous;
+    notifyListeners();
+  }
+
+  void increaseSimultaneous() {
+    if (simultaneous < 6) {
+      _simultaneous++;
+    }
+    notifyListeners();
+  }
+
+  void decreaseSimultaneous() {
+    if (simultaneous > 1) {
+      _simultaneous--;
+    }
+    notifyListeners();
+  }
 }
 
 class BatchPreferences with ChangeNotifier {
