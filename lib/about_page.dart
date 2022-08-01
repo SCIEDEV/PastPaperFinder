@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:unicons/unicons.dart';
 import 'batch_download.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class AboutPage extends StatelessWidget {
   final String lastCommit = "067900002c69b805bed86671bb2b2ccfc6cf9a01";
@@ -99,14 +100,21 @@ class AboutPage extends StatelessWidget {
                 child: Row(
                   children: [
                     CustomButton(
-                        title: "Buy me a coffee",
-                        leading: UniconsLine.coffee,
-                        onPressed: () {}),
+                        title: "Open Collective",
+                        leading: UniconsLine.heart,
+                        trailing: UniconsLine.external_link_alt,
+                        onPressed: () {
+                          _launchUrl(
+                              'https://opencollective.com/sciedev/projects/past-paper-finder');
+                        }),
                     const SizedBox(width: 12),
                     CustomButton(
-                        title: "AFDian",
+                        title: "爱发电",
                         leading: UniconsLine.heart,
-                        onPressed: () {}),
+                        trailing: UniconsLine.external_link_alt,
+                        onPressed: () {
+                          _launchUrl('https://afdian.net/@micfong');
+                        }),
                   ],
                 ),
               ),
@@ -116,5 +124,12 @@ class AboutPage extends StatelessWidget {
         ],
       ),
     );
+  }
+}
+
+Future<void> _launchUrl(String url) async {
+  final Uri _url = Uri.parse(url);
+  if (!await launchUrl(_url)) {
+    throw 'Could not launch $_url';
   }
 }

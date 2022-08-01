@@ -527,7 +527,7 @@ class CustomButton extends StatelessWidget {
                   style: TextStyle(
                       color: Colors.grey.shade600,
                       fontWeight: FontWeight.w500)),
-              if (trailing != null) const Spacer(),
+              if (trailing != null) const SizedBox(width: 8),
               if (trailing != null)
                 Icon(
                   trailing,
@@ -588,7 +588,7 @@ class CustomButton extends StatelessWidget {
                             ? Colors.white
                             : (destructive ? Colors.red : Colors.black),
                         fontWeight: FontWeight.w500)),
-                if (trailing != null) const Spacer(),
+                if (trailing != null) const SizedBox(width: 8),
                 if (trailing != null)
                   Icon(
                     trailing,

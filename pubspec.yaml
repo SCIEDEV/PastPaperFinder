@@ -27,6 +27,7 @@ dependencies:
 
   window_manager: ^0.2.5
   provider: ^6.0.3
+  url_launcher: ^6.1.5
 
 dev_dependencies:
   flutter_test:
@@ -46,7 +47,7 @@ flutter:
   fonts:
     - family: JetBrains Mono
       fonts:
-        - asset: fonts/JetBrainsMono-Regular.ttf
+        - asset: assets/fonts/JetBrainsMono-Regular.ttf
           weight: 400
     - family: Inter
       fonts:
