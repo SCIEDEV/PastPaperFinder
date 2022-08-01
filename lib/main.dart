@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:past_paper/about_page.dart';
 import 'package:past_paper/downloads_page.dart';
 import 'package:past_paper/settings_page.dart';
 import 'package:window_manager/window_manager.dart';
@@ -85,6 +86,11 @@ class MyApp extends StatelessWidget {
                                     .currentSelection ==
                                 4) ...[
                               const SettingsPage(),
+                            ] else if (context
+                                    .watch<SidebarStates>()
+                                    .currentSelection ==
+                                5) ...[
+                              const AboutPage(),
                             ] else ...[
                               const Padding(
                                 padding: EdgeInsets.all(24.0),

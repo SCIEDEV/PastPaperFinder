@@ -7,11 +7,16 @@ class Sidebar extends StatelessWidget {
   const Sidebar({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    const List<List<dynamic>> items = [
+    const List<List<dynamic>> topItems = [
       ["Batch", UniconsLine.filter],
       ["Browse", UniconsLine.search],
       ["Collection", UniconsLine.layers],
       ["Downloads", UniconsLine.file_download_alt],
+    ];
+
+    const List<List<dynamic>> bottomItems = [
+      ["Settings", UniconsLine.setting],
+      ["About", UniconsLine.info_circle],
     ];
     return Container(
         width: 240,
@@ -22,15 +27,17 @@ class Sidebar extends StatelessWidget {
             child: Expanded(
                 child: Column(
               children: [
-                for (var i = 0; i < items.length; i++) ...[
-                  SidebarItem(icon: items[i][1], title: items[i][0], index: i)
+                for (var i = 0; i < topItems.length; i++) ...[
+                  SidebarItem(
+                      icon: topItems[i][1], title: topItems[i][0], index: i)
                 ],
                 const Spacer(),
-                SidebarItem(
-                  title: "Settings",
-                  icon: UniconsLine.setting,
-                  index: items.length,
-                ),
+                for (var i = 0; i < bottomItems.length; i++) ...[
+                  SidebarItem(
+                      icon: bottomItems[i][1],
+                      title: bottomItems[i][0],
+                      index: i + topItems.length)
+                ]
               ],
             ))));
   }

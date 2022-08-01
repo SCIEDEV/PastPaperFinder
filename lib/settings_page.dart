@@ -3,7 +3,6 @@ import 'package:past_paper/main.dart';
 import 'package:unicons/unicons.dart';
 import 'package:provider/provider.dart';
 import 'batch_download.dart';
-import 'dart:math' as math;
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({
