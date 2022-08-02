@@ -3,6 +3,7 @@ import 'package:past_paper/main.dart';
 import 'package:unicons/unicons.dart';
 import 'package:provider/provider.dart';
 import 'batch_download.dart';
+import 'package:file_picker/file_picker.dart';
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({
@@ -47,8 +48,16 @@ class SettingsPage extends StatelessWidget {
               ),
               Expanded(
                 flex: 6,
-                child: longButton("Select download path",
-                    UniconsLine.download_alt, UniconsLine.angle_right, () {}),
+                child: longButton(
+                    context.watch<Settings>().path == ""
+                        ? "Select download path"
+                        : context.read<Settings>().path,
+                    UniconsLine.download_alt,
+                    UniconsLine.angle_right, () async {
+                  Future<String?> selectedDirectory = FilePicker.platform
+                      .getDirectoryPath(dialogTitle: "Select download path");
+                  context.read<Settings>().setPath(selectedDirectory);
+                }, placeholder: (context.watch<Settings>().path == "")),
               ),
               Expanded(flex: 2, child: Container()),
             ],

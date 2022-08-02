@@ -3,6 +3,7 @@ import 'package:past_paper/main.dart';
 import 'package:unicons/unicons.dart';
 import 'batch_download.dart';
 import 'package:provider/provider.dart';
+import 'package:dio/dio.dart';
 
 class DownloadsPage extends StatelessWidget {
   const DownloadsPage({
@@ -196,4 +197,55 @@ class DownloadsTableRow extends StatelessWidget {
           ),
         ));
   }
+}
+
+String getDownloadUrl(List<String> path) {
+  String result = "https://papers.gceguide.com/";
+  if (path.first == "IGCSE") {
+    result += "Cambridge%20IGCSE/";
+  } else {
+    result += "A%20Levels/";
+  }
+  for (var i = 1; i < path.length; i++) {
+    result += "${path[i]}/";
+  }
+  return result;
+}
+
+Future<void> downloadFile(BuildContext context, String save) async {
+  if (context.read<DownloadStates>().downloads.isNotEmpty) {
+    List<String> currentDownload =
+        context.read<DownloadStates>().downloads.first;
+    context.read<DownloadStates>().removeFirstDownload();
+    context.read<DownloadStates>().addDownloading(currentDownload);
+    Dio().download(
+      getDownloadUrl(currentDownload),
+      save,
+      onReceiveProgress: (count, total) {
+        context
+            .read<DownloadStates>()
+            .setDownloadingProgress(currentDownload, count / total);
+      },
+    ).then((value) {
+      context.read<DownloadStates>().removeDownloading(currentDownload);
+      context.read<DownloadStates>().addDownloaded(currentDownload);
+      downloadFile(context, save);
+    });
+  }
+}
+
+Future<void> downloadFiles(BuildContext context) async {
+  if (context.read<DownloadStates>().isDownloading == false) {
+    return;
+  }
+  context.read<DownloadStates>().setIsDownloading(true);
+  int threads = context.read<Settings>().simultaneous;
+  String saveTo = context.read<Settings>().path;
+  for (var i = 0; i < threads; i++) {
+    if (context.read<DownloadStates>().downloads.isEmpty) {
+      break;
+    }
+    downloadFile(context, saveTo);
+  }
+  context.read<DownloadStates>().setIsDownloading(false);
 }

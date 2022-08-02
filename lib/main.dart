@@ -12,6 +12,7 @@ import 'browse_papers.dart';
 import 'dart:convert';
 import 'collection.dart';
 import 'paper_filter.dart';
+import 'package:path_provider/path_provider.dart';
 
 void main() async {
   if (Platform.isLinux || Platform.isMacOS || Platform.isWindows) {
@@ -166,11 +167,44 @@ class CollectionStates with ChangeNotifier {
 class DownloadStates with ChangeNotifier {
   Set<List<String>> _downloads = {};
   Set<List<String>> get downloads => _downloads;
-  final Set<String> _downloaded = {};
-  Set<String> get downloaded => _downloaded;
+  final Set<List<String>> _downloaded = {};
+  Set<List<String>> get downloaded => _downloaded;
+  final Set<Map> _downloading = {};
+  Set<Map> get downloading => _downloading;
+  bool _isDownloading = false;
+  bool get isDownloading => _isDownloading;
+
+  void addDownloading(List<String> obj) {
+    _downloading.add({"path": obj, "progress": 0.0});
+    notifyListeners();
+  }
+
+  void removeDownloading(List<String> obj) {
+    _downloading.removeWhere(
+      (element) => element["path"] == obj,
+    );
+    notifyListeners();
+  }
+
+  void setDownloadingProgress(List<String> obj, double progress) {
+    _downloading.firstWhere(
+      (element) => element["path"] == obj,
+    )["progress"] = progress;
+    notifyListeners();
+  }
+
+  void removeFirstDownload() {
+    _downloads.remove(_downloads.first);
+    notifyListeners();
+  }
+
+  void setIsDownloading(bool value) {
+    _isDownloading = value;
+    notifyListeners();
+  }
 
   void addDownloaded(List<String> downloaded) {
-    _downloaded.addAll(downloaded);
+    _downloaded.add(downloaded);
     notifyListeners();
   }
 
@@ -324,8 +358,39 @@ class Settings with ChangeNotifier {
     notifyListeners();
   }
 
+  Settings() {
+    setDefaultPath();
+  }
+
   String _path = "";
   String get path => _path;
+
+  void setPath(Future<String?> p) async {
+    String? specifiedPath = (await p);
+    if (specifiedPath != null) {
+      if (specifiedPath.contains("/Volumes/Macintosh HD")) {
+        specifiedPath = specifiedPath.replaceAll("/Volumes/Macintosh HD", "");
+      }
+      _path = specifiedPath;
+      notifyListeners();
+    }
+  }
+
+  Future<String> _getDefaultDownloadPath() async {
+    Directory? downloadDirectory;
+    if (Platform.isLinux || Platform.isMacOS || Platform.isWindows) {
+      downloadDirectory = await getDownloadsDirectory();
+    } else {
+      downloadDirectory = await getApplicationDocumentsDirectory();
+    }
+    return downloadDirectory!.path;
+  }
+
+  void setDefaultPath() async {
+    _path = await _getDefaultDownloadPath();
+    notifyListeners();
+  }
+
   void changePath(String path) {
     _path = path;
     notifyListeners();

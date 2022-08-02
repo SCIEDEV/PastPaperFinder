@@ -4,8 +4,8 @@ import 'batch_download.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class AboutPage extends StatelessWidget {
-  final String lastCommit = "067900002c69b805bed86671bb2b2ccfc6cf9a01";
-  final String version = "Development Version 0.3.0+3";
+  final String lastCommit = "89ed5e5d7a355924c2b2b537e185d7da2e81ab99";
+  final String version = "Development Version 0.3.2+5";
   const AboutPage({
     Key? key,
   }) : super(key: key);
