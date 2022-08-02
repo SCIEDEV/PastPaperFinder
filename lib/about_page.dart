@@ -4,8 +4,8 @@ import 'batch_download.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class AboutPage extends StatelessWidget {
-  final String lastCommit = "89ed5e5d7a355924c2b2b537e185d7da2e81ab99";
-  final String version = "Development Version 0.3.2+5";
+  final String lastCommit = "693dd678f8cdd4ab66f6c3f01cd4eacdb91c525e";
+  final String version = "Development Version 0.4.0+6";
   const AboutPage({
     Key? key,
   }) : super(key: key);
@@ -128,8 +128,8 @@ class AboutPage extends StatelessWidget {
 }
 
 Future<void> _launchUrl(String url) async {
-  final Uri _url = Uri.parse(url);
-  if (!await launchUrl(_url)) {
-    throw 'Could not launch $_url';
+  final Uri u = Uri.parse(url);
+  if (!await launchUrl(u)) {
+    throw 'Could not launch $u';
   }
 }

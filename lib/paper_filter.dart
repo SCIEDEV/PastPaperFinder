@@ -86,12 +86,14 @@ Future<List<List<String>>> getPapers(CollectionItem filter) async {
     // NORMAL CASE: this subject is classified by year
     for (int i = filter.beginYear; i <= filter.endYear; i++) {
       path.add(i.toString());
-      List sublist = map[i.toString()];
-      for (String j in sublist) {
-        if (verifyPaperNumber(filter.paperNumbers, j) &&
-            verifyPaperType(filter.paperTypes, j) &&
-            verifySeason(filter.season, j, i)) {
-          result.add(path + [j]);
+      List? sublist = map[i.toString()];
+      if (sublist != null) {
+        for (String j in sublist) {
+          if (verifyPaperNumber(filter.paperNumbers, j) &&
+              verifyPaperType(filter.paperTypes, j) &&
+              verifySeason(filter.season, j, i)) {
+            result.add(path + [j]);
+          }
         }
       }
       path.removeLast();

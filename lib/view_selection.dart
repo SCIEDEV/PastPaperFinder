@@ -1,6 +1,6 @@
 import 'dart:math';
-
 import 'package:flutter/material.dart';
+import 'package:past_paper/downloads_page.dart';
 import 'package:past_paper/main.dart';
 import 'package:unicons/unicons.dart';
 import 'browse_papers.dart';
@@ -8,8 +8,9 @@ import 'package:provider/provider.dart';
 import 'batch_download.dart';
 
 class ViewSelectionPage extends StatelessWidget {
-  const ViewSelectionPage({Key? key}) : super(key: key);
-
+  const ViewSelectionPage({Key? key, required this.globalContext})
+      : super(key: key);
+  final BuildContext globalContext;
   @override
   Widget build(BuildContext context) {
     return ListView(children: [
@@ -43,6 +44,8 @@ class ViewSelectionPage extends StatelessWidget {
                         .read<BrowsePreferences>()
                         .selectedPath
                         .toList());
+                    context.read<BrowsePreferences>().removeAllSelected();
+                    downloadFiles(globalContext);
                   },
                 ),
               ],

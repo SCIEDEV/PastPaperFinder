@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:past_paper/downloads_page.dart';
 import 'package:past_paper/main.dart';
 import 'package:unicons/unicons.dart';
 import 'select_subject.dart';
@@ -9,8 +10,9 @@ import 'paper_filter.dart';
 class BatchDownloadPage extends StatelessWidget {
   const BatchDownloadPage({
     Key? key,
+    required this.globalContext,
   }) : super(key: key);
-
+  final BuildContext globalContext;
   @override
   Widget build(BuildContext context) {
     const List<dynamic> seasons = [
@@ -367,9 +369,9 @@ class BatchDownloadPage extends StatelessWidget {
               title: "Download",
               primary: true,
               onPressed: accessible
-                  ? () async {
+                  ? () {
                       context.read<DownloadStates>().setDownloads(
-                          await getPapers(CollectionItem(
+                          getPapers(CollectionItem(
                               DateTime.now().toString(),
                               context.read<BatchPreferences>().syllabus,
                               context.read<BatchPreferences>().subject,
@@ -384,7 +386,8 @@ class BatchDownloadPage extends StatelessWidget {
                                   .read<BatchPreferences>()
                                   .paperTypes
                                   .toList(),
-                              0)));
+                              0)),
+                          globalContext);
                     }
                   : null,
             ),

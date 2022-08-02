@@ -6,8 +6,9 @@ import 'package:unicons/unicons.dart';
 import 'batch_download.dart';
 
 class BrowsePapersPage extends StatelessWidget {
-  const BrowsePapersPage({Key? key}) : super(key: key);
-
+  const BrowsePapersPage({Key? key, required this.globalContext})
+      : super(key: key);
+  final BuildContext globalContext;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -30,7 +31,9 @@ class BrowsePapersPage extends StatelessWidget {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const ViewSelectionPage(),
+                        builder: (context) => ViewSelectionPage(
+                              globalContext: globalContext,
+                            ),
                         fullscreenDialog: true));
               },
             ),

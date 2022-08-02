@@ -66,17 +66,23 @@ class MyApp extends StatelessWidget {
                                     .watch<SidebarStates>()
                                     .currentSelection ==
                                 0) ...[
-                              const BatchDownloadPage(),
+                              BatchDownloadPage(
+                                globalContext: context,
+                              ),
                             ] else if (context
                                     .watch<SidebarStates>()
                                     .currentSelection ==
                                 1) ...[
-                              const BrowsePapersPage(),
+                              BrowsePapersPage(
+                                globalContext: context,
+                              ),
                             ] else if (context
                                     .watch<SidebarStates>()
                                     .currentSelection ==
                                 2) ...[
-                              const CollectionPage(),
+                              CollectionPage(
+                                globalContext: context,
+                              ),
                             ] else if (context
                                     .watch<SidebarStates>()
                                     .currentSelection ==
@@ -175,18 +181,18 @@ class DownloadStates with ChangeNotifier {
   bool get isDownloading => _isDownloading;
 
   void addDownloading(List<String> obj) {
-    _downloading.add({"path": obj, "progress": 0.0});
+    _downloading.add({"path": obj, "progress": "Downloading"});
     notifyListeners();
   }
 
-  void removeDownloading(List<String> obj) {
+  void removeDownloading(String obj) {
     _downloading.removeWhere(
-      (element) => element["path"] == obj,
+      (element) => element["path"].last == obj,
     );
     notifyListeners();
   }
 
-  void setDownloadingProgress(List<String> obj, double progress) {
+  void setDownloadingProgress(List<String> obj, String progress) {
     _downloading.firstWhere(
       (element) => element["path"] == obj,
     )["progress"] = progress;
@@ -218,9 +224,12 @@ class DownloadStates with ChangeNotifier {
     notifyListeners();
   }
 
-  void setDownloads(List<List<String>> entries) {
-    _downloads = entries.toSet();
+  void setDownloads(
+      Future<List<List<String>>> entries, BuildContext globalContext) async {
+    _downloads = (await entries).toSet();
     notifyListeners();
+    // ignore: use_build_context_synchronously
+    downloadFiles(globalContext);
   }
 
   void addDownloads(List<List<String>> entries) {
@@ -358,10 +367,6 @@ class Settings with ChangeNotifier {
     notifyListeners();
   }
 
-  Settings() {
-    setDefaultPath();
-  }
-
   String _path = "";
   String get path => _path;
 
@@ -374,21 +379,6 @@ class Settings with ChangeNotifier {
       _path = specifiedPath;
       notifyListeners();
     }
-  }
-
-  Future<String> _getDefaultDownloadPath() async {
-    Directory? downloadDirectory;
-    if (Platform.isLinux || Platform.isMacOS || Platform.isWindows) {
-      downloadDirectory = await getDownloadsDirectory();
-    } else {
-      downloadDirectory = await getApplicationDocumentsDirectory();
-    }
-    return downloadDirectory!.path;
-  }
-
-  void setDefaultPath() async {
-    _path = await _getDefaultDownloadPath();
-    notifyListeners();
   }
 
   void changePath(String path) {

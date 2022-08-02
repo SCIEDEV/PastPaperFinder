@@ -71,7 +71,8 @@ class DownloadsPage extends StatelessWidget {
                 child: Column(children: [
                   downloadsTableHeading(),
                   const Divider(height: 0),
-                  if (context.watch<DownloadStates>().downloads.isEmpty)
+                  if (context.watch<DownloadStates>().downloads.isEmpty &&
+                      context.watch<DownloadStates>().downloading.isEmpty)
                     SizedBox(
                         height: MediaQuery.of(context).size.height - 232,
                         child: Center(
@@ -90,7 +91,27 @@ class DownloadsPage extends StatelessWidget {
                             ),
                           ],
                         )))
-                  else
+                  else ...[
+                    for (var i = 0;
+                        i < context.watch<DownloadStates>().downloading.length;
+                        i++) ...[
+                      DownloadsTableRow(
+                        title: context
+                            .read<DownloadStates>()
+                            .downloading
+                            .elementAt(i)["path"]
+                            .last,
+                        paperCount: 0,
+                        progress: context
+                            .watch<DownloadStates>()
+                            .downloading
+                            .elementAt(i)["progress"],
+                        downloading: true,
+                      ),
+                      if (i !=
+                          context.read<DownloadStates>().downloads.length - 1)
+                        const Divider(height: 0),
+                    ],
                     for (var i = 0;
                         i < context.watch<DownloadStates>().downloads.length;
                         i++) ...[
@@ -100,12 +121,15 @@ class DownloadsPage extends StatelessWidget {
                             .downloads
                             .elementAt(i)
                             .last,
+                        downloading: false,
                         paperCount: 0,
+                        progress: "Waiting",
                       ),
                       if (i !=
                           context.read<DownloadStates>().downloads.length - 1)
                         const Divider(height: 0),
                     ],
+                  ]
                 ]))
           ],
         ));
@@ -151,14 +175,23 @@ Widget downloadsTableHeading() {
 
 class DownloadsTableRow extends StatelessWidget {
   const DownloadsTableRow(
-      {Key? key, required this.title, required this.paperCount})
+      {Key? key,
+      required this.title,
+      required this.paperCount,
+      required this.progress,
+      required this.downloading})
       : super(key: key);
   final String title;
   final int paperCount;
+  final String progress;
+  final bool downloading;
   @override
   Widget build(BuildContext context) {
     return MaterialButton(
         onPressed: () {
+          if (downloading) {
+            context.read<DownloadStates>().removeDownloading(title);
+          }
           context.read<DownloadStates>().cancelDownload(title);
         },
         child: Container(
@@ -180,7 +213,7 @@ class DownloadsTableRow extends StatelessWidget {
               Expanded(
                 flex: 2,
                 child: Text(
-                  "/// Placeholder ///",
+                  progress,
                   style: TextStyle(
                       color: Colors.grey.shade600,
                       fontSize: 14,
@@ -207,9 +240,45 @@ String getDownloadUrl(List<String> path) {
     result += "A%20Levels/";
   }
   for (var i = 1; i < path.length; i++) {
-    result += "${path[i]}/";
+    result += path[i];
+    if (i != path.length - 1) {
+      result += "/";
+    }
   }
   return result;
+}
+
+Future<void> tryRedownload(BuildContext context, List<String> currentDownload,
+    String url, String save, int retryCount) async {
+  if (retryCount > 5) {
+    context
+        .read<DownloadStates>()
+        .setDownloadingProgress(currentDownload, "Download failed.");
+    print("Retry exceeds limit.");
+    downloadFile(context, save);
+    return;
+  }
+  Dio().download(
+    url,
+    save,
+    onReceiveProgress: (received, total) {
+      context.read<DownloadStates>().setDownloadingProgress(
+          currentDownload, "${(received / total * 100).toStringAsFixed(0)}%");
+    },
+  ).then((value) {
+    context.read<DownloadStates>().removeDownloading(currentDownload.last);
+    context.read<DownloadStates>().addDownloaded(currentDownload);
+    downloadFile(context, save);
+  }).onError((error, stackTrace) {
+    context
+        .read<DownloadStates>()
+        .setDownloadingProgress(currentDownload, "Retrying #$retryCount");
+    print(
+        "Trying to redownload ${currentDownload.last}. This is try #$retryCount.");
+    print("This is because");
+    print(error);
+    tryRedownload(context, currentDownload, url, save, retryCount + 1);
+  });
 }
 
 Future<void> downloadFile(BuildContext context, String save) async {
@@ -218,24 +287,36 @@ Future<void> downloadFile(BuildContext context, String save) async {
         context.read<DownloadStates>().downloads.first;
     context.read<DownloadStates>().removeFirstDownload();
     context.read<DownloadStates>().addDownloading(currentDownload);
+    String url = getDownloadUrl(currentDownload);
+    print("Downloading from $url");
+    String fileLocation = "$save/${currentDownload.last}";
+
     Dio().download(
-      getDownloadUrl(currentDownload),
-      save,
-      onReceiveProgress: (count, total) {
-        context
-            .read<DownloadStates>()
-            .setDownloadingProgress(currentDownload, count / total);
+      url,
+      fileLocation,
+      onReceiveProgress: (received, total) {
+        context.read<DownloadStates>().setDownloadingProgress(
+            currentDownload, "${(received / total * 100).toStringAsFixed(0)}%");
       },
     ).then((value) {
-      context.read<DownloadStates>().removeDownloading(currentDownload);
+      context.read<DownloadStates>().removeDownloading(currentDownload.last);
       context.read<DownloadStates>().addDownloaded(currentDownload);
       downloadFile(context, save);
+    }).onError((error, stackTrace) {
+      context
+          .read<DownloadStates>()
+          .setDownloadingProgress(currentDownload, "Retrying #0");
+      print(
+          "Trying to redownload ${currentDownload.last}. This is the first try.");
+      print("This is because");
+      print(error);
+      tryRedownload(context, currentDownload, url, fileLocation, 0);
     });
   }
 }
 
 Future<void> downloadFiles(BuildContext context) async {
-  if (context.read<DownloadStates>().isDownloading == false) {
+  if (context.read<DownloadStates>().isDownloading == true) {
     return;
   }
   context.read<DownloadStates>().setIsDownloading(true);
@@ -243,8 +324,10 @@ Future<void> downloadFiles(BuildContext context) async {
   String saveTo = context.read<Settings>().path;
   for (var i = 0; i < threads; i++) {
     if (context.read<DownloadStates>().downloads.isEmpty) {
+      print("Download ended on thread #$i");
       break;
     }
+    print("Download task started on #$i");
     downloadFile(context, saveTo);
   }
   context.read<DownloadStates>().setIsDownloading(false);

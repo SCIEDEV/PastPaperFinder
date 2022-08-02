@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:past_paper/downloads_page.dart';
 import 'package:past_paper/main.dart';
 import 'package:unicons/unicons.dart';
 import 'batch_download.dart';
@@ -7,8 +8,9 @@ import 'package:provider/provider.dart';
 class CollectionPage extends StatelessWidget {
   const CollectionPage({
     Key? key,
+    required this.globalContext,
   }) : super(key: key);
-
+  final BuildContext globalContext;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -30,6 +32,7 @@ class CollectionPage extends StatelessWidget {
                     context.read<DownloadStates>().downloadCollections(
                         context.read<CollectionStates>().collection);
                     context.read<CollectionStates>().removeAll();
+                    downloadFiles(globalContext);
                   },
                 ),
               ],

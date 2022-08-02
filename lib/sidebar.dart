@@ -24,8 +24,7 @@ class Sidebar extends StatelessWidget {
             border: Border(right: BorderSide(color: Colors.grey.shade300))),
         child: Container(
             padding: const EdgeInsets.all(16),
-            child: Expanded(
-                child: Column(
+            child: Column(
               children: [
                 for (var i = 0; i < topItems.length; i++) ...[
                   SidebarItem(
@@ -39,7 +38,7 @@ class Sidebar extends StatelessWidget {
                       index: i + topItems.length)
                 ]
               ],
-            ))));
+            )));
   }
 }
 
