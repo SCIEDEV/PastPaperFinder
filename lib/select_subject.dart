@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:past_paper/main.dart';
 import 'package:unicons/unicons.dart';
 import 'subject_lists.dart';
+import 'colors.dart';
 import 'package:provider/provider.dart';
 
 class SelectSubjectPage extends StatelessWidget {
@@ -9,9 +10,10 @@ class SelectSubjectPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    MColors mcol = MColors(context.watch<Appearance>().darkMode);
     return ListView(children: [
       Container(
-        color: Colors.grey.shade50,
+        color: mcol.pageBackground,
         child: Container(
           margin:
               const EdgeInsets.only(top: 36, bottom: 48, left: 32, right: 32),
@@ -25,14 +27,17 @@ class SelectSubjectPage extends StatelessWidget {
                     Navigator.pop(context);
                   },
                   minWidth: 32,
-                  child: const Icon(UniconsLine.angle_left_b, size: 30),
+                  child: Icon(UniconsLine.angle_left_b,
+                      size: 30, color: mcol.primary),
                 ),
                 Text(
                   context.read<BatchPreferences>().syllabus == 0
                       ? "IGCSE Subjects"
                       : "A Level Subjects",
-                  style: const TextStyle(
-                      fontSize: 30, fontWeight: FontWeight.w500),
+                  style: TextStyle(
+                      fontSize: 30,
+                      fontWeight: FontWeight.w500,
+                      color: mcol.primary),
                 ),
               ],
             ),

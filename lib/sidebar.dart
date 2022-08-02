@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:past_paper/colors.dart';
 import 'package:past_paper/main.dart';
 import 'package:unicons/unicons.dart';
 import 'package:provider/provider.dart';
@@ -18,10 +19,13 @@ class Sidebar extends StatelessWidget {
       ["Settings", UniconsLine.setting],
       ["About", UniconsLine.info_circle],
     ];
+
+    MColors mcol = MColors(context.watch<Appearance>().darkMode);
     return Container(
         width: 240,
         decoration: BoxDecoration(
-            border: Border(right: BorderSide(color: Colors.grey.shade300))),
+            color: mcol.pageBackground,
+            border: Border(right: BorderSide(color: mcol.buttonBorder))),
         child: Container(
             padding: const EdgeInsets.all(16),
             child: Column(
@@ -51,6 +55,7 @@ class SidebarItem extends StatelessWidget {
   final int index;
   @override
   Widget build(BuildContext context) {
+    MColors mcol = MColors(context.watch<Appearance>().darkMode);
     bool active = context.watch<SidebarStates>().currentSelection == index;
     return AnimatedContainer(
       duration: const Duration(milliseconds: 200),
@@ -72,8 +77,8 @@ class SidebarItem extends StatelessWidget {
             animationDuration: const Duration(milliseconds: 200),
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(8),
-                side: BorderSide(color: Colors.grey.shade300, width: 1.0)),
-            color: Colors.white,
+                side: BorderSide(color: mcol.buttonBorder, width: 1.0)),
+            color: mcol.buttonBackground,
             elevation: 0,
             hoverElevation: 0,
             highlightElevation: 0,
@@ -96,7 +101,7 @@ class SidebarItem extends StatelessWidget {
                     style: TextStyle(
                         fontWeight: FontWeight.w500,
                         fontSize: 16,
-                        color: Colors.orange.shade900),
+                        color: mcol.accentText),
                   )
                 ],
               ),
@@ -121,7 +126,7 @@ class SidebarItem extends StatelessWidget {
                 children: [
                   Icon(
                     icon,
-                    color: Colors.grey.shade500,
+                    color: mcol.sideBarIcon,
                   ),
                   const SizedBox(width: 12),
                   Text(
@@ -129,7 +134,7 @@ class SidebarItem extends StatelessWidget {
                     style: TextStyle(
                         fontWeight: FontWeight.w500,
                         fontSize: 16,
-                        color: Colors.grey.shade700),
+                        color: mcol.secondary),
                   )
                 ],
               ),

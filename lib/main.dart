@@ -11,8 +11,8 @@ import 'package:provider/provider.dart';
 import 'browse_papers.dart';
 import 'dart:convert';
 import 'collection.dart';
+import 'colors.dart';
 import 'paper_filter.dart';
-import 'package:path_provider/path_provider.dart';
 
 void main() async {
   if (Platform.isLinux || Platform.isMacOS || Platform.isWindows) {
@@ -36,6 +36,7 @@ void main() async {
     ChangeNotifierProvider(create: (_) => CollectionStates()),
     ChangeNotifierProvider(create: (_) => DownloadStates()),
     ChangeNotifierProvider(create: (_) => Settings()),
+    ChangeNotifierProvider(create: (_) => Appearance()),
   ], child: const MyApp()));
 }
 
@@ -44,6 +45,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    MColors mcol = MColors(context.watch<Appearance>().darkMode);
     var navigationKey = GlobalKey<NavigatorState>();
     return MaterialApp(
       theme: ThemeData(fontFamily: 'Inter'),
@@ -54,60 +56,63 @@ class MyApp extends StatelessWidget {
           children: [
             const Sidebar(),
             Expanded(
-                child: WillPopScope(
-                    onWillPop: () async =>
-                        !await navigationKey.currentState!.maybePop(),
-                    child: Navigator(
-                      key: navigationKey,
-                      onGenerateRoute: (routeSettings) {
-                        return MaterialPageRoute(
-                          builder: (context) => ListView(children: [
-                            if (context
-                                    .watch<SidebarStates>()
-                                    .currentSelection ==
-                                0) ...[
-                              BatchDownloadPage(
-                                globalContext: context,
-                              ),
-                            ] else if (context
-                                    .watch<SidebarStates>()
-                                    .currentSelection ==
-                                1) ...[
-                              BrowsePapersPage(
-                                globalContext: context,
-                              ),
-                            ] else if (context
-                                    .watch<SidebarStates>()
-                                    .currentSelection ==
-                                2) ...[
-                              CollectionPage(
-                                globalContext: context,
-                              ),
-                            ] else if (context
-                                    .watch<SidebarStates>()
-                                    .currentSelection ==
-                                3) ...[
-                              const DownloadsPage(),
-                            ] else if (context
-                                    .watch<SidebarStates>()
-                                    .currentSelection ==
-                                4) ...[
-                              const SettingsPage(),
-                            ] else if (context
-                                    .watch<SidebarStates>()
-                                    .currentSelection ==
-                                5) ...[
-                              const AboutPage(),
-                            ] else ...[
-                              const Padding(
-                                padding: EdgeInsets.all(24.0),
-                                child: Center(child: Text(" :( ")),
-                              ),
-                            ]
-                          ]),
-                        );
-                      },
-                    ))),
+              child: Container(
+                  color: mcol.pageBackground,
+                  child: WillPopScope(
+                      onWillPop: () async =>
+                          !await navigationKey.currentState!.maybePop(),
+                      child: Navigator(
+                        key: navigationKey,
+                        onGenerateRoute: (routeSettings) {
+                          return MaterialPageRoute(
+                            builder: (context) => ListView(children: [
+                              if (context
+                                      .watch<SidebarStates>()
+                                      .currentSelection ==
+                                  0) ...[
+                                BatchDownloadPage(
+                                  globalContext: context,
+                                ),
+                              ] else if (context
+                                      .watch<SidebarStates>()
+                                      .currentSelection ==
+                                  1) ...[
+                                BrowsePapersPage(
+                                  globalContext: context,
+                                ),
+                              ] else if (context
+                                      .watch<SidebarStates>()
+                                      .currentSelection ==
+                                  2) ...[
+                                CollectionPage(
+                                  globalContext: context,
+                                ),
+                              ] else if (context
+                                      .watch<SidebarStates>()
+                                      .currentSelection ==
+                                  3) ...[
+                                const DownloadsPage(),
+                              ] else if (context
+                                      .watch<SidebarStates>()
+                                      .currentSelection ==
+                                  4) ...[
+                                const SettingsPage(),
+                              ] else if (context
+                                      .watch<SidebarStates>()
+                                      .currentSelection ==
+                                  5) ...[
+                                const AboutPage(),
+                              ] else ...[
+                                const Padding(
+                                  padding: EdgeInsets.all(24.0),
+                                  child: Center(child: Text(" :( ")),
+                                ),
+                              ]
+                            ]),
+                          );
+                        },
+                      ))),
+            ),
           ],
         ),
       ),
@@ -166,6 +171,15 @@ class CollectionStates with ChangeNotifier {
 
   void removeAll() {
     _collection.clear();
+    notifyListeners();
+  }
+}
+
+class Appearance with ChangeNotifier {
+  bool _darkMode = false;
+  bool get darkMode => _darkMode;
+  void changeMode(bool mode) {
+    _darkMode = mode;
     notifyListeners();
   }
 }

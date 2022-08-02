@@ -4,6 +4,8 @@ import 'package:unicons/unicons.dart';
 import 'batch_download.dart';
 import 'package:provider/provider.dart';
 import 'package:dio/dio.dart';
+import 'colors.dart';
+import 'package:flutter/foundation.dart';
 
 class DownloadsPage extends StatelessWidget {
   const DownloadsPage({
@@ -12,6 +14,7 @@ class DownloadsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    MColors mcol = MColors(context.watch<Appearance>().darkMode);
     return Container(
         margin: const EdgeInsets.only(top: 36, bottom: 48, left: 32, right: 32),
         child: Column(
@@ -19,9 +22,12 @@ class DownloadsPage extends StatelessWidget {
           children: [
             Row(
               children: [
-                const Text(
+                Text(
                   "Downloads",
-                  style: TextStyle(fontSize: 30, fontWeight: FontWeight.w500),
+                  style: TextStyle(
+                      fontSize: 30,
+                      fontWeight: FontWeight.w500,
+                      color: mcol.primary),
                 ),
                 const Spacer(),
                 CustomButton(
@@ -254,7 +260,9 @@ Future<void> tryRedownload(BuildContext context, List<String> currentDownload,
     context
         .read<DownloadStates>()
         .setDownloadingProgress(currentDownload, "Download failed.");
-    print("Retry exceeds limit.");
+    if (kDebugMode) {
+      print("Retry exceeds limit.");
+    }
     downloadFile(context, save);
     return;
   }
@@ -273,10 +281,12 @@ Future<void> tryRedownload(BuildContext context, List<String> currentDownload,
     context
         .read<DownloadStates>()
         .setDownloadingProgress(currentDownload, "Retrying #$retryCount");
-    print(
-        "Trying to redownload ${currentDownload.last}. This is try #$retryCount.");
-    print("This is because");
-    print(error);
+    if (kDebugMode) {
+      print(
+          "Trying to redownload ${currentDownload.last}. This is try #$retryCount.");
+      print("This is because");
+      print(error);
+    }
     tryRedownload(context, currentDownload, url, save, retryCount + 1);
   });
 }
@@ -288,7 +298,9 @@ Future<void> downloadFile(BuildContext context, String save) async {
     context.read<DownloadStates>().removeFirstDownload();
     context.read<DownloadStates>().addDownloading(currentDownload);
     String url = getDownloadUrl(currentDownload);
-    print("Downloading from $url");
+    if (kDebugMode) {
+      print("Downloading from $url");
+    }
     String fileLocation = "$save/${currentDownload.last}";
 
     Dio().download(
@@ -306,10 +318,12 @@ Future<void> downloadFile(BuildContext context, String save) async {
       context
           .read<DownloadStates>()
           .setDownloadingProgress(currentDownload, "Retrying #0");
-      print(
-          "Trying to redownload ${currentDownload.last}. This is the first try.");
-      print("This is because");
-      print(error);
+      if (kDebugMode) {
+        print(
+            "Trying to redownload ${currentDownload.last}. This is the first try.");
+        print("This is because");
+        print(error);
+      }
       tryRedownload(context, currentDownload, url, fileLocation, 0);
     });
   }
@@ -324,10 +338,14 @@ Future<void> downloadFiles(BuildContext context) async {
   String saveTo = context.read<Settings>().path;
   for (var i = 0; i < threads; i++) {
     if (context.read<DownloadStates>().downloads.isEmpty) {
-      print("Download ended on thread #$i");
+      if (kDebugMode) {
+        print("Download ended on thread #$i");
+      }
       break;
     }
-    print("Download task started on #$i");
+    if (kDebugMode) {
+      print("Download task started on #$i");
+    }
     downloadFile(context, saveTo);
   }
   context.read<DownloadStates>().setIsDownloading(false);

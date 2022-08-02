@@ -6,6 +6,7 @@ import 'package:unicons/unicons.dart';
 import 'browse_papers.dart';
 import 'package:provider/provider.dart';
 import 'batch_download.dart';
+import 'colors.dart';
 
 class ViewSelectionPage extends StatelessWidget {
   const ViewSelectionPage({Key? key, required this.globalContext})
@@ -13,9 +14,10 @@ class ViewSelectionPage extends StatelessWidget {
   final BuildContext globalContext;
   @override
   Widget build(BuildContext context) {
+    MColors mcol = MColors(context.watch<Appearance>().darkMode);
     return ListView(children: [
       Container(
-        color: Colors.grey.shade50,
+        color: mcol.pageBackground,
         child: Container(
           margin:
               const EdgeInsets.only(top: 36, bottom: 48, left: 32, right: 32),
@@ -29,11 +31,15 @@ class ViewSelectionPage extends StatelessWidget {
                     Navigator.pop(context);
                   },
                   minWidth: 32,
-                  child: const Icon(UniconsLine.angle_left_b, size: 30),
+                  child: Icon(UniconsLine.angle_left_b,
+                      size: 30, color: mcol.primary),
                 ),
-                const Text(
+                Text(
                   "Selected Papers",
-                  style: TextStyle(fontSize: 30, fontWeight: FontWeight.w500),
+                  style: TextStyle(
+                      fontSize: 30,
+                      fontWeight: FontWeight.w500,
+                      color: mcol.primary),
                 ),
                 const Spacer(),
                 CustomButton(

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:past_paper/downloads_page.dart';
+import 'package:past_paper/colors.dart';
 import 'package:past_paper/main.dart';
 import 'package:unicons/unicons.dart';
 import 'select_subject.dart';
@@ -47,21 +47,27 @@ class BatchDownloadPage extends StatelessWidget {
         (context.watch<BatchPreferences>().paperNumbers.isNotEmpty) &&
         (context.watch<BatchPreferences>().paperTypes.isNotEmpty);
 
+    MColors mcol = MColors(context.watch<Appearance>().darkMode);
+
     return Container(
       margin: const EdgeInsets.only(top: 36, bottom: 48, left: 32, right: 32),
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        const Text(
+        Text(
           "Batch Download",
-          style: TextStyle(fontSize: 30, fontWeight: FontWeight.w500),
+          style: TextStyle(
+              fontSize: 30, fontWeight: FontWeight.w500, color: mcol.primary),
         ),
         Container(height: 32),
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Expanded(
+            Expanded(
               flex: 3,
               child: Text("Syllabus",
-                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500)),
+                  style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w500,
+                      color: mcol.primary)),
             ),
             Expanded(
               flex: 6,
@@ -70,18 +76,19 @@ class BatchDownloadPage extends StatelessWidget {
                 children: [
                   const ButtonGroup(),
                   const SizedBox(height: 20),
-                  longButton(
-                      context.watch<BatchPreferences>().subject == ""
+                  LongButton(
+                      title: context.watch<BatchPreferences>().subject == ""
                           ? "Select subject"
                           : context.read<BatchPreferences>().subject,
-                      UniconsLine.book_alt,
-                      UniconsLine.angle_right, () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const SelectSubjectPage(),
-                            fullscreenDialog: true));
-                  },
+                      leading: UniconsLine.book_alt,
+                      trailing: UniconsLine.angle_right,
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const SelectSubjectPage(),
+                                fullscreenDialog: true));
+                      },
                       placeholder:
                           (context.watch<BatchPreferences>().subject == ""))
                 ],
@@ -94,10 +101,13 @@ class BatchDownloadPage extends StatelessWidget {
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Expanded(
+            Expanded(
               flex: 3,
               child: Text("Year range",
-                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500)),
+                  style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w500,
+                      color: mcol.primary)),
             ),
             const Expanded(
               flex: 6,
@@ -110,26 +120,31 @@ class BatchDownloadPage extends StatelessWidget {
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Expanded(
+            Expanded(
               flex: 3,
               child: Text("Seasons",
-                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500)),
+                  style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w500,
+                      color: mcol.primary)),
             ),
             Expanded(
               flex: 6,
               child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    longButton(
-                        context.watch<BatchPreferences>().seasons.isEmpty
+                    LongButton(
+                        title: context.watch<BatchPreferences>().seasons.isEmpty
                             ? "Select season"
                             : '${context.read<BatchPreferences>().seasons.length} season${context.read<BatchPreferences>().seasons.length != 1 ? "s" : ""} selected',
-                        UniconsLine.calender,
-                        context.watch<BatchPreferences>().selectSeasonOpen
-                            ? UniconsLine.angle_up
-                            : UniconsLine.angle_down, () {
-                      context.read<BatchPreferences>().toggleSelectSeason();
-                    },
+                        leading: UniconsLine.calender,
+                        trailing:
+                            context.watch<BatchPreferences>().selectSeasonOpen
+                                ? UniconsLine.angle_up
+                                : UniconsLine.angle_down,
+                        onPressed: () {
+                          context.read<BatchPreferences>().toggleSelectSeason();
+                        },
                         placeholder:
                             context.read<BatchPreferences>().seasons.isEmpty,
                         radiusMode:
@@ -139,26 +154,45 @@ class BatchDownloadPage extends StatelessWidget {
                     if (context.watch<BatchPreferences>().selectSeasonOpen) ...[
                       if (context.read<BatchPreferences>().seasons.length ==
                           seasons.length)
-                        longButton("Select none", null, null, () {
-                          context.read<BatchPreferences>().changeSeasons([]);
-                        }, isMenuItem: true, radiusMode: 3, transformOffset: 1)
+                        LongButton(
+                            title: "Select none",
+                            leading: null,
+                            trailing: null,
+                            onPressed: () {
+                              context
+                                  .read<BatchPreferences>()
+                                  .changeSeasons([]);
+                            },
+                            isMenuItem: true,
+                            radiusMode: 3,
+                            transformOffset: 1)
                       else
-                        longButton("Select all", null, null, () {
-                          context.read<BatchPreferences>().changeSeasons(
-                              [for (var i = 0; i < seasons.length; i++) i]);
-                        }, isMenuItem: true, radiusMode: 3, transformOffset: 1),
+                        LongButton(
+                            title: "Select all",
+                            leading: null,
+                            trailing: null,
+                            onPressed: () {
+                              context.read<BatchPreferences>().changeSeasons(
+                                  [for (var i = 0; i < seasons.length; i++) i]);
+                            },
+                            isMenuItem: true,
+                            radiusMode: 3,
+                            transformOffset: 1),
                       for (var index = 0; index < seasons.length; index++)
-                        longButton(
-                            seasons[index][1],
-                            seasons[index][2],
-                            context
+                        LongButton(
+                            title: seasons[index][1],
+                            leading: seasons[index][2],
+                            trailing: context
                                     .watch<BatchPreferences>()
                                     .seasons
                                     .contains(index)
                                 ? UniconsLine.check
-                                : null, () {
-                          context.read<BatchPreferences>().toggleSeason(index);
-                        },
+                                : null,
+                            onPressed: () {
+                              context
+                                  .read<BatchPreferences>()
+                                  .toggleSeason(index);
+                            },
                             radiusMode: index == (seasons.length - 1) ? 2 : 3,
                             transformOffset: (index + 2).toDouble(),
                             isMenuItem: true)
@@ -172,10 +206,13 @@ class BatchDownloadPage extends StatelessWidget {
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Expanded(
+            Expanded(
               flex: 3,
               child: Text("Paper type",
-                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500)),
+                  style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w500,
+                      color: mcol.primary)),
             ),
             Expanded(
               flex: 6,
@@ -184,20 +221,24 @@ class BatchDownloadPage extends StatelessWidget {
                 children: [
                   Column(
                     children: [
-                      longButton(
-                          context.watch<BatchPreferences>().paperNumbers.isEmpty
+                      LongButton(
+                          title: context
+                                  .watch<BatchPreferences>()
+                                  .paperNumbers
+                                  .isEmpty
                               ? "Select paper numbers"
                               : '${context.read<BatchPreferences>().paperNumbers.length} paper number${context.read<BatchPreferences>().paperNumbers.length != 1 ? "s" : ""} selected',
-                          UniconsLine.list_ol_alt,
-                          context
+                          leading: UniconsLine.list_ol_alt,
+                          trailing: context
                                   .watch<BatchPreferences>()
                                   .selectPaperNumberOpen
                               ? UniconsLine.angle_up
-                              : UniconsLine.angle_down, () {
-                        context
-                            .read<BatchPreferences>()
-                            .toggleSelectPaperNumber();
-                      },
+                              : UniconsLine.angle_down,
+                          onPressed: () {
+                            context
+                                .read<BatchPreferences>()
+                                .toggleSelectPaperNumber();
+                          },
                           placeholder: context
                               .read<BatchPreferences>()
                               .paperNumbers
@@ -215,39 +256,51 @@ class BatchDownloadPage extends StatelessWidget {
                                 .paperNumbers
                                 .length ==
                             paperNumbers.length)
-                          longButton("Select none", null, null, () {
-                            context
-                                .read<BatchPreferences>()
-                                .changePaperNumber([]);
-                          },
+                          LongButton(
+                              title: "Select none",
+                              leading: null,
+                              trailing: null,
+                              onPressed: () {
+                                context
+                                    .read<BatchPreferences>()
+                                    .changePaperNumber([]);
+                              },
                               isMenuItem: true,
                               radiusMode: 3,
                               transformOffset: 1)
                         else
-                          longButton("Select all", null, null, () {
-                            context.read<BatchPreferences>().changePaperNumber([
-                              for (var i = 0; i < paperNumbers.length; i++) i
-                            ]);
-                          },
+                          LongButton(
+                              title: "Select all",
+                              leading: null,
+                              trailing: null,
+                              onPressed: () {
+                                context
+                                    .read<BatchPreferences>()
+                                    .changePaperNumber([
+                                  for (var i = 0; i < paperNumbers.length; i++)
+                                    i
+                                ]);
+                              },
                               isMenuItem: true,
                               radiusMode: 3,
                               transformOffset: 1),
                         for (var index = 0;
                             index < paperNumbers.length;
                             index++)
-                          longButton(
-                              paperNumbers[index][1],
-                              paperNumbers[index][2],
-                              context
+                          LongButton(
+                              title: paperNumbers[index][1],
+                              leading: paperNumbers[index][2],
+                              trailing: context
                                       .watch<BatchPreferences>()
                                       .paperNumbers
                                       .contains(index)
                                   ? UniconsLine.check
-                                  : null, () {
-                            context
-                                .read<BatchPreferences>()
-                                .togglePaperNumber(index);
-                          },
+                                  : null,
+                              onPressed: () {
+                                context
+                                    .read<BatchPreferences>()
+                                    .togglePaperNumber(index);
+                              },
                               radiusMode:
                                   index == (paperNumbers.length - 1) ? 2 : 3,
                               transformOffset: (index + 2).toDouble(),
@@ -259,20 +312,24 @@ class BatchDownloadPage extends StatelessWidget {
                   Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        longButton(
-                            context.watch<BatchPreferences>().paperTypes.isEmpty
+                        LongButton(
+                            title: context
+                                    .watch<BatchPreferences>()
+                                    .paperTypes
+                                    .isEmpty
                                 ? "Select paper types"
                                 : '${context.read<BatchPreferences>().paperTypes.length} paper type${context.read<BatchPreferences>().paperTypes.length != 1 ? "s" : ""} selected',
-                            UniconsLine.apps,
-                            context
+                            leading: UniconsLine.apps,
+                            trailing: context
                                     .watch<BatchPreferences>()
                                     .selectPaperTypeOpen
                                 ? UniconsLine.angle_up
-                                : UniconsLine.angle_down, () {
-                          context
-                              .read<BatchPreferences>()
-                              .toggleSelectPaperType();
-                        },
+                                : UniconsLine.angle_down,
+                            onPressed: () {
+                              context
+                                  .read<BatchPreferences>()
+                                  .toggleSelectPaperType();
+                            },
                             placeholder: context
                                 .read<BatchPreferences>()
                                 .paperTypes
@@ -290,39 +347,51 @@ class BatchDownloadPage extends StatelessWidget {
                                   .paperTypes
                                   .length ==
                               paperTypes.length)
-                            longButton("Select none", null, null, () {
-                              context
-                                  .read<BatchPreferences>()
-                                  .changePaperType([]);
-                            },
+                            LongButton(
+                                title: "Select none",
+                                leading: null,
+                                trailing: null,
+                                onPressed: () {
+                                  context
+                                      .read<BatchPreferences>()
+                                      .changePaperType([]);
+                                },
                                 isMenuItem: true,
                                 radiusMode: 3,
                                 transformOffset: 1)
                           else
-                            longButton("Select all", null, null, () {
-                              context.read<BatchPreferences>().changePaperType([
-                                for (var i = 0; i < paperTypes.length; i++) i
-                              ]);
-                            },
+                            LongButton(
+                                title: "Select all",
+                                leading: null,
+                                trailing: null,
+                                onPressed: () {
+                                  context
+                                      .read<BatchPreferences>()
+                                      .changePaperType([
+                                    for (var i = 0; i < paperTypes.length; i++)
+                                      i
+                                  ]);
+                                },
                                 isMenuItem: true,
                                 radiusMode: 3,
                                 transformOffset: 1),
                           for (var index = 0;
                               index < paperTypes.length;
                               index++)
-                            longButton(
-                                paperTypes[index][1],
-                                paperTypes[index][2],
-                                context
+                            LongButton(
+                                title: paperTypes[index][1],
+                                leading: paperTypes[index][2],
+                                trailing: context
                                         .watch<BatchPreferences>()
                                         .paperTypes
                                         .contains(index)
                                     ? UniconsLine.check
-                                    : null, () {
-                              context
-                                  .read<BatchPreferences>()
-                                  .togglePaperType(index);
-                            },
+                                    : null,
+                                onPressed: () {
+                                  context
+                                      .read<BatchPreferences>()
+                                      .togglePaperType(index);
+                                },
                                 radiusMode:
                                     index == (paperTypes.length - 1) ? 2 : 3,
                                 transformOffset: (index + 2).toDouble(),
@@ -341,7 +410,8 @@ class BatchDownloadPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             if (!accessible)
-              badge("Some fields are not filled in", destructive: true),
+              const Badge(
+                  content: "Some fields are not filled in", destructive: true),
             const SizedBox(width: 12),
             CustomButton(
               title: "Add to Collection",
@@ -398,87 +468,110 @@ class BatchDownloadPage extends StatelessWidget {
   }
 }
 
-Widget longButton(
-    String title, IconData? leading, IconData? trailing, Function() onPressed,
-    {bool placeholder = true,
-    int radiusMode = 0,
-    double transformOffset = 0,
-    bool isMenuItem = false}) {
-  // radiusMode: 0 - all, 1 - top, 2 - bottom, 3 - none
-  var borderRadius = BorderRadius.zero;
-  var transform = Matrix4.translationValues(0, 0, 0);
-  if (radiusMode == 0) {
-    borderRadius = BorderRadius.circular(8);
-  } else if (radiusMode == 1) {
-    borderRadius = const BorderRadius.vertical(top: Radius.circular(8));
-  } else if (radiusMode == 2) {
-    borderRadius = const BorderRadius.vertical(bottom: Radius.circular(8));
-    transform = Matrix4.translationValues(0, -transformOffset, 0);
-  } else {
-    borderRadius = BorderRadius.zero;
-    transform = Matrix4.translationValues(0, -transformOffset, 0);
-  }
-  return Container(
-    decoration: const BoxDecoration(boxShadow: [
-      BoxShadow(
-          color: Color(0x1018281A),
-          blurRadius: 8,
-          offset: Offset(0, 4),
-          spreadRadius: -2),
-      BoxShadow(
-          color: Color(0x1018280F),
-          blurRadius: 4,
-          offset: Offset(0, 2),
-          spreadRadius: -2)
-    ]),
-    transform: transform,
-    child: MaterialButton(
-      color: Colors.white,
-      elevation: 0,
-      hoverElevation: 0,
-      focusElevation: 0,
-      minWidth: double.infinity,
-      highlightElevation: 0,
-      shape: RoundedRectangleBorder(
+class LongButton extends StatefulWidget {
+  const LongButton(
+      {Key? key,
+      required this.title,
+      this.leading,
+      this.trailing,
+      required this.onPressed,
+      this.placeholder = true,
+      this.radiusMode = 0,
+      this.transformOffset = 0,
+      this.isMenuItem = false})
+      : super(key: key);
+  final String title;
+  final IconData? leading;
+  final IconData? trailing;
+  final Function() onPressed;
+  final bool placeholder;
+  final int radiusMode;
+  final double transformOffset;
+  final bool isMenuItem;
+  @override
+  State<LongButton> createState() => _LongButtonState();
+}
+
+class _LongButtonState extends State<LongButton> {
+  @override
+  Widget build(BuildContext context) {
+    MColors mcol = MColors(context.watch<Appearance>().darkMode);
+    var borderRadius = BorderRadius.zero;
+    var transform = Matrix4.translationValues(0, 0, 0);
+    if (widget.radiusMode == 0) {
+      borderRadius = BorderRadius.circular(8);
+    } else if (widget.radiusMode == 1) {
+      borderRadius = const BorderRadius.vertical(top: Radius.circular(8));
+    } else if (widget.radiusMode == 2) {
+      borderRadius = const BorderRadius.vertical(bottom: Radius.circular(8));
+      transform = Matrix4.translationValues(0, -widget.transformOffset, 0);
+    } else {
+      borderRadius = BorderRadius.zero;
+      transform = Matrix4.translationValues(0, -widget.transformOffset, 0);
+    }
+    return Container(
+      decoration: const BoxDecoration(boxShadow: [
+        BoxShadow(
+            color: Color(0x1018281A),
+            blurRadius: 8,
+            offset: Offset(0, 4),
+            spreadRadius: -2),
+        BoxShadow(
+            color: Color(0x1018280F),
+            blurRadius: 4,
+            offset: Offset(0, 2),
+            spreadRadius: -2)
+      ]),
+      transform: transform,
+      child: MaterialButton(
+        color: mcol.buttonBackground,
+        elevation: 0,
+        hoverElevation: 0,
+        focusElevation: 0,
+        minWidth: double.infinity,
+        highlightElevation: 0,
+        shape: RoundedRectangleBorder(
           borderRadius: borderRadius,
-          side: BorderSide(color: Colors.grey.shade300)),
-      onPressed: onPressed,
-      child: Container(
-        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 5),
-        child: Row(
-          children: [
-            if (isMenuItem) const SizedBox(width: 16),
-            if (leading != null)
-              Icon(
-                leading,
-                color: Colors.grey.shade600,
-                size: 20,
+          side: BorderSide(color: mcol.buttonBorder),
+        ),
+        onPressed: widget.onPressed,
+        child: Container(
+          padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 5),
+          child: Row(
+            children: [
+              if (widget.isMenuItem) const SizedBox(width: 16),
+              if (widget.leading != null)
+                Icon(
+                  widget.leading,
+                  color: mcol.secondary,
+                  size: 20,
+                ),
+              const SizedBox(width: 8),
+              Expanded(
+                flex: 99,
+                child: Text(widget.title,
+                    softWrap: false,
+                    overflow: TextOverflow.fade,
+                    style: TextStyle(
+                        color: (widget.placeholder && !widget.isMenuItem)
+                            ? (mcol.secondary)
+                            : (mcol.primary),
+                        fontSize: 16,
+                        fontWeight: FontWeight.w400)),
               ),
-            const SizedBox(width: 8),
-            Expanded(
-              flex: 99,
-              child: Text(title,
-                  softWrap: false,
-                  overflow: TextOverflow.fade,
-                  style: TextStyle(
-                      color: (placeholder && !isMenuItem)
-                          ? Colors.grey.shade600
-                          : Colors.black,
-                      fontSize: 16,
-                      fontWeight: FontWeight.w400)),
-            ),
-            const Spacer(flex: 1),
-            if (trailing != null)
-              Icon(
-                trailing,
-                color: Colors.grey.shade600,
-                size: 20,
-              ),
-          ],
+              const Spacer(flex: 1),
+              if (widget.trailing != null)
+                Icon(
+                  widget.trailing,
+                  color: mcol.secondary,
+                  size: 20,
+                ),
+            ],
+          ),
         ),
       ),
-    ),
-  );
+    );
+  }
 }
 
 class CustomButton extends StatelessWidget {
@@ -500,18 +593,19 @@ class CustomButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    MColors mcol = MColors(context.watch<Appearance>().darkMode);
     if (onPressed == null) {
       return MaterialButton(
-        color: Colors.grey.shade300,
+        color: mcol.disabledButtonBackground,
         elevation: 0,
-        disabledColor: Colors.grey.shade300,
-        disabledTextColor: Colors.grey.shade500,
+        disabledColor: mcol.disabledButtonBackground,
+        disabledTextColor: mcol.disabledButtonText,
         hoverElevation: 0,
         focusElevation: 0,
         highlightElevation: 0,
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(8),
-            side: BorderSide(color: Colors.grey.shade400)),
+            side: BorderSide(color: mcol.disabledButtonBorder)),
         onPressed: onPressed,
         child: Container(
           padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 5),
@@ -520,23 +614,19 @@ class CustomButton extends StatelessWidget {
               if (leading != null)
                 Icon(
                   leading,
-                  color: (primary != null && primary != false)
-                      ? Colors.orange.shade100
-                      : Colors.grey.shade600,
+                  color: mcol.secondary,
                   size: 20,
                 ),
               if (leading != null) const SizedBox(width: 8),
               Text(title,
                   style: TextStyle(
-                      color: Colors.grey.shade600,
+                      color: mcol.disabledButtonText,
                       fontWeight: FontWeight.w500)),
               if (trailing != null) const SizedBox(width: 8),
               if (trailing != null)
                 Icon(
                   trailing,
-                  color: (primary != null && primary != false)
-                      ? Colors.orange.shade100
-                      : Colors.grey.shade600,
+                  color: mcol.secondary,
                   size: 20,
                 ),
             ],
@@ -560,7 +650,7 @@ class CustomButton extends StatelessWidget {
         child: MaterialButton(
           color: (primary != null && primary != false)
               ? Colors.orange
-              : Colors.white,
+              : mcol.buttonBackground,
           elevation: 0,
           hoverElevation: 0,
           focusElevation: 0,
@@ -570,7 +660,7 @@ class CustomButton extends StatelessWidget {
               side: BorderSide(
                   color: (primary != null && primary != false)
                       ? Colors.orange.shade300
-                      : Colors.grey.shade300)),
+                      : mcol.buttonBorder)),
           onPressed: onPressed,
           child: Container(
             padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 5),
@@ -581,7 +671,7 @@ class CustomButton extends StatelessWidget {
                     leading,
                     color: (primary != null && primary != false)
                         ? Colors.orange.shade100
-                        : Colors.grey.shade600,
+                        : mcol.secondary,
                     size: 20,
                   ),
                 if (leading != null) const SizedBox(width: 8),
@@ -589,7 +679,7 @@ class CustomButton extends StatelessWidget {
                     style: TextStyle(
                         color: (primary != null && primary != false)
                             ? Colors.white
-                            : (destructive ? Colors.red : Colors.black),
+                            : (destructive ? Colors.red : mcol.primary),
                         fontWeight: FontWeight.w500)),
                 if (trailing != null) const SizedBox(width: 8),
                 if (trailing != null)
@@ -597,7 +687,7 @@ class CustomButton extends StatelessWidget {
                     trailing,
                     color: (primary != null && primary != false)
                         ? Colors.orange.shade100
-                        : Colors.grey.shade600,
+                        : mcol.secondary,
                     size: 20,
                   ),
               ],
@@ -609,38 +699,54 @@ class CustomButton extends StatelessWidget {
   }
 }
 
-Widget badge(String content, {bool destructive = false}) {
-  return Container(
-    height: 28,
-    decoration: BoxDecoration(
-        color: destructive ? Colors.red.shade50 : Colors.orange.shade50,
-        borderRadius: BorderRadius.circular(100)),
-    alignment: Alignment.center,
-    child: Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 10.0),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Container(
-            decoration: BoxDecoration(
-                color: destructive ? Colors.red : Colors.orange,
-                borderRadius: BorderRadius.circular(100)),
-            width: 6,
-            height: 6,
-            margin: const EdgeInsets.only(right: 6, top: 2),
-          ),
-          Text(
-            content,
-            style: TextStyle(
-                fontWeight: FontWeight.w500,
-                fontSize: 14,
-                color:
-                    destructive ? Colors.red.shade900 : Colors.orange.shade900),
-          ),
-        ],
+class Badge extends StatefulWidget {
+  const Badge({Key? key, required this.content, this.destructive = false})
+      : super(key: key);
+  final String content;
+  final bool destructive;
+  @override
+  State<Badge> createState() => _BadgeState();
+}
+
+class _BadgeState extends State<Badge> {
+  @override
+  Widget build(BuildContext context) {
+    MColors mcol = MColors(context.watch<Appearance>().darkMode);
+    return Container(
+      height: 28,
+      decoration: BoxDecoration(
+          color: widget.destructive
+              ? mcol.errorBadgeBackground
+              : mcol.badgeBackground,
+          borderRadius: BorderRadius.circular(100)),
+      alignment: Alignment.center,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 10.0),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Container(
+              decoration: BoxDecoration(
+                  color: widget.destructive ? Colors.red : Colors.orange,
+                  borderRadius: BorderRadius.circular(100)),
+              width: 6,
+              height: 6,
+              margin: const EdgeInsets.only(right: 6, top: 2),
+            ),
+            Text(
+              widget.content,
+              style: TextStyle(
+                  fontWeight: FontWeight.w500,
+                  fontSize: 14,
+                  color: widget.destructive
+                      ? mcol.errorBadgeText
+                      : mcol.badgeText),
+            ),
+          ],
+        ),
       ),
-    ),
-  );
+    );
+  }
 }
 
 class VertDivider extends StatelessWidget {
@@ -650,9 +756,12 @@ class VertDivider extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    MColors mcol = MColors(context.watch<Appearance>().darkMode);
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 16),
-      child: const Divider(),
+      child: Divider(
+        color: mcol.buttonBorder,
+      ),
     );
   }
 }
@@ -661,6 +770,7 @@ class _ButtonGroupState extends State<ButtonGroup> {
   var selected = 1;
   @override
   Widget build(BuildContext context) {
+    MColors mcol = MColors(context.watch<Appearance>().darkMode);
     return Row(
       children: [
         Container(
@@ -679,7 +789,7 @@ class _ButtonGroupState extends State<ButtonGroup> {
           child: MaterialButton(
             color: (context.watch<BatchPreferences>().syllabus == 0
                 ? Colors.orange
-                : Colors.white),
+                : mcol.buttonBackground),
             elevation: 0,
             hoverElevation: 0,
             focusElevation: 0,
@@ -691,7 +801,7 @@ class _ButtonGroupState extends State<ButtonGroup> {
                 side: BorderSide(
                     color: context.watch<BatchPreferences>().syllabus == 0
                         ? Colors.orange.shade300
-                        : Colors.grey.shade300)),
+                        : mcol.buttonBorder)),
             onPressed: () {
               setState(() {
                 context.read<BatchPreferences>().setSyllabus(0);
@@ -703,7 +813,7 @@ class _ButtonGroupState extends State<ButtonGroup> {
                   style: TextStyle(
                       color: (context.watch<BatchPreferences>().syllabus == 0
                           ? Colors.white
-                          : Colors.black),
+                          : mcol.primary),
                       fontSize: 14,
                       fontWeight: FontWeight.w500)),
             ),
@@ -721,7 +831,7 @@ class _ButtonGroupState extends State<ButtonGroup> {
           child: MaterialButton(
             color: (context.watch<BatchPreferences>().syllabus == 1
                 ? Colors.orange
-                : Colors.white),
+                : mcol.buttonBackground),
             elevation: 0,
             hoverElevation: 0,
             focusElevation: 0,
@@ -733,7 +843,7 @@ class _ButtonGroupState extends State<ButtonGroup> {
                 side: BorderSide(
                     color: context.watch<BatchPreferences>().syllabus == 1
                         ? Colors.orange.shade300
-                        : Colors.grey.shade300)),
+                        : mcol.buttonBorder)),
             onPressed: () {
               setState(() {
                 context.read<BatchPreferences>().setSyllabus(1);
@@ -745,7 +855,7 @@ class _ButtonGroupState extends State<ButtonGroup> {
                   style: TextStyle(
                       color: (context.watch<BatchPreferences>().syllabus == 1
                           ? Colors.white
-                          : Colors.black),
+                          : mcol.primary),
                       fontSize: 14,
                       fontWeight: FontWeight.w500)),
             ),
@@ -848,23 +958,24 @@ class YearRangeSlider extends StatefulWidget {
 class _YearRangeSliderState extends State<YearRangeSlider> {
   @override
   Widget build(BuildContext context) {
+    MColors mcol = MColors(context.watch<Appearance>().darkMode);
     double start = context.watch<BatchPreferences>().beginYear.toDouble();
     double end = context.watch<BatchPreferences>().endYear.toDouble();
     return SliderTheme(
         data: SliderThemeData(
             activeTrackColor: Colors.orange.shade500,
-            inactiveTrackColor: Colors.grey.shade200,
-            inactiveTickMarkColor: Colors.grey.shade400,
-            thumbColor: Colors.white,
+            inactiveTrackColor: mcol.sliderTrack,
+            inactiveTickMarkColor: mcol.sliderTrackTickMark,
+            thumbColor: mcol.sliderThumb,
             overlayColor: Colors.transparent,
             trackHeight: 6,
-            valueIndicatorColor: Colors.white,
+            valueIndicatorColor: mcol.buttonBackground,
             overlayShape: SliderComponentShape.noOverlay,
             rangeThumbShape: const CustomSliderThumbShape(
                 enabledThumbRadius: 12, elevation: 4, pressedElevation: 4),
             rangeValueIndicatorShape: const CustomValueIndicatorShape(),
-            valueIndicatorTextStyle: const TextStyle(
-                color: Colors.black, fontWeight: FontWeight.w500)),
+            valueIndicatorTextStyle:
+                TextStyle(color: mcol.primary, fontWeight: FontWeight.w500)),
         child: RangeSlider(
           min: 2010,
           max: 2022,

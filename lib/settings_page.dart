@@ -4,6 +4,7 @@ import 'package:unicons/unicons.dart';
 import 'package:provider/provider.dart';
 import 'batch_download.dart';
 import 'package:file_picker/file_picker.dart';
+import 'colors.dart';
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({
@@ -12,22 +13,26 @@ class SettingsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    MColors mcol = MColors(context.watch<Appearance>().darkMode);
     return Container(
         margin: const EdgeInsets.only(top: 36, bottom: 48, left: 32, right: 32),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          const Text(
+          Text(
             "Settings",
-            style: TextStyle(fontSize: 30, fontWeight: FontWeight.w500),
+            style: TextStyle(
+                fontSize: 30, fontWeight: FontWeight.w500, color: mcol.primary),
           ),
           Container(height: 32),
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Expanded(
+              Expanded(
                 flex: 3,
                 child: Text("Appearance",
-                    style:
-                        TextStyle(fontSize: 14, fontWeight: FontWeight.w500)),
+                    style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w500,
+                        color: mcol.primary)),
               ),
               const Expanded(
                 flex: 6,
@@ -40,24 +45,29 @@ class SettingsPage extends StatelessWidget {
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Expanded(
+              Expanded(
                 flex: 3,
                 child: Text("Download Path",
-                    style:
-                        TextStyle(fontSize: 14, fontWeight: FontWeight.w500)),
+                    style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w500,
+                        color: mcol.primary)),
               ),
               Expanded(
                 flex: 6,
-                child: longButton(
-                    context.watch<Settings>().path == ""
+                child: LongButton(
+                    title: context.watch<Settings>().path == ""
                         ? "Select download path"
                         : context.read<Settings>().path,
-                    UniconsLine.download_alt,
-                    UniconsLine.angle_right, () async {
-                  Future<String?> selectedDirectory = FilePicker.platform
-                      .getDirectoryPath(dialogTitle: "Select download path");
-                  context.read<Settings>().setPath(selectedDirectory);
-                }, placeholder: (context.watch<Settings>().path == "")),
+                    leading: UniconsLine.download_alt,
+                    trailing: UniconsLine.angle_right,
+                    onPressed: () async {
+                      Future<String?> selectedDirectory = FilePicker.platform
+                          .getDirectoryPath(
+                              dialogTitle: "Select download path");
+                      context.read<Settings>().setPath(selectedDirectory);
+                    },
+                    placeholder: (context.watch<Settings>().path == "")),
               ),
               Expanded(flex: 2, child: Container()),
             ],
@@ -68,11 +78,13 @@ class SettingsPage extends StatelessWidget {
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Expanded(
+              Expanded(
                 flex: 3,
                 child: Text("Simultaneous Downloads",
-                    style:
-                        TextStyle(fontSize: 14, fontWeight: FontWeight.w500)),
+                    style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w500,
+                        color: mcol.primary)),
               ),
               const Expanded(
                 flex: 6,
@@ -157,6 +169,7 @@ class _AppearanceButtonsState extends State<AppearanceButtons> {
             onPressed: () {
               setState(() {
                 context.read<Settings>().changeAppearance(1);
+                context.read<Appearance>().changeMode(false);
               });
             },
             child: Container(
@@ -195,6 +208,7 @@ class _AppearanceButtonsState extends State<AppearanceButtons> {
             onPressed: () {
               setState(() {
                 context.read<Settings>().changeAppearance(2);
+                context.read<Appearance>().changeMode(true);
               });
             },
             child: Container(

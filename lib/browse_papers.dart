@@ -4,6 +4,7 @@ import 'view_selection.dart';
 import 'package:provider/provider.dart';
 import 'package:unicons/unicons.dart';
 import 'batch_download.dart';
+import 'colors.dart';
 
 class BrowsePapersPage extends StatelessWidget {
   const BrowsePapersPage({Key? key, required this.globalContext})
@@ -11,18 +12,23 @@ class BrowsePapersPage extends StatelessWidget {
   final BuildContext globalContext;
   @override
   Widget build(BuildContext context) {
+    MColors mcol = MColors(context.watch<Appearance>().darkMode);
     return Container(
       margin: const EdgeInsets.only(top: 36, bottom: 48, left: 32, right: 32),
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         Row(
           children: [
-            const Text(
+            Text(
               "Browse Papers",
-              style: TextStyle(fontSize: 30, fontWeight: FontWeight.w500),
+              style: TextStyle(
+                  fontSize: 30,
+                  fontWeight: FontWeight.w500,
+                  color: mcol.primary),
             ),
             const SizedBox(width: 16),
-            badge(
-                "${context.watch<BrowsePreferences>().selectedCount} selected"),
+            Badge(
+                content:
+                    "${context.watch<BrowsePreferences>().selectedCount} selected"),
             const Spacer(),
             CustomButton(
               title: 'View Selection',

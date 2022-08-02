@@ -4,6 +4,7 @@ import 'package:past_paper/main.dart';
 import 'package:unicons/unicons.dart';
 import 'batch_download.dart';
 import 'package:provider/provider.dart';
+import 'colors.dart';
 
 class CollectionPage extends StatelessWidget {
   const CollectionPage({
@@ -13,6 +14,7 @@ class CollectionPage extends StatelessWidget {
   final BuildContext globalContext;
   @override
   Widget build(BuildContext context) {
+    MColors mcol = MColors(context.watch<Appearance>().darkMode);
     return Container(
         margin: const EdgeInsets.only(top: 36, bottom: 48, left: 32, right: 32),
         child: Column(
@@ -20,9 +22,12 @@ class CollectionPage extends StatelessWidget {
           children: [
             Row(
               children: [
-                const Text(
+                Text(
                   "Collection",
-                  style: TextStyle(fontSize: 30, fontWeight: FontWeight.w500),
+                  style: TextStyle(
+                      fontSize: 30,
+                      fontWeight: FontWeight.w500,
+                      color: mcol.primary),
                 ),
                 const Spacer(),
                 CustomButton(

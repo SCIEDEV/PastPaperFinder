@@ -2,24 +2,29 @@ import 'package:flutter/material.dart';
 import 'package:unicons/unicons.dart';
 import 'batch_download.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'colors.dart';
+import 'package:provider/provider.dart';
+import 'main.dart';
 
 class AboutPage extends StatelessWidget {
-  final String lastCommit = "693dd678f8cdd4ab66f6c3f01cd4eacdb91c525e";
-  final String version = "Development Version 0.4.0+6";
+  final String lastCommit = "7aa43dabacd53f2e00b91872a95a1930bbbf1a11";
+  final String version = "Development Version 0.5.0+7";
   const AboutPage({
     Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    MColors mcol = MColors(context.watch<Appearance>().darkMode);
     return Container(
       margin: const EdgeInsets.only(top: 36, bottom: 48, left: 32, right: 32),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
+          Text(
             "About Past Paper Finder",
-            style: TextStyle(fontSize: 30, fontWeight: FontWeight.w500),
+            style: TextStyle(
+                fontSize: 30, fontWeight: FontWeight.w500, color: mcol.primary),
           ),
           Container(height: 32),
           Column(
@@ -47,40 +52,53 @@ class AboutPage extends StatelessWidget {
                 ),
               ),
               Container(height: 24),
-              const Text(
+              Text(
                 "Past Paper Finder",
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+                style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w500,
+                    color: mcol.primary),
               ),
               Container(height: 16),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  badge(version),
+                  Badge(content: version),
                 ],
               ),
               Container(height: 16),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Text(
+                  Text(
                     "Last commit ",
-                    style: TextStyle(fontSize: 14),
+                    style: TextStyle(fontSize: 14, color: mcol.primary),
                   ),
                   Text(lastCommit,
-                      style: const TextStyle(
-                          fontSize: 14, fontFamily: "JetBrains Mono")),
+                      style: TextStyle(
+                          fontSize: 14,
+                          fontFamily: "JetBrains Mono",
+                          color: mcol.primary)),
                 ],
               ),
               Container(height: 16),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
-                  Text("Created by "),
+                children: [
+                  Text(
+                    "Created by ",
+                    style: TextStyle(color: mcol.primary),
+                  ),
                   Text("Micfong ",
-                      style: TextStyle(fontWeight: FontWeight.bold)),
-                  Text("as a part of "),
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold, color: mcol.primary)),
+                  Text(
+                    "as a part of ",
+                    style: TextStyle(color: mcol.primary),
+                  ),
                   Text("SCIE.DEV",
-                      style: TextStyle(fontWeight: FontWeight.bold)),
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold, color: mcol.primary)),
                 ],
               ),
             ],
@@ -89,11 +107,13 @@ class AboutPage extends StatelessWidget {
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Expanded(
+              Expanded(
                 flex: 3,
                 child: Text("Sponsor me",
-                    style:
-                        TextStyle(fontSize: 14, fontWeight: FontWeight.w500)),
+                    style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w500,
+                        color: mcol.primary)),
               ),
               Expanded(
                 flex: 6,
