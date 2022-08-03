@@ -24,6 +24,8 @@ dependencies:
   unicons: ^2.1.0
   flutter:
     sdk: flutter
+  flutter_localizations:
+    sdk: flutter
 
   window_manager: ^0.2.5
   provider: ^6.0.3
@@ -32,6 +34,7 @@ dependencies:
   path_provider: ^2.0.11
   file_picker: ^5.0.1
   loggy: ^2.0.1+1
+  intl: ^0.17.0
 
 dev_dependencies:
   flutter_test:
@@ -40,6 +43,7 @@ dev_dependencies:
   flutter_lints: ^2.0.0
 
 flutter:
+  generate: true
 
   uses-material-design: true
 
@@ -47,7 +51,7 @@ flutter:
     - assets/alevel.json
     - assets/igcse.json
     - assets/appicon.png
-  
+
   fonts:
     - family: JetBrains Mono
       fonts:
@@ -63,7 +67,7 @@ flutter:
           weight: 300
         - asset: assets/fonts/Inter-Regular.otf
           weight: 400
-        - asset: assets/fonts/Inter-Medium.otf  
+        - asset: assets/fonts/Inter-Medium.otf
           weight: 500
         - asset: assets/fonts/Inter-SemiBold.otf
           weight: 600
@@ -100,3 +104,5 @@ flutter:
         - asset: assets/fonts/Inter-BlackItalic.otf
           weight: 900
           style: italic
+flutter_intl:
+  enabled: true

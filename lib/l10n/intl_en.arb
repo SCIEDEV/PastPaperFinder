@@ -1,0 +1,133 @@
+{
+    "batchSidebar": "Batch",
+    "browseSidebar": "Browse",
+    "collectionSidebar": "Collection",
+    "downloadsSidebar": "Downloads",
+    "settingsSidebar": "Settings",
+    "aboutSidebar": "About",
+    
+    "batchTitle": "Batch Downloads",
+    "syllabusTag": "Syllabus",
+    "yearRangeTag": "Year range",
+    "seasonsTag": "Seasons",
+    "paperTypeTag": "Paper type",
+    "selectSubjectHint": "Select subject",
+    "selectSeasonHint": "Select season",
+    "selectPaperNumbersHint": "Select paper numbers",
+    "selectPaperTypesHint": "Select paper types",
+    "fieldsNotFilledError": "Some fields are not filled in",
+    "addToCollectionButton": "Add to Collection",
+    "downloadButton": "Download",
+    "selectAllButton": "Select all",
+    "selectNoneButton": "Select none",
+    "springItem": "Spring (February - March)",
+    "summerItem": "Summer (May - June)",
+    "winterItem": "Winter (October - November)",
+    "otherSeasonsItem": "Other Seasons",
+    "questionPaperItem": "Question Paper",
+    "markSchemeItem": "Mark Scheme",
+    "specimenPaperItem": "Specimen Paper",
+    "specimenMarkSchemeItem": "Specimen Mark Scheme",
+    "examinerReportItem": "Examiner Report",
+    "gradeThresholdsItem": "Grade Thresholds",
+    "confidentialInstructionsItem": "Confidential Instructions",
+    "otherPaperTypesItem": "Others",
+    "seasonSelectedMessage": "{count, plural, =1{1 season selected}, other{{count} seasons selected}}",
+    "@seasonSelectedMessage": {
+        "placeholders": {
+            "count": {
+              "type": "int"
+            }
+        }
+    },
+    "paperNumberMessage": "{count, plural, =1{1 paper number selected}, other{{count} paper numbers selected}}",
+    "@paperNumberMessage": {
+        "placeholders": {
+            "count": {
+              "type": "int"
+            }
+        }
+    },
+    "paperTypeMessage": "{count, plural, =1{1 paper type selected}, other{{count} paper types selected}}",
+    "@paperTypeMessage": {
+        "placeholders": {
+            "count": {
+              "type": "int"
+            }
+        }
+    },
+
+    "subjectsTitle": "Subjects",
+    "subjectNameHeading": "Subject name",
+    "subjectCodeHeading": "Subject code",
+
+    "browseTitle": "Browse Papers",
+    "papersSelectedTag": "{count, plural, other{{count} selected}}",
+    "@papersSelectedTag": {
+        "placeholders": {
+            "count": {
+              "type": "int"
+            }
+        }
+    },
+    "viewSelectionButton": "View Selection",
+    "homeLocation": "Home",
+    "entryNameHeading": "Entry name",
+    "typeHeading": "Type",
+
+    "folderType": "Folder",
+    "msType": "Mark scheme",
+    "qpType": "Question paper",
+    "erType": "Examiner report",
+    "gtType": "Grade thresholds",
+    "ciType": "Confidential instructions",
+    "inType": "Insert",
+    "sfType": "Source files",
+    "smType": "Specimen mark scheme",
+    "spType": "Specimen paper",
+    "qrType": "Transcript",
+    "rpType": "Speaking assessment",
+    "tnType": "Examiner's notes",
+    "syType": "Syllabus",
+    "siType": "Specimen insert",
+    "suType": "Syllabus update",
+    "otherType": "Other file",
+
+    "selectedPapersTitle": "Selected papers",
+    "removeAllButton": "Remove all",
+    "downloadAllButton": "Download all",
+    "tapToRemoveHint": "Tap to remove any single item",
+    "seemsNoSelection": "Seems like you did not selected any papers yet",
+
+    "collectionTitle": "Collection",
+    "collectedTimeHeading": "Collected time",
+    "papersHeading": "Papers",
+    "seemsNoCollection": "Seems like you did not add anything to collection yet",
+
+    "downloadsTitle": "Downloads",
+    "cancelAllButton": "Cancel All",
+    "showDownloadedButton": "Show Downloaded",
+    "revealDownloadsFolder": "Reveal Downloads Folder",
+    "tapToCancelHint": "Tap to cancel any download",
+    "fileNameHeading": "File name",
+    "progressHeading": "Progress",
+    "seemsNoDownload": "Seems like there's nothing to download",
+    "downloadFailedProgress": "Download failed",
+    "waitingProgress": "Waiting",
+
+    "settingsTitle": "Settings",
+    "appearanceTag": "Appearance",
+    "downloadPathTag": "Download path",
+    "simultaneousDownloadsTag": "Simultaneous downloads",
+    "languageTag": "Language",
+    "autoButton": "Auto",
+    "lightButton": "Light",
+    "darkButton": "Dark",
+    "selectDownloadPathButton": "Select download path",
+
+    "aboutTitle": "About Past Paper Finder",
+    "versionTag": "Development version",
+    "commitTag": "Last commit ",
+    "createdByTag": "Created by Micfong as a part of SCIE.DEV",
+    "sponsorTag": "Sponsor me"
+}

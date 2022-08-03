@@ -7,6 +7,7 @@ import 'browse_papers.dart';
 import 'package:provider/provider.dart';
 import 'batch_download.dart';
 import 'colors.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ViewSelectionPage extends StatelessWidget {
   const ViewSelectionPage({Key? key, required this.globalContext})
@@ -35,7 +36,7 @@ class ViewSelectionPage extends StatelessWidget {
                       size: 30, color: mcol.primary),
                 ),
                 Text(
-                  "Selected Papers",
+                  AppLocalizations.of(context)!.selectedPapersTitle,
                   style: TextStyle(
                       fontSize: 30,
                       fontWeight: FontWeight.w500,
@@ -43,7 +44,7 @@ class ViewSelectionPage extends StatelessWidget {
                 ),
                 const Spacer(),
                 CustomButton(
-                  title: 'Download All',
+                  title: AppLocalizations.of(context)!.downloadAllButton,
                   primary: true,
                   onPressed: () {
                     context.read<DownloadStates>().addDownloads(context
@@ -60,7 +61,7 @@ class ViewSelectionPage extends StatelessWidget {
             Row(
               children: [
                 CustomButton(
-                  title: 'Remove All',
+                  title: AppLocalizations.of(context)!.removeAllButton,
                   primary: false,
                   onPressed: () {
                     context.read<BrowsePreferences>().removeAllSelected();
@@ -68,9 +69,9 @@ class ViewSelectionPage extends StatelessWidget {
                   destructive: true,
                 ),
                 const Spacer(),
-                const Text(
-                  "Tap to remove any single item",
-                  style: TextStyle(color: Colors.grey),
+                Text(
+                  AppLocalizations.of(context)!.tapToRemoveHint,
+                  style: const TextStyle(color: Colors.grey),
                 )
               ],
             ),
@@ -108,7 +109,7 @@ class ViewSelectionPage extends StatelessWidget {
                                 size: 48, color: mcol.secondaryIcon),
                             const SizedBox(height: 16),
                             Text(
-                              "Seems like you did not select any papers yet",
+                              AppLocalizations.of(context)!.seemsNoSelection,
                               style: TextStyle(
                                   color: mcol.secondary,
                                   fontSize: 14,
@@ -188,6 +189,25 @@ class SelectedTableRow extends StatelessWidget {
         type = 'Other file';
       }
     }
+    Map<String, String> localizedType = {
+      "Folder": AppLocalizations.of(context)!.folderType,
+      "Mark scheme": AppLocalizations.of(context)!.msType,
+      "Question paper": AppLocalizations.of(context)!.qpType,
+      "Examiner report": AppLocalizations.of(context)!.erType,
+      "Grade thresholds": AppLocalizations.of(context)!.gtType,
+      "Confidential instructions": AppLocalizations.of(context)!.ciType,
+      "Insert": AppLocalizations.of(context)!.inType,
+      "Source files": AppLocalizations.of(context)!.sfType,
+      "Specimen mark scheme": AppLocalizations.of(context)!.smType,
+      "Specimen paper": AppLocalizations.of(context)!.spType,
+      "Transcript": AppLocalizations.of(context)!.qrType,
+      "Speaking assessment": AppLocalizations.of(context)!.rpType,
+      "Examiner's notes": AppLocalizations.of(context)!.tnType,
+      "Syllabus": AppLocalizations.of(context)!.syType,
+      "Specimen insert": AppLocalizations.of(context)!.siType,
+      "Syllabus update": AppLocalizations.of(context)!.suType,
+      "Other file": AppLocalizations.of(context)!.otherType,
+    };
     const icons = {
       'Folder': UniconsLine.folder,
       'Mark scheme': UniconsLine.file_check_alt,
@@ -232,7 +252,7 @@ class SelectedTableRow extends StatelessWidget {
               Expanded(
                 flex: 2,
                 child: Text(
-                  type,
+                  localizedType[type]!,
                   style: TextStyle(
                       color: mcol.secondary,
                       fontSize: 14,

@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:dio/dio.dart';
 import 'colors.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class DownloadsPage extends StatelessWidget {
   const DownloadsPage({
@@ -23,7 +24,7 @@ class DownloadsPage extends StatelessWidget {
             Row(
               children: [
                 Text(
-                  "Downloads",
+                  AppLocalizations.of(context)!.downloadsTitle,
                   style: TextStyle(
                       fontSize: 30,
                       fontWeight: FontWeight.w500,
@@ -31,7 +32,7 @@ class DownloadsPage extends StatelessWidget {
                 ),
                 const Spacer(),
                 CustomButton(
-                  title: 'Reveal Downloads Folder',
+                  title: AppLocalizations.of(context)!.revealDownloadsFolder,
                   onPressed: () {},
                 ),
               ],
@@ -40,18 +41,20 @@ class DownloadsPage extends StatelessWidget {
             Row(
               children: [
                 CustomButton(
-                  title: 'Cancel All',
+                  title: AppLocalizations.of(context)!.cancelAllButton,
                   destructive: true,
                   onPressed: () {
                     context.read<DownloadStates>().cancelAllDownloads();
                   },
                 ),
                 const SizedBox(width: 12),
-                CustomButton(title: "Show Downloaded", onPressed: () {}),
+                CustomButton(
+                    title: AppLocalizations.of(context)!.showDownloadedButton,
+                    onPressed: () {}),
                 const Spacer(),
-                const Text(
-                  "Tap to cancel any download",
-                  style: TextStyle(color: Colors.grey),
+                Text(
+                  AppLocalizations.of(context)!.tapToCancelHint,
+                  style: const TextStyle(color: Colors.grey),
                 )
               ],
             ),
@@ -89,7 +92,7 @@ class DownloadsPage extends StatelessWidget {
                                 size: 48, color: mcol.secondaryIcon),
                             const SizedBox(height: 16),
                             Text(
-                              "Seems like there's nothing to download",
+                              AppLocalizations.of(context)!.seemsNoDownload,
                               style: TextStyle(
                                   color: mcol.secondary,
                                   fontSize: 14,
@@ -129,7 +132,7 @@ class DownloadsPage extends StatelessWidget {
                             .last,
                         downloading: false,
                         paperCount: 0,
-                        progress: "Waiting",
+                        progress: AppLocalizations.of(context)!.waitingProgress,
                       ),
                       if (i !=
                           context.read<DownloadStates>().downloads.length - 1)
@@ -159,13 +162,13 @@ class DownloadsTableHeading extends StatelessWidget {
       padding: const EdgeInsets.only(top: 12, bottom: 12, left: 16, right: 16),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
-        children: const [
-          SizedBox(width: 28),
+        children: [
+          const SizedBox(width: 28),
           Expanded(
             flex: 2,
             child: Text(
-              'File name',
-              style: TextStyle(
+              AppLocalizations.of(context)!.fileNameHeading,
+              style: const TextStyle(
                   color: Colors.grey,
                   fontSize: 12,
                   fontWeight: FontWeight.w500),
@@ -174,15 +177,15 @@ class DownloadsTableHeading extends StatelessWidget {
           Expanded(
             flex: 2,
             child: Text(
-              'Progress',
-              style: TextStyle(
+              AppLocalizations.of(context)!.progressHeading,
+              style: const TextStyle(
                   color: Colors.grey,
                   fontSize: 12,
                   fontWeight: FontWeight.w500),
             ),
           ),
-          SizedBox(width: 8),
-          SizedBox(
+          const SizedBox(width: 8),
+          const SizedBox(
             width: 20,
           )
         ],
@@ -272,9 +275,8 @@ String getDownloadUrl(List<String> path) {
 Future<void> tryRedownload(BuildContext context, List<String> currentDownload,
     String url, String save, int retryCount) async {
   if (retryCount > 5) {
-    context
-        .read<DownloadStates>()
-        .setDownloadingProgress(currentDownload, "Download failed.");
+    context.read<DownloadStates>().setDownloadingProgress(
+        currentDownload, AppLocalizations.of(context)!.downloadFailedProgress);
     if (kDebugMode) {
       print("Retry exceeds limit.");
     }

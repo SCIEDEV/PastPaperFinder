@@ -14,6 +14,8 @@ import 'dart:convert';
 import 'collection.dart';
 import 'colors.dart';
 import 'paper_filter.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 void main() async {
   if (Platform.isLinux || Platform.isMacOS || Platform.isWindows) {
@@ -39,6 +41,7 @@ void main() async {
     ChangeNotifierProvider(create: (_) => DownloadStates()),
     ChangeNotifierProvider(create: (_) => Settings()),
     ChangeNotifierProvider(create: (_) => Appearance()),
+    ChangeNotifierProvider(create: (_) => LocaleProvider()),
   ], child: const MyApp()));
 }
 
@@ -53,6 +56,19 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(fontFamily: 'Inter'),
       debugShowCheckedModeBanner: false,
       title: 'Past Paper Finder',
+      localizationsDelegates: const [
+        AppLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: const [
+        Locale('en'),
+        Locale('zh'),
+        Locale.fromSubtags(languageCode: 'zh', scriptCode: 'Hant'),
+        Locale.fromSubtags(languageCode: 'zh', scriptCode: 'Hans'),
+      ],
+      locale: context.watch<LocaleProvider>().locale,
       home: Scaffold(
         body: Row(
           children: [
@@ -119,6 +135,20 @@ class MyApp extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+class LocaleProvider with ChangeNotifier {
+  Locale? _locale;
+  Locale? get locale => _locale;
+  void setLocale(Locale locale) {
+    _locale = locale;
+    notifyListeners();
+  }
+
+  void clearLocale() {
+    _locale = null;
+    notifyListeners();
   }
 }
 

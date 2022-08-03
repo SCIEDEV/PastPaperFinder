@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:unicons/unicons.dart';
 import 'batch_download.dart';
 import 'colors.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class BrowsePapersPage extends StatelessWidget {
   const BrowsePapersPage({Key? key, required this.globalContext})
@@ -19,7 +20,7 @@ class BrowsePapersPage extends StatelessWidget {
         Row(
           children: [
             Text(
-              "Browse Papers",
+              AppLocalizations.of(context)!.browseTitle,
               style: TextStyle(
                   fontSize: 30,
                   fontWeight: FontWeight.w500,
@@ -27,11 +28,11 @@ class BrowsePapersPage extends StatelessWidget {
             ),
             const SizedBox(width: 16),
             Badge(
-                content:
-                    "${context.watch<BrowsePreferences>().selectedCount} selected"),
+                content: AppLocalizations.of(context)!.papersSelectedTag(
+                    context.watch<BrowsePreferences>().selectedCount)),
             const Spacer(),
             CustomButton(
-              title: 'View Selection',
+              title: AppLocalizations.of(context)!.viewSelectionButton,
               primary: true,
               onPressed: () {
                 Navigator.push(
@@ -106,13 +107,13 @@ class EntryTableHeading extends StatelessWidget {
       padding: const EdgeInsets.only(top: 12, bottom: 12, left: 16, right: 16),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
-        children: const [
-          SizedBox(width: 28),
+        children: [
+          const SizedBox(width: 28),
           Expanded(
             flex: 2,
             child: Text(
-              'Entry name',
-              style: TextStyle(
+              AppLocalizations.of(context)!.entryNameHeading,
+              style: const TextStyle(
                   color: Colors.grey,
                   fontSize: 12,
                   fontWeight: FontWeight.w500),
@@ -121,15 +122,15 @@ class EntryTableHeading extends StatelessWidget {
           Expanded(
             flex: 2,
             child: Text(
-              'Type',
-              style: TextStyle(
+              AppLocalizations.of(context)!.typeHeading,
+              style: const TextStyle(
                   color: Colors.grey,
                   fontSize: 12,
                   fontWeight: FontWeight.w500),
             ),
           ),
-          SizedBox(width: 8),
-          SizedBox(
+          const SizedBox(width: 8),
+          const SizedBox(
             width: 20,
           )
         ],
@@ -157,7 +158,7 @@ class _BreadcumbState extends State<Breadcumb> {
             context.read<BrowsePreferences>().changePath([]);
           },
           child: Text(
-            "Home",
+            AppLocalizations.of(context)!.homeLocation,
             style: TextStyle(color: mcol.accentText),
           ),
         ),
@@ -237,6 +238,25 @@ class EntryTableRow extends StatelessWidget {
         type = 'Other file';
       }
     }
+    Map<String, String> localizedType = {
+      "Folder": AppLocalizations.of(context)!.folderType,
+      "Mark scheme": AppLocalizations.of(context)!.msType,
+      "Question paper": AppLocalizations.of(context)!.qpType,
+      "Examiner report": AppLocalizations.of(context)!.erType,
+      "Grade thresholds": AppLocalizations.of(context)!.gtType,
+      "Confidential instructions": AppLocalizations.of(context)!.ciType,
+      "Insert": AppLocalizations.of(context)!.inType,
+      "Source files": AppLocalizations.of(context)!.sfType,
+      "Specimen mark scheme": AppLocalizations.of(context)!.smType,
+      "Specimen paper": AppLocalizations.of(context)!.spType,
+      "Transcript": AppLocalizations.of(context)!.qrType,
+      "Speaking assessment": AppLocalizations.of(context)!.rpType,
+      "Examiner's notes": AppLocalizations.of(context)!.tnType,
+      "Syllabus": AppLocalizations.of(context)!.syType,
+      "Specimen insert": AppLocalizations.of(context)!.siType,
+      "Syllabus update": AppLocalizations.of(context)!.suType,
+      "Other file": AppLocalizations.of(context)!.otherType,
+    };
     const icons = {
       'Folder': UniconsLine.folder,
       'Mark scheme': UniconsLine.file_check_alt,
@@ -290,7 +310,7 @@ class EntryTableRow extends StatelessWidget {
               Expanded(
                 flex: 2,
                 child: Text(
-                  type,
+                  localizedType[type]!,
                   style: TextStyle(
                       color: mcol.secondary,
                       fontSize: 14,

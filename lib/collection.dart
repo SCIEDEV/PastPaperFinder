@@ -5,6 +5,7 @@ import 'package:unicons/unicons.dart';
 import 'batch_download.dart';
 import 'package:provider/provider.dart';
 import 'colors.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class CollectionPage extends StatelessWidget {
   const CollectionPage({
@@ -23,7 +24,7 @@ class CollectionPage extends StatelessWidget {
             Row(
               children: [
                 Text(
-                  "Collection",
+                  AppLocalizations.of(context)!.collectionTitle,
                   style: TextStyle(
                       fontSize: 30,
                       fontWeight: FontWeight.w500,
@@ -31,7 +32,7 @@ class CollectionPage extends StatelessWidget {
                 ),
                 const Spacer(),
                 CustomButton(
-                  title: 'Download All',
+                  title: AppLocalizations.of(context)!.downloadAllButton,
                   primary: true,
                   onPressed: () {
                     context.read<DownloadStates>().downloadCollections(
@@ -46,7 +47,7 @@ class CollectionPage extends StatelessWidget {
             Row(
               children: [
                 CustomButton(
-                  title: 'Remove All',
+                  title: AppLocalizations.of(context)!.removeAllButton,
                   primary: false,
                   onPressed: () {
                     context.read<CollectionStates>().removeAll();
@@ -54,9 +55,9 @@ class CollectionPage extends StatelessWidget {
                   destructive: true,
                 ),
                 const Spacer(),
-                const Text(
-                  "Tap to remove any single item",
-                  style: TextStyle(color: Colors.grey),
+                Text(
+                  AppLocalizations.of(context)!.tapToRemoveHint,
+                  style: const TextStyle(color: Colors.grey),
                 )
               ],
             ),
@@ -95,7 +96,7 @@ class CollectionPage extends StatelessWidget {
                                 size: 48, color: mcol.secondaryIcon),
                             const SizedBox(height: 16),
                             Text(
-                              "Seems like you did not add anything to collection yet",
+                              AppLocalizations.of(context)!.seemsNoCollection,
                               style: TextStyle(
                                   color: mcol.secondary,
                                   fontSize: 14,
@@ -146,13 +147,13 @@ class CollectionTableHeading extends StatelessWidget {
       padding: const EdgeInsets.only(top: 12, bottom: 12, left: 16, right: 16),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
-        children: const [
-          SizedBox(width: 28),
+        children: [
+          const SizedBox(width: 28),
           Expanded(
             flex: 2,
             child: Text(
-              'Collected time',
-              style: TextStyle(
+              AppLocalizations.of(context)!.collectedTimeHeading,
+              style: const TextStyle(
                   color: Colors.grey,
                   fontSize: 12,
                   fontWeight: FontWeight.w500),
@@ -161,15 +162,15 @@ class CollectionTableHeading extends StatelessWidget {
           Expanded(
             flex: 2,
             child: Text(
-              'Papers',
-              style: TextStyle(
+              AppLocalizations.of(context)!.papersHeading,
+              style: const TextStyle(
                   color: Colors.grey,
                   fontSize: 12,
                   fontWeight: FontWeight.w500),
             ),
           ),
-          SizedBox(width: 8),
-          SizedBox(
+          const SizedBox(width: 8),
+          const SizedBox(
             width: 20,
           )
         ],

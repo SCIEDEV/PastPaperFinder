@@ -5,10 +5,11 @@ import 'package:url_launcher/url_launcher.dart';
 import 'colors.dart';
 import 'package:provider/provider.dart';
 import 'main.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AboutPage extends StatelessWidget {
-  final String lastCommit = "352e86116e20f0e0c4966b65981cd0462ade5b12";
-  final String version = "Development Version 0.5.2+9";
+  final String lastCommit = "bde8fe584528b6201d9fdccbd4cb36f308c601a6";
+  final String version = "0.6.0+10";
   const AboutPage({
     Key? key,
   }) : super(key: key);
@@ -22,7 +23,7 @@ class AboutPage extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            "About Past Paper Finder",
+            AppLocalizations.of(context)!.aboutTitle,
             style: TextStyle(
                 fontSize: 30, fontWeight: FontWeight.w500, color: mcol.primary),
           ),
@@ -63,7 +64,9 @@ class AboutPage extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Badge(content: version),
+                  Badge(
+                      content:
+                          "${AppLocalizations.of(context)!.versionTag} $version"),
                 ],
               ),
               Container(height: 16),
@@ -71,7 +74,7 @@ class AboutPage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    "Last commit ",
+                    AppLocalizations.of(context)!.commitTag,
                     style: TextStyle(fontSize: 14, color: mcol.primary),
                   ),
                   Text(lastCommit,
@@ -86,19 +89,9 @@ class AboutPage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    "Created by ",
+                    AppLocalizations.of(context)!.createdByTag,
                     style: TextStyle(color: mcol.primary),
                   ),
-                  Text("Micfong ",
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold, color: mcol.primary)),
-                  Text(
-                    "as a part of ",
-                    style: TextStyle(color: mcol.primary),
-                  ),
-                  Text("SCIE.DEV",
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold, color: mcol.primary)),
                 ],
               ),
             ],
@@ -109,7 +102,7 @@ class AboutPage extends StatelessWidget {
             children: [
               Expanded(
                 flex: 3,
-                child: Text("Sponsor me",
+                child: Text(AppLocalizations.of(context)!.sponsorTag,
                     style: TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.w500,

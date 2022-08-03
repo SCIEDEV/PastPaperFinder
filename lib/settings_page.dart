@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'batch_download.dart';
 import 'package:file_picker/file_picker.dart';
 import 'colors.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({
@@ -18,7 +19,7 @@ class SettingsPage extends StatelessWidget {
         margin: const EdgeInsets.only(top: 36, bottom: 48, left: 32, right: 32),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           Text(
-            "Settings",
+            AppLocalizations.of(context)!.settingsTitle,
             style: TextStyle(
                 fontSize: 30, fontWeight: FontWeight.w500, color: mcol.primary),
           ),
@@ -28,7 +29,7 @@ class SettingsPage extends StatelessWidget {
             children: [
               Expanded(
                 flex: 3,
-                child: Text("Appearance",
+                child: Text(AppLocalizations.of(context)!.appearanceTag,
                     style: TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.w500,
@@ -47,7 +48,7 @@ class SettingsPage extends StatelessWidget {
             children: [
               Expanded(
                 flex: 3,
-                child: Text("Download Path",
+                child: Text(AppLocalizations.of(context)!.downloadPathTag,
                     style: TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.w500,
@@ -57,14 +58,15 @@ class SettingsPage extends StatelessWidget {
                 flex: 6,
                 child: LongButton(
                     title: context.watch<Settings>().path == ""
-                        ? "Select download path"
+                        ? AppLocalizations.of(context)!.selectDownloadPathButton
                         : context.read<Settings>().path,
                     leading: UniconsLine.download_alt,
                     trailing: UniconsLine.angle_right,
                     onPressed: () async {
                       Future<String?> selectedDirectory = FilePicker.platform
                           .getDirectoryPath(
-                              dialogTitle: "Select download path");
+                              dialogTitle: AppLocalizations.of(context)!
+                                  .selectDownloadPathButton);
                       context.read<Settings>().setPath(selectedDirectory);
                     },
                     placeholder: (context.watch<Settings>().path == "")),
@@ -80,7 +82,8 @@ class SettingsPage extends StatelessWidget {
             children: [
               Expanded(
                 flex: 3,
-                child: Text("Simultaneous Downloads",
+                child: Text(
+                    AppLocalizations.of(context)!.simultaneousDownloadsTag,
                     style: TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.w500,
@@ -89,6 +92,49 @@ class SettingsPage extends StatelessWidget {
               const Expanded(
                 flex: 6,
                 child: ValueStepper(),
+              ),
+              Expanded(flex: 2, child: Container()),
+            ],
+          ),
+          const VertDivider(),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Expanded(
+                flex: 3,
+                child: Text(AppLocalizations.of(context)!.languageTag,
+                    style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w500,
+                        color: mcol.primary)),
+              ),
+              Expanded(
+                flex: 6,
+                child: Row(children: [
+                  CustomButton(
+                      title: "English",
+                      onPressed: () {
+                        context
+                            .read<LocaleProvider>()
+                            .setLocale(const Locale('en'));
+                      }),
+                  const SizedBox(width: 12),
+                  CustomButton(
+                      title: "简体中文",
+                      onPressed: () {
+                        context.read<LocaleProvider>().setLocale(
+                            const Locale.fromSubtags(
+                                languageCode: 'zh', scriptCode: 'Hans'));
+                      }),
+                  const SizedBox(width: 12),
+                  CustomButton(
+                      title: "繁体中文",
+                      onPressed: () {
+                        context.read<LocaleProvider>().setLocale(
+                            const Locale.fromSubtags(
+                                languageCode: 'zh', scriptCode: 'Hant'));
+                      }),
+                ]),
               ),
               Expanded(flex: 2, child: Container()),
             ],
@@ -139,7 +185,7 @@ class _AppearanceButtonsState extends State<AppearanceButtons> {
             },
             child: Container(
               padding: const EdgeInsets.all(10),
-              child: Text("Auto",
+              child: Text(AppLocalizations.of(context)!.autoButton,
                   style: TextStyle(
                       color: (selected == 0 ? Colors.white : mcol.primary),
                       fontSize: 14,
@@ -176,7 +222,7 @@ class _AppearanceButtonsState extends State<AppearanceButtons> {
             },
             child: Container(
               padding: const EdgeInsets.all(10),
-              child: Text("Light",
+              child: Text(AppLocalizations.of(context)!.lightButton,
                   style: TextStyle(
                       color: (selected == 1 ? Colors.white : mcol.primary),
                       fontSize: 14,
@@ -215,7 +261,7 @@ class _AppearanceButtonsState extends State<AppearanceButtons> {
             },
             child: Container(
               padding: const EdgeInsets.all(10),
-              child: Text("Dark",
+              child: Text(AppLocalizations.of(context)!.darkButton,
                   style: TextStyle(
                       color: (selected == 2 ? Colors.white : mcol.primary),
                       fontSize: 14,

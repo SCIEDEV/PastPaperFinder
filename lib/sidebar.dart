@@ -3,21 +3,25 @@ import 'package:past_paper/colors.dart';
 import 'package:past_paper/main.dart';
 import 'package:unicons/unicons.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class Sidebar extends StatelessWidget {
   const Sidebar({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    const List<List<dynamic>> topItems = [
-      ["Batch", UniconsLine.filter],
-      ["Browse", UniconsLine.search],
-      ["Collection", UniconsLine.layers],
-      ["Downloads", UniconsLine.file_download_alt],
+    List<List<dynamic>> topItems = [
+      [AppLocalizations.of(context)!.batchSidebar, UniconsLine.filter],
+      [AppLocalizations.of(context)!.browseSidebar, UniconsLine.search],
+      [AppLocalizations.of(context)!.collectionSidebar, UniconsLine.layers],
+      [
+        AppLocalizations.of(context)!.downloadsSidebar,
+        UniconsLine.file_download_alt
+      ],
     ];
 
-    const List<List<dynamic>> bottomItems = [
-      ["Settings", UniconsLine.setting],
-      ["About", UniconsLine.info_circle],
+    List<List<dynamic>> bottomItems = [
+      [AppLocalizations.of(context)!.settingsSidebar, UniconsLine.setting],
+      [AppLocalizations.of(context)!.aboutSidebar, UniconsLine.info_circle],
     ];
 
     MColors mcol = MColors(context.watch<Appearance>().darkMode);

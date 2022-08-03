@@ -4,6 +4,7 @@ import 'package:unicons/unicons.dart';
 import 'subject_lists.dart';
 import 'colors.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SelectSubjectPage extends StatelessWidget {
   const SelectSubjectPage({Key? key}) : super(key: key);
@@ -32,8 +33,8 @@ class SelectSubjectPage extends StatelessWidget {
                 ),
                 Text(
                   context.read<BatchPreferences>().syllabus == 0
-                      ? "IGCSE Subjects"
-                      : "A Level Subjects",
+                      ? "IGCSE ${AppLocalizations.of(context)!.subjectsTitle}"
+                      : "A Level ${AppLocalizations.of(context)!.subjectsTitle}",
                   style: TextStyle(
                       fontSize: 30,
                       fontWeight: FontWeight.w500,
@@ -111,13 +112,13 @@ class SubjectTableHeading extends StatelessWidget {
       padding: const EdgeInsets.only(top: 12, bottom: 12, left: 16, right: 16),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
-        children: const [
-          SizedBox(width: 28),
+        children: [
+          const SizedBox(width: 28),
           Expanded(
             flex: 2,
             child: Text(
-              'Subject name',
-              style: TextStyle(
+              AppLocalizations.of(context)!.subjectNameHeading,
+              style: const TextStyle(
                   color: Colors.grey,
                   fontSize: 12,
                   fontWeight: FontWeight.w500),
@@ -126,7 +127,7 @@ class SubjectTableHeading extends StatelessWidget {
           Expanded(
             flex: 1,
             child: Text(
-              'Subject code',
+              AppLocalizations.of(context)!.subjectCodeHeading,
               style: TextStyle(
                   color: Colors.grey,
                   fontSize: 12,

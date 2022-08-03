@@ -6,6 +6,7 @@ import 'select_subject.dart';
 import 'package:provider/provider.dart';
 import 'dart:math' as math;
 import 'paper_filter.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class BatchDownloadPage extends StatelessWidget {
   const BatchDownloadPage({
@@ -15,11 +16,15 @@ class BatchDownloadPage extends StatelessWidget {
   final BuildContext globalContext;
   @override
   Widget build(BuildContext context) {
-    const List<dynamic> seasons = [
-      ['m', 'Spring (February - March)', UniconsLine.trees],
-      ['s', 'Summer (May - June)', UniconsLine.sun],
-      ['w', 'Winter (October - November)', UniconsLine.snow_flake],
-      ['o', 'Other Seasons', UniconsLine.ellipsis_h],
+    List<dynamic> seasons = [
+      ['m', AppLocalizations.of(context)!.springItem, UniconsLine.trees],
+      ['s', AppLocalizations.of(context)!.summerItem, UniconsLine.sun],
+      ['w', AppLocalizations.of(context)!.winterItem, UniconsLine.snow_flake],
+      [
+        'o',
+        AppLocalizations.of(context)!.otherSeasonsItem,
+        UniconsLine.ellipsis_h
+      ],
     ];
 
     const List<dynamic> paperNumbers = [
@@ -31,15 +36,47 @@ class BatchDownloadPage extends StatelessWidget {
       ['6', 'Paper 6', Icons.looks_6_outlined],
     ];
 
-    const List<dynamic> paperTypes = [
-      ['qp', 'Question Paper', UniconsLine.file_question_alt],
-      ['ms', 'Mark Scheme', UniconsLine.file_check_alt],
-      ['sp', 'Specimen Paper', UniconsLine.file_bookmark_alt],
-      ['sm', 'Specimen Mark Scheme', UniconsLine.file_bookmark_alt],
-      ['er', 'Examiner Report', UniconsLine.file_search_alt],
-      ['gt', 'Grade Thresholds', UniconsLine.file_graph],
-      ['ci', 'Confidential Instructions', UniconsLine.file_info_alt],
-      ['ot', 'Others', UniconsLine.copy_alt],
+    List<dynamic> paperTypes = [
+      [
+        'qp',
+        AppLocalizations.of(context)!.questionPaperItem,
+        UniconsLine.file_question_alt
+      ],
+      [
+        'ms',
+        AppLocalizations.of(context)!.markSchemeItem,
+        UniconsLine.file_check_alt
+      ],
+      [
+        'sp',
+        AppLocalizations.of(context)!.specimenPaperItem,
+        UniconsLine.file_bookmark_alt
+      ],
+      [
+        'sm',
+        AppLocalizations.of(context)!.specimenMarkSchemeItem,
+        UniconsLine.file_bookmark_alt
+      ],
+      [
+        'er',
+        AppLocalizations.of(context)!.examinerReportItem,
+        UniconsLine.file_search_alt
+      ],
+      [
+        'gt',
+        AppLocalizations.of(context)!.gradeThresholdsItem,
+        UniconsLine.file_graph
+      ],
+      [
+        'ci',
+        AppLocalizations.of(context)!.confidentialInstructionsItem,
+        UniconsLine.file_info_alt
+      ],
+      [
+        'ot',
+        AppLocalizations.of(context)!.otherPaperTypesItem,
+        UniconsLine.copy_alt
+      ],
     ];
 
     bool accessible = (context.watch<BatchPreferences>().subject != "") &&
@@ -53,7 +90,7 @@ class BatchDownloadPage extends StatelessWidget {
       margin: const EdgeInsets.only(top: 36, bottom: 48, left: 32, right: 32),
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         Text(
-          "Batch Download",
+          AppLocalizations.of(context)!.batchTitle,
           style: TextStyle(
               fontSize: 30, fontWeight: FontWeight.w500, color: mcol.primary),
         ),
@@ -63,7 +100,7 @@ class BatchDownloadPage extends StatelessWidget {
           children: [
             Expanded(
               flex: 3,
-              child: Text("Syllabus",
+              child: Text(AppLocalizations.of(context)!.syllabusTag,
                   style: TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.w500,
@@ -78,7 +115,7 @@ class BatchDownloadPage extends StatelessWidget {
                   const SizedBox(height: 20),
                   LongButton(
                       title: context.watch<BatchPreferences>().subject == ""
-                          ? "Select subject"
+                          ? AppLocalizations.of(context)!.selectSubjectHint
                           : context.read<BatchPreferences>().subject,
                       leading: UniconsLine.book_alt,
                       trailing: UniconsLine.angle_right,
@@ -103,7 +140,7 @@ class BatchDownloadPage extends StatelessWidget {
           children: [
             Expanded(
               flex: 3,
-              child: Text("Year range",
+              child: Text(AppLocalizations.of(context)!.yearRangeTag,
                   style: TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.w500,
@@ -122,7 +159,7 @@ class BatchDownloadPage extends StatelessWidget {
           children: [
             Expanded(
               flex: 3,
-              child: Text("Seasons",
+              child: Text(AppLocalizations.of(context)!.seasonsTag,
                   style: TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.w500,
@@ -135,8 +172,12 @@ class BatchDownloadPage extends StatelessWidget {
                   children: [
                     LongButton(
                         title: context.watch<BatchPreferences>().seasons.isEmpty
-                            ? "Select season"
-                            : '${context.read<BatchPreferences>().seasons.length} season${context.read<BatchPreferences>().seasons.length != 1 ? "s" : ""} selected',
+                            ? AppLocalizations.of(context)!.selectSeasonHint
+                            : AppLocalizations.of(context)!
+                                .seasonSelectedMessage(context
+                                    .read<BatchPreferences>()
+                                    .seasons
+                                    .length),
                         leading: UniconsLine.calender,
                         trailing:
                             context.watch<BatchPreferences>().selectSeasonOpen
@@ -155,7 +196,8 @@ class BatchDownloadPage extends StatelessWidget {
                       if (context.read<BatchPreferences>().seasons.length ==
                           seasons.length)
                         LongButton(
-                            title: "Select none",
+                            title:
+                                AppLocalizations.of(context)!.selectNoneButton,
                             leading: null,
                             trailing: null,
                             onPressed: () {
@@ -168,7 +210,8 @@ class BatchDownloadPage extends StatelessWidget {
                             transformOffset: 1)
                       else
                         LongButton(
-                            title: "Select all",
+                            title:
+                                AppLocalizations.of(context)!.selectAllButton,
                             leading: null,
                             trailing: null,
                             onPressed: () {
@@ -208,7 +251,7 @@ class BatchDownloadPage extends StatelessWidget {
           children: [
             Expanded(
               flex: 3,
-              child: Text("Paper type",
+              child: Text(AppLocalizations.of(context)!.paperTypeTag,
                   style: TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.w500,
@@ -226,8 +269,13 @@ class BatchDownloadPage extends StatelessWidget {
                                   .watch<BatchPreferences>()
                                   .paperNumbers
                                   .isEmpty
-                              ? "Select paper numbers"
-                              : '${context.read<BatchPreferences>().paperNumbers.length} paper number${context.read<BatchPreferences>().paperNumbers.length != 1 ? "s" : ""} selected',
+                              ? AppLocalizations.of(context)!
+                                  .selectPaperNumbersHint
+                              : AppLocalizations.of(context)!
+                                  .paperNumberMessage(context
+                                      .read<BatchPreferences>()
+                                      .paperNumbers
+                                      .length),
                           leading: UniconsLine.list_ol_alt,
                           trailing: context
                                   .watch<BatchPreferences>()
@@ -257,7 +305,8 @@ class BatchDownloadPage extends StatelessWidget {
                                 .length ==
                             paperNumbers.length)
                           LongButton(
-                              title: "Select none",
+                              title: AppLocalizations.of(context)!
+                                  .selectNoneButton,
                               leading: null,
                               trailing: null,
                               onPressed: () {
@@ -270,7 +319,8 @@ class BatchDownloadPage extends StatelessWidget {
                               transformOffset: 1)
                         else
                           LongButton(
-                              title: "Select all",
+                              title:
+                                  AppLocalizations.of(context)!.selectAllButton,
                               leading: null,
                               trailing: null,
                               onPressed: () {
@@ -317,8 +367,13 @@ class BatchDownloadPage extends StatelessWidget {
                                     .watch<BatchPreferences>()
                                     .paperTypes
                                     .isEmpty
-                                ? "Select paper types"
-                                : '${context.read<BatchPreferences>().paperTypes.length} paper type${context.read<BatchPreferences>().paperTypes.length != 1 ? "s" : ""} selected',
+                                ? AppLocalizations.of(context)!
+                                    .selectPaperTypesHint
+                                : AppLocalizations.of(context)!
+                                    .paperTypeMessage(context
+                                        .read<BatchPreferences>()
+                                        .paperTypes
+                                        .length),
                             leading: UniconsLine.apps,
                             trailing: context
                                     .watch<BatchPreferences>()
@@ -348,7 +403,8 @@ class BatchDownloadPage extends StatelessWidget {
                                   .length ==
                               paperTypes.length)
                             LongButton(
-                                title: "Select none",
+                                title: AppLocalizations.of(context)!
+                                    .selectNoneButton,
                                 leading: null,
                                 trailing: null,
                                 onPressed: () {
@@ -361,7 +417,8 @@ class BatchDownloadPage extends StatelessWidget {
                                 transformOffset: 1)
                           else
                             LongButton(
-                                title: "Select all",
+                                title: AppLocalizations.of(context)!
+                                    .selectAllButton,
                                 leading: null,
                                 trailing: null,
                                 onPressed: () {
@@ -410,11 +467,12 @@ class BatchDownloadPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             if (!accessible)
-              const Badge(
-                  content: "Some fields are not filled in", destructive: true),
+              Badge(
+                  content: AppLocalizations.of(context)!.fieldsNotFilledError,
+                  destructive: true),
             const SizedBox(width: 12),
             CustomButton(
-              title: "Add to Collection",
+              title: AppLocalizations.of(context)!.addToCollectionButton,
               onPressed: accessible
                   ? () {
                       CollectionItem collection = CollectionItem(
@@ -436,7 +494,7 @@ class BatchDownloadPage extends StatelessWidget {
             ),
             const SizedBox(width: 12),
             CustomButton(
-              title: "Download",
+              title: AppLocalizations.of(context)!.downloadButton,
               primary: true,
               onPressed: accessible
                   ? () {
