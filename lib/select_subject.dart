@@ -44,9 +44,9 @@ class SelectSubjectPage extends StatelessWidget {
             const SizedBox(height: 32),
             Container(
               decoration: BoxDecoration(
-                  border: Border.all(color: Colors.grey.shade300),
+                  border: Border.all(color: mcol.buttonBorder),
                   borderRadius: BorderRadius.circular(8),
-                  color: Colors.white,
+                  color: mcol.buttonBackground,
                   boxShadow: const [
                     BoxShadow(
                         color: Color(0x1018281A),
@@ -62,8 +62,11 @@ class SelectSubjectPage extends StatelessWidget {
               width: double.infinity,
               child: Column(
                 children: [
-                  _subjectTableHeading(),
-                  const Divider(height: 0),
+                  const SubjectTableHeading(),
+                  Divider(
+                    height: 0,
+                    color: mcol.buttonBorder,
+                  ),
                   for (var subject
                       in context.read<BatchPreferences>().syllabus == 0
                           ? igcseSubjects.keys
@@ -79,7 +82,7 @@ class SelectSubjectPage extends StatelessWidget {
                         trailing: UniconsLine.angle_right),
                     if (subject != 'World Literature' &&
                         subject != 'Urdu - Pakistan only (A Level only)')
-                      const Divider(height: 0),
+                      Divider(height: 0, color: mcol.buttonBorder),
                   ]
                 ],
               ),
@@ -91,41 +94,53 @@ class SelectSubjectPage extends StatelessWidget {
   }
 }
 
-Widget _subjectTableHeading() {
-  return Container(
-    decoration: BoxDecoration(
-      color: Colors.grey.shade100,
-      borderRadius: const BorderRadius.only(
-          topLeft: Radius.circular(8), topRight: Radius.circular(8)),
-    ),
-    padding: const EdgeInsets.only(top: 12, bottom: 12, left: 16, right: 16),
-    child: Row(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: const [
-        SizedBox(width: 28),
-        Expanded(
-          flex: 2,
-          child: Text(
-            'Subject name',
-            style: TextStyle(
-                color: Colors.grey, fontSize: 12, fontWeight: FontWeight.w500),
+class SubjectTableHeading extends StatelessWidget {
+  const SubjectTableHeading({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    MColors mcol = MColors(context.watch<Appearance>().darkMode);
+    return Container(
+      decoration: BoxDecoration(
+        color: mcol.tableHeadingBackground,
+        borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(8), topRight: Radius.circular(8)),
+      ),
+      padding: const EdgeInsets.only(top: 12, bottom: 12, left: 16, right: 16),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: const [
+          SizedBox(width: 28),
+          Expanded(
+            flex: 2,
+            child: Text(
+              'Subject name',
+              style: TextStyle(
+                  color: Colors.grey,
+                  fontSize: 12,
+                  fontWeight: FontWeight.w500),
+            ),
           ),
-        ),
-        Expanded(
-          flex: 1,
-          child: Text(
-            'Subject code',
-            style: TextStyle(
-                color: Colors.grey, fontSize: 12, fontWeight: FontWeight.w500),
+          Expanded(
+            flex: 1,
+            child: Text(
+              'Subject code',
+              style: TextStyle(
+                  color: Colors.grey,
+                  fontSize: 12,
+                  fontWeight: FontWeight.w500),
+            ),
           ),
-        ),
-        Spacer(flex: 1),
-        SizedBox(
-          width: 20,
-        )
-      ],
-    ),
-  );
+          Spacer(flex: 1),
+          SizedBox(
+            width: 20,
+          )
+        ],
+      ),
+    );
+  }
 }
 
 class SubjectTableRow extends StatelessWidget {
@@ -142,6 +157,7 @@ class SubjectTableRow extends StatelessWidget {
   final IconData trailing;
   @override
   Widget build(BuildContext context) {
+    MColors mcol = MColors(context.watch<Appearance>().darkMode);
     return MaterialButton(
         onPressed: () {
           context.read<BatchPreferences>().setSubject('$title ($code)');
@@ -153,14 +169,16 @@ class SubjectTableRow extends StatelessWidget {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Icon(leading, size: 20, color: Colors.grey.shade400),
+              Icon(leading, size: 20, color: mcol.secondaryIcon),
               const SizedBox(width: 8),
               Expanded(
                 flex: 2,
                 child: Text(
                   title,
-                  style: const TextStyle(
-                      fontSize: 14, fontWeight: FontWeight.w500),
+                  style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w500,
+                      color: mcol.primary),
                 ),
               ),
               Expanded(
@@ -168,7 +186,7 @@ class SubjectTableRow extends StatelessWidget {
                 child: Text(
                   code,
                   style: TextStyle(
-                      color: Colors.grey.shade600,
+                      color: mcol.secondary,
                       fontSize: 14,
                       fontWeight: FontWeight.w400),
                 ),
@@ -177,7 +195,7 @@ class SubjectTableRow extends StatelessWidget {
               Icon(
                 trailing,
                 size: 20,
-                color: Colors.grey.shade600,
+                color: mcol.secondary,
               )
             ],
           ),

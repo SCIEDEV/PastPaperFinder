@@ -7,8 +7,8 @@ import 'package:provider/provider.dart';
 import 'main.dart';
 
 class AboutPage extends StatelessWidget {
-  final String lastCommit = "7aa43dabacd53f2e00b91872a95a1930bbbf1a11";
-  final String version = "Development Version 0.5.0+7";
+  final String lastCommit = "3f3f4b3823f4bc221e3d50e7f580e673cf3b7a06";
+  final String version = "Development Version 0.5.1+8";
   const AboutPage({
     Key? key,
   }) : super(key: key);
@@ -122,7 +122,6 @@ class AboutPage extends StatelessWidget {
                     CustomButton(
                         title: "Open Collective",
                         leading: UniconsLine.heart,
-                        trailing: UniconsLine.external_link_alt,
                         onPressed: () {
                           _launchUrl(
                               'https://opencollective.com/sciedev/projects/past-paper-finder');
@@ -130,8 +129,7 @@ class AboutPage extends StatelessWidget {
                     const SizedBox(width: 12),
                     CustomButton(
                         title: "爱发电",
-                        leading: UniconsLine.heart,
-                        trailing: UniconsLine.external_link_alt,
+                        leading: UniconsLine.bolt_alt,
                         onPressed: () {
                           _launchUrl('https://afdian.net/@micfong');
                         }),

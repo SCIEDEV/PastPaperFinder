@@ -65,9 +65,9 @@ class CollectionPage extends StatelessWidget {
             ),
             Container(
                 decoration: BoxDecoration(
-                    border: Border.all(color: Colors.grey.shade300),
+                    border: Border.all(color: mcol.buttonBorder),
                     borderRadius: BorderRadius.circular(8),
-                    color: Colors.white,
+                    color: mcol.buttonBackground,
                     boxShadow: const [
                       BoxShadow(
                           color: Color(0x1018281A),
@@ -82,8 +82,8 @@ class CollectionPage extends StatelessWidget {
                     ]),
                 width: double.infinity,
                 child: Column(children: [
-                  collectionTableHeading(),
-                  const Divider(height: 0),
+                  const CollectionTableHeading(),
+                  Divider(height: 0, color: mcol.buttonBorder),
                   if (context.watch<CollectionStates>().collectionCount == 0)
                     SizedBox(
                         height: MediaQuery.of(context).size.height - 232,
@@ -92,12 +92,12 @@ class CollectionPage extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Icon(UniconsLine.folder_question,
-                                size: 48, color: Colors.grey.shade400),
+                                size: 48, color: mcol.secondaryIcon),
                             const SizedBox(height: 16),
                             Text(
                               "Seems like you did not add anything to collection yet",
                               style: TextStyle(
-                                  color: Colors.grey.shade600,
+                                  color: mcol.secondary,
                                   fontSize: 14,
                                   fontWeight: FontWeight.w400),
                             ),
@@ -121,7 +121,7 @@ class CollectionPage extends StatelessWidget {
                       ),
                       if (i !=
                           context.read<CollectionStates>().collectionCount - 1)
-                        const Divider(height: 0),
+                        Divider(height: 0, color: mcol.buttonBorder),
                     ],
                 ]))
           ],
@@ -129,41 +129,53 @@ class CollectionPage extends StatelessWidget {
   }
 }
 
-Widget collectionTableHeading() {
-  return Container(
-    decoration: BoxDecoration(
-      color: Colors.grey.shade100,
-      borderRadius: const BorderRadius.only(
-          topLeft: Radius.circular(8), topRight: Radius.circular(8)),
-    ),
-    padding: const EdgeInsets.only(top: 12, bottom: 12, left: 16, right: 16),
-    child: Row(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: const [
-        SizedBox(width: 28),
-        Expanded(
-          flex: 2,
-          child: Text(
-            'Collected time',
-            style: TextStyle(
-                color: Colors.grey, fontSize: 12, fontWeight: FontWeight.w500),
+class CollectionTableHeading extends StatelessWidget {
+  const CollectionTableHeading({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    MColors mcol = MColors(context.watch<Appearance>().darkMode);
+    return Container(
+      decoration: BoxDecoration(
+        color: mcol.tableHeadingBackground,
+        borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(8), topRight: Radius.circular(8)),
+      ),
+      padding: const EdgeInsets.only(top: 12, bottom: 12, left: 16, right: 16),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: const [
+          SizedBox(width: 28),
+          Expanded(
+            flex: 2,
+            child: Text(
+              'Collected time',
+              style: TextStyle(
+                  color: Colors.grey,
+                  fontSize: 12,
+                  fontWeight: FontWeight.w500),
+            ),
           ),
-        ),
-        Expanded(
-          flex: 2,
-          child: Text(
-            'Papers',
-            style: TextStyle(
-                color: Colors.grey, fontSize: 12, fontWeight: FontWeight.w500),
+          Expanded(
+            flex: 2,
+            child: Text(
+              'Papers',
+              style: TextStyle(
+                  color: Colors.grey,
+                  fontSize: 12,
+                  fontWeight: FontWeight.w500),
+            ),
           ),
-        ),
-        SizedBox(width: 8),
-        SizedBox(
-          width: 20,
-        )
-      ],
-    ),
-  );
+          SizedBox(width: 8),
+          SizedBox(
+            width: 20,
+          )
+        ],
+      ),
+    );
+  }
 }
 
 class CollectionTableRow extends StatelessWidget {
@@ -174,6 +186,7 @@ class CollectionTableRow extends StatelessWidget {
   final int paperCount;
   @override
   Widget build(BuildContext context) {
+    MColors mcol = MColors(context.watch<Appearance>().darkMode);
     return MaterialButton(
         onPressed: () {
           context.read<CollectionStates>().removeItem(title);
@@ -184,14 +197,16 @@ class CollectionTableRow extends StatelessWidget {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Icon(UniconsLine.cube, size: 20, color: Colors.grey.shade400),
+              Icon(UniconsLine.cube, size: 20, color: mcol.secondaryIcon),
               const SizedBox(width: 8),
               Expanded(
                 flex: 2,
                 child: Text(
                   title,
-                  style: const TextStyle(
-                      fontSize: 14, fontWeight: FontWeight.w500),
+                  style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w500,
+                      color: mcol.primary),
                 ),
               ),
               Expanded(
@@ -199,16 +214,16 @@ class CollectionTableRow extends StatelessWidget {
                 child: Text(
                   paperCount.toString(),
                   style: TextStyle(
-                      color: Colors.grey.shade600,
+                      color: mcol.secondary,
                       fontSize: 14,
                       fontWeight: FontWeight.w400),
                 ),
               ),
               const SizedBox(width: 8),
-              const Icon(
+              Icon(
                 UniconsLine.trash,
                 size: 20,
-                color: Colors.red,
+                color: mcol.destructive,
               )
             ],
           ),

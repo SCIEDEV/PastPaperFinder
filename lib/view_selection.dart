@@ -77,9 +77,9 @@ class ViewSelectionPage extends StatelessWidget {
             const SizedBox(height: 16),
             Container(
               decoration: BoxDecoration(
-                  border: Border.all(color: Colors.grey.shade300),
+                  border: Border.all(color: mcol.buttonBorder),
                   borderRadius: BorderRadius.circular(8),
-                  color: Colors.white,
+                  color: mcol.buttonBackground,
                   boxShadow: const [
                     BoxShadow(
                         color: Color(0x1018281A),
@@ -95,8 +95,8 @@ class ViewSelectionPage extends StatelessWidget {
               width: double.infinity,
               child: Column(
                 children: [
-                  entryTableHeading(),
-                  const Divider(height: 0),
+                  const EntryTableHeading(),
+                  Divider(height: 0, color: mcol.buttonBorder),
                   if (context.watch<BrowsePreferences>().selectedCount == 0)
                     SizedBox(
                         height: MediaQuery.of(context).size.height - 232,
@@ -105,12 +105,12 @@ class ViewSelectionPage extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Icon(UniconsLine.file_question_alt,
-                                size: 48, color: Colors.grey.shade400),
+                                size: 48, color: mcol.secondaryIcon),
                             const SizedBox(height: 16),
                             Text(
                               "Seems like you did not select any papers yet",
                               style: TextStyle(
-                                  color: Colors.grey.shade600,
+                                  color: mcol.secondary,
                                   fontSize: 14,
                                   fontWeight: FontWeight.w400),
                             ),
@@ -127,7 +127,7 @@ class ViewSelectionPage extends StatelessWidget {
                               .elementAt(i)),
                       if (i !=
                           context.read<BrowsePreferences>().selected.length - 1)
-                        const Divider(height: 0),
+                        Divider(height: 0, color: mcol.buttonBorder),
                     ],
                 ],
               ),
@@ -151,6 +151,7 @@ class SelectedTableRow extends StatelessWidget {
   final String title;
   @override
   Widget build(BuildContext context) {
+    MColors mcol = MColors(context.watch<Appearance>().darkMode);
     String type = 'Folder';
     if (title.contains('.')) {
       if (title.contains('_ms')) {
@@ -216,14 +217,16 @@ class SelectedTableRow extends StatelessWidget {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Icon(icons[type], size: 20, color: Colors.grey.shade400),
+              Icon(icons[type], size: 20, color: mcol.secondaryIcon),
               const SizedBox(width: 8),
               Expanded(
                 flex: 2,
                 child: Text(
                   title,
-                  style: const TextStyle(
-                      fontSize: 14, fontWeight: FontWeight.w500),
+                  style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w500,
+                      color: mcol.primary),
                 ),
               ),
               Expanded(
@@ -231,16 +234,16 @@ class SelectedTableRow extends StatelessWidget {
                 child: Text(
                   type,
                   style: TextStyle(
-                      color: Colors.grey.shade600,
+                      color: mcol.secondary,
                       fontSize: 14,
                       fontWeight: FontWeight.w400),
                 ),
               ),
               const SizedBox(width: 8),
-              const Icon(
+              Icon(
                 UniconsLine.trash,
                 size: 20,
-                color: Colors.red,
+                color: mcol.destructive,
               )
             ],
           ),

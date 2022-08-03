@@ -58,9 +58,9 @@ class DownloadsPage extends StatelessWidget {
             Container(height: 16),
             Container(
                 decoration: BoxDecoration(
-                    border: Border.all(color: Colors.grey.shade300),
+                    border: Border.all(color: mcol.buttonBorder),
                     borderRadius: BorderRadius.circular(8),
-                    color: Colors.white,
+                    color: mcol.buttonBackground,
                     boxShadow: const [
                       BoxShadow(
                           color: Color(0x1018281A),
@@ -75,7 +75,7 @@ class DownloadsPage extends StatelessWidget {
                     ]),
                 width: double.infinity,
                 child: Column(children: [
-                  downloadsTableHeading(),
+                  const DownloadsTableHeading(),
                   const Divider(height: 0),
                   if (context.watch<DownloadStates>().downloads.isEmpty &&
                       context.watch<DownloadStates>().downloading.isEmpty)
@@ -86,12 +86,12 @@ class DownloadsPage extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Icon(UniconsLine.cloud_question,
-                                size: 48, color: Colors.grey.shade400),
+                                size: 48, color: mcol.secondaryIcon),
                             const SizedBox(height: 16),
                             Text(
                               "Seems like there's nothing to download",
                               style: TextStyle(
-                                  color: Colors.grey.shade600,
+                                  color: mcol.secondary,
                                   fontSize: 14,
                                   fontWeight: FontWeight.w400),
                             ),
@@ -116,7 +116,7 @@ class DownloadsPage extends StatelessWidget {
                       ),
                       if (i !=
                           context.read<DownloadStates>().downloads.length - 1)
-                        const Divider(height: 0),
+                        Divider(height: 0, color: mcol.buttonBorder),
                     ],
                     for (var i = 0;
                         i < context.watch<DownloadStates>().downloads.length;
@@ -133,7 +133,7 @@ class DownloadsPage extends StatelessWidget {
                       ),
                       if (i !=
                           context.read<DownloadStates>().downloads.length - 1)
-                        const Divider(height: 0),
+                        Divider(height: 0, color: mcol.buttonBorder),
                     ],
                   ]
                 ]))
@@ -142,41 +142,53 @@ class DownloadsPage extends StatelessWidget {
   }
 }
 
-Widget downloadsTableHeading() {
-  return Container(
-    decoration: BoxDecoration(
-      color: Colors.grey.shade100,
-      borderRadius: const BorderRadius.only(
-          topLeft: Radius.circular(8), topRight: Radius.circular(8)),
-    ),
-    padding: const EdgeInsets.only(top: 12, bottom: 12, left: 16, right: 16),
-    child: Row(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: const [
-        SizedBox(width: 28),
-        Expanded(
-          flex: 2,
-          child: Text(
-            'File name',
-            style: TextStyle(
-                color: Colors.grey, fontSize: 12, fontWeight: FontWeight.w500),
+class DownloadsTableHeading extends StatelessWidget {
+  const DownloadsTableHeading({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    MColors mcol = MColors(context.watch<Appearance>().darkMode);
+    return Container(
+      decoration: BoxDecoration(
+        color: mcol.tableHeadingBackground,
+        borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(8), topRight: Radius.circular(8)),
+      ),
+      padding: const EdgeInsets.only(top: 12, bottom: 12, left: 16, right: 16),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: const [
+          SizedBox(width: 28),
+          Expanded(
+            flex: 2,
+            child: Text(
+              'File name',
+              style: TextStyle(
+                  color: Colors.grey,
+                  fontSize: 12,
+                  fontWeight: FontWeight.w500),
+            ),
           ),
-        ),
-        Expanded(
-          flex: 2,
-          child: Text(
-            'Progress',
-            style: TextStyle(
-                color: Colors.grey, fontSize: 12, fontWeight: FontWeight.w500),
+          Expanded(
+            flex: 2,
+            child: Text(
+              'Progress',
+              style: TextStyle(
+                  color: Colors.grey,
+                  fontSize: 12,
+                  fontWeight: FontWeight.w500),
+            ),
           ),
-        ),
-        SizedBox(width: 8),
-        SizedBox(
-          width: 20,
-        )
-      ],
-    ),
-  );
+          SizedBox(width: 8),
+          SizedBox(
+            width: 20,
+          )
+        ],
+      ),
+    );
+  }
 }
 
 class DownloadsTableRow extends StatelessWidget {
@@ -193,6 +205,7 @@ class DownloadsTableRow extends StatelessWidget {
   final bool downloading;
   @override
   Widget build(BuildContext context) {
+    MColors mcol = MColors(context.watch<Appearance>().darkMode);
     return MaterialButton(
         onPressed: () {
           if (downloading) {
@@ -206,14 +219,16 @@ class DownloadsTableRow extends StatelessWidget {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Icon(UniconsLine.cube, size: 20, color: Colors.grey.shade400),
+              Icon(UniconsLine.cube, size: 20, color: mcol.secondaryIcon),
               const SizedBox(width: 8),
               Expanded(
                 flex: 2,
                 child: Text(
                   title,
-                  style: const TextStyle(
-                      fontSize: 14, fontWeight: FontWeight.w500),
+                  style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w500,
+                      color: mcol.primary),
                 ),
               ),
               Expanded(
@@ -221,7 +236,7 @@ class DownloadsTableRow extends StatelessWidget {
                 child: Text(
                   progress,
                   style: TextStyle(
-                      color: Colors.grey.shade600,
+                      color: mcol.secondary,
                       fontSize: 14,
                       fontWeight: FontWeight.w400),
                 ),
@@ -230,7 +245,7 @@ class DownloadsTableRow extends StatelessWidget {
               Icon(
                 UniconsLine.times,
                 size: 20,
-                color: Colors.grey.shade600,
+                color: mcol.secondary,
               )
             ],
           ),

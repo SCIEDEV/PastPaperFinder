@@ -23,6 +23,7 @@ void main() async {
       size: Size(1024, 768),
       minimumSize: Size(800, 400),
       titleBarStyle: TitleBarStyle.normal,
+      title: "Past Paper Finder",
     );
     windowManager.waitUntilReadyToShow(windowOptions, () async {
       await windowManager.show();

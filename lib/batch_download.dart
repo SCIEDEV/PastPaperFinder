@@ -679,7 +679,7 @@ class CustomButton extends StatelessWidget {
                     style: TextStyle(
                         color: (primary != null && primary != false)
                             ? Colors.white
-                            : (destructive ? Colors.red : mcol.primary),
+                            : (destructive ? mcol.destructive : mcol.primary),
                         fontWeight: FontWeight.w500)),
                 if (trailing != null) const SizedBox(width: 8),
                 if (trailing != null)
@@ -727,7 +727,7 @@ class _BadgeState extends State<Badge> {
           children: [
             Container(
               decoration: BoxDecoration(
-                  color: widget.destructive ? Colors.red : Colors.orange,
+                  color: widget.destructive ? mcol.destructive : Colors.orange,
                   borderRadius: BorderRadius.circular(100)),
               width: 6,
               height: 6,
@@ -919,13 +919,6 @@ class CustomSliderThumbShape extends RangeSliderThumbShape {
       begin: elevation,
       end: pressedElevation,
     );
-    if (isOnTop ?? false) {
-      final Paint strokePaint = Paint()
-        ..color = sliderTheme.overlappingShapeStrokeColor!
-        ..strokeWidth = 1.0
-        ..style = PaintingStyle.stroke;
-      canvas.drawCircle(center, radius, strokePaint);
-    }
 
     final Color color = colorTween.evaluate(enableAnimation)!;
 
@@ -1058,8 +1051,7 @@ class CustomValueIndicatorShape extends RangeSliderValueIndicatorShape {
       textScaleFactor: textScaleFactor!,
       sizeWithOverflow: sizeWithOverflow!,
       backgroundPaintColor: sliderTheme!.valueIndicatorColor!,
-      strokePaintColor:
-          isOnTop! ? sliderTheme.overlappingShapeStrokeColor : null,
+      strokePaintColor: null,
     );
   }
 }

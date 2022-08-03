@@ -100,6 +100,7 @@ class SettingsPage extends StatelessWidget {
 class _AppearanceButtonsState extends State<AppearanceButtons> {
   @override
   Widget build(BuildContext context) {
+    MColors mcol = MColors(context.watch<Appearance>().darkMode);
     int selected = context.watch<Settings>().appearance;
     return Row(
       children: [
@@ -117,7 +118,7 @@ class _AppearanceButtonsState extends State<AppearanceButtons> {
                 spreadRadius: -2)
           ]),
           child: MaterialButton(
-            color: (selected == 0 ? Colors.orange : Colors.white),
+            color: (selected == 0 ? Colors.orange : mcol.buttonBackground),
             elevation: 0,
             hoverElevation: 0,
             focusElevation: 0,
@@ -129,7 +130,7 @@ class _AppearanceButtonsState extends State<AppearanceButtons> {
                 side: BorderSide(
                     color: selected == 0
                         ? Colors.orange.shade300
-                        : Colors.grey.shade300)),
+                        : mcol.buttonBorder)),
             onPressed: () {
               setState(() {
                 context.read<Settings>().changeAppearance(0);
@@ -139,7 +140,7 @@ class _AppearanceButtonsState extends State<AppearanceButtons> {
               padding: const EdgeInsets.all(10),
               child: Text("Auto",
                   style: TextStyle(
-                      color: (selected == 0 ? Colors.white : Colors.black),
+                      color: (selected == 0 ? Colors.white : mcol.primary),
                       fontSize: 14,
                       fontWeight: FontWeight.w500)),
             ),
@@ -155,7 +156,7 @@ class _AppearanceButtonsState extends State<AppearanceButtons> {
           ]),
           transform: Matrix4.translationValues(-1, 0, 0),
           child: MaterialButton(
-            color: (selected == 1 ? Colors.orange : Colors.white),
+            color: (selected == 1 ? Colors.orange : mcol.buttonBackground),
             elevation: 0,
             hoverElevation: 0,
             focusElevation: 0,
@@ -165,7 +166,7 @@ class _AppearanceButtonsState extends State<AppearanceButtons> {
                 side: BorderSide(
                     color: selected == 1
                         ? Colors.orange.shade300
-                        : Colors.grey.shade300)),
+                        : mcol.buttonBorder)),
             onPressed: () {
               setState(() {
                 context.read<Settings>().changeAppearance(1);
@@ -176,7 +177,7 @@ class _AppearanceButtonsState extends State<AppearanceButtons> {
               padding: const EdgeInsets.all(10),
               child: Text("Light",
                   style: TextStyle(
-                      color: (selected == 1 ? Colors.white : Colors.black),
+                      color: (selected == 1 ? Colors.white : mcol.primary),
                       fontSize: 14,
                       fontWeight: FontWeight.w500)),
             ),
@@ -192,7 +193,7 @@ class _AppearanceButtonsState extends State<AppearanceButtons> {
           ]),
           transform: Matrix4.translationValues(-2, 0, 0),
           child: MaterialButton(
-            color: (selected == 2 ? Colors.orange : Colors.white),
+            color: (selected == 2 ? Colors.orange : mcol.buttonBackground),
             elevation: 0,
             hoverElevation: 0,
             focusElevation: 0,
@@ -204,7 +205,7 @@ class _AppearanceButtonsState extends State<AppearanceButtons> {
                 side: BorderSide(
                     color: selected == 2
                         ? Colors.orange.shade300
-                        : Colors.grey.shade300)),
+                        : mcol.buttonBorder)),
             onPressed: () {
               setState(() {
                 context.read<Settings>().changeAppearance(2);
@@ -215,7 +216,7 @@ class _AppearanceButtonsState extends State<AppearanceButtons> {
               padding: const EdgeInsets.all(10),
               child: Text("Dark",
                   style: TextStyle(
-                      color: (selected == 2 ? Colors.white : Colors.black),
+                      color: (selected == 2 ? Colors.white : mcol.primary),
                       fontSize: 14,
                       fontWeight: FontWeight.w500)),
             ),
@@ -243,6 +244,7 @@ class ValueStepper extends StatefulWidget {
 class _ValueStepperState extends State<ValueStepper> {
   @override
   Widget build(BuildContext context) {
+    MColors mcol = MColors(context.watch<Appearance>().darkMode);
     return Row(children: [
       Container(
         decoration: const BoxDecoration(boxShadow: [
@@ -254,7 +256,7 @@ class _ValueStepperState extends State<ValueStepper> {
         ]),
         child: MaterialButton(
           minWidth: 24,
-          color: Colors.white,
+          color: mcol.buttonBackground,
           elevation: 0,
           hoverElevation: 0,
           focusElevation: 0,
@@ -262,14 +264,13 @@ class _ValueStepperState extends State<ValueStepper> {
           shape: RoundedRectangleBorder(
               borderRadius: const BorderRadius.only(
                   topLeft: Radius.circular(8), bottomLeft: Radius.circular(8)),
-              side: BorderSide(color: Colors.grey.shade300)),
+              side: BorderSide(color: mcol.buttonBorder)),
           onPressed: () {
             context.read<Settings>().increaseSimultaneous();
           },
           child: Container(
             padding: const EdgeInsets.all(10),
-            child:
-                const Icon(UniconsLine.angle_up, color: Colors.black, size: 17),
+            child: Icon(UniconsLine.angle_up, color: mcol.primary, size: 17),
           ),
         ),
       ),
@@ -283,16 +284,16 @@ class _ValueStepperState extends State<ValueStepper> {
         ]),
         transform: Matrix4.translationValues(-1, 0, 0),
         child: MaterialButton(
-          color: Colors.white,
+          color: mcol.buttonBackground,
           elevation: 0,
           hoverElevation: 0,
           focusElevation: 0,
           highlightElevation: 0,
-          disabledColor: Colors.white,
-          disabledTextColor: Colors.grey.shade600,
+          disabledColor: mcol.buttonBackground,
+          disabledTextColor: mcol.secondary,
           shape: RoundedRectangleBorder(
               borderRadius: const BorderRadius.all(Radius.zero),
-              side: BorderSide(color: Colors.grey.shade300)),
+              side: BorderSide(color: mcol.buttonBorder)),
           onPressed: null,
           child: Container(
             padding: const EdgeInsets.all(10),
@@ -311,7 +312,7 @@ class _ValueStepperState extends State<ValueStepper> {
         transform: Matrix4.translationValues(-2, 0, 0),
         child: MaterialButton(
           minWidth: 24,
-          color: Colors.white,
+          color: mcol.buttonBackground,
           elevation: 0,
           hoverElevation: 0,
           focusElevation: 0,
@@ -320,14 +321,13 @@ class _ValueStepperState extends State<ValueStepper> {
               borderRadius: const BorderRadius.only(
                   topRight: Radius.circular(8),
                   bottomRight: Radius.circular(8)),
-              side: BorderSide(color: Colors.grey.shade300)),
+              side: BorderSide(color: mcol.buttonBorder)),
           onPressed: () {
             context.read<Settings>().decreaseSimultaneous();
           },
           child: Container(
             padding: const EdgeInsets.all(10),
-            child: const Icon(UniconsLine.angle_down,
-                color: Colors.black, size: 17),
+            child: Icon(UniconsLine.angle_down, color: mcol.primary, size: 17),
           ),
         ),
       ),

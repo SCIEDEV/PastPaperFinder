@@ -53,9 +53,9 @@ class BrowsePapersPage extends StatelessWidget {
         Container(height: 24),
         Container(
           decoration: BoxDecoration(
-              border: Border.all(color: Colors.grey.shade300),
+              border: Border.all(color: mcol.buttonBorder),
               borderRadius: BorderRadius.circular(8),
-              color: Colors.white,
+              color: mcol.buttonBackground,
               boxShadow: const [
                 BoxShadow(
                     color: Color(0x1018281A),
@@ -71,15 +71,15 @@ class BrowsePapersPage extends StatelessWidget {
           width: double.infinity,
           child: Column(
             children: [
-              entryTableHeading(),
-              const Divider(height: 0),
+              const EntryTableHeading(),
+              Divider(height: 0, color: mcol.buttonBorder),
               for (var i = 0;
                   i < context.watch<BrowsePreferences>().entries.length;
                   i++) ...[
                 EntryTableRow(
                     title: context.read<BrowsePreferences>().entries[i]),
                 if (i != context.read<BrowsePreferences>().entries.length - 1)
-                  const Divider(height: 0),
+                  Divider(height: 0, color: mcol.buttonBorder),
               ],
             ],
           ),
@@ -89,41 +89,53 @@ class BrowsePapersPage extends StatelessWidget {
   }
 }
 
-Widget entryTableHeading() {
-  return Container(
-    decoration: BoxDecoration(
-      color: Colors.grey.shade100,
-      borderRadius: const BorderRadius.only(
-          topLeft: Radius.circular(8), topRight: Radius.circular(8)),
-    ),
-    padding: const EdgeInsets.only(top: 12, bottom: 12, left: 16, right: 16),
-    child: Row(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: const [
-        SizedBox(width: 28),
-        Expanded(
-          flex: 2,
-          child: Text(
-            'Entry name',
-            style: TextStyle(
-                color: Colors.grey, fontSize: 12, fontWeight: FontWeight.w500),
+class EntryTableHeading extends StatelessWidget {
+  const EntryTableHeading({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    MColors mcol = MColors(context.watch<Appearance>().darkMode);
+    return Container(
+      decoration: BoxDecoration(
+        color: mcol.tableHeadingBackground,
+        borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(8), topRight: Radius.circular(8)),
+      ),
+      padding: const EdgeInsets.only(top: 12, bottom: 12, left: 16, right: 16),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: const [
+          SizedBox(width: 28),
+          Expanded(
+            flex: 2,
+            child: Text(
+              'Entry name',
+              style: TextStyle(
+                  color: Colors.grey,
+                  fontSize: 12,
+                  fontWeight: FontWeight.w500),
+            ),
           ),
-        ),
-        Expanded(
-          flex: 2,
-          child: Text(
-            'Type',
-            style: TextStyle(
-                color: Colors.grey, fontSize: 12, fontWeight: FontWeight.w500),
+          Expanded(
+            flex: 2,
+            child: Text(
+              'Type',
+              style: TextStyle(
+                  color: Colors.grey,
+                  fontSize: 12,
+                  fontWeight: FontWeight.w500),
+            ),
           ),
-        ),
-        SizedBox(width: 8),
-        SizedBox(
-          width: 20,
-        )
-      ],
-    ),
-  );
+          SizedBox(width: 8),
+          SizedBox(
+            width: 20,
+          )
+        ],
+      ),
+    );
+  }
 }
 
 class Breadcumb extends StatefulWidget {
@@ -136,6 +148,7 @@ class Breadcumb extends StatefulWidget {
 class _BreadcumbState extends State<Breadcumb> {
   @override
   Widget build(BuildContext context) {
+    MColors mcol = MColors(context.watch<Appearance>().darkMode);
     return Row(
       children: [
         MaterialButton(
@@ -145,7 +158,7 @@ class _BreadcumbState extends State<Breadcumb> {
           },
           child: Text(
             "Home",
-            style: TextStyle(color: Colors.orange.shade900),
+            style: TextStyle(color: mcol.accentText),
           ),
         ),
         const Text(
@@ -165,7 +178,7 @@ class _BreadcumbState extends State<Breadcumb> {
             },
             child: Text(
               context.read<BrowsePreferences>().path[i],
-              style: TextStyle(color: Colors.orange.shade900),
+              style: TextStyle(color: mcol.accentText),
             ),
           ),
           if (i != context.read<BrowsePreferences>().path.length - 1)
@@ -187,6 +200,7 @@ class EntryTableRow extends StatelessWidget {
   final String title;
   @override
   Widget build(BuildContext context) {
+    MColors mcol = MColors(context.watch<Appearance>().darkMode);
     String type = 'Folder';
     if (title.contains('.')) {
       if (title.contains('_ms')) {
@@ -260,16 +274,17 @@ class EntryTableRow extends StatelessWidget {
             children: [
               Icon(icons[type],
                   size: 20,
-                  color: contained
-                      ? Colors.orange.shade600
-                      : Colors.grey.shade400),
+                  color:
+                      contained ? Colors.orange.shade600 : mcol.secondaryIcon),
               const SizedBox(width: 8),
               Expanded(
                 flex: 2,
                 child: Text(
                   title,
-                  style: const TextStyle(
-                      fontSize: 14, fontWeight: FontWeight.w500),
+                  style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w500,
+                      color: mcol.primary),
                 ),
               ),
               Expanded(
@@ -277,7 +292,7 @@ class EntryTableRow extends StatelessWidget {
                 child: Text(
                   type,
                   style: TextStyle(
-                      color: Colors.grey.shade600,
+                      color: mcol.secondary,
                       fontSize: 14,
                       fontWeight: FontWeight.w400),
                 ),
@@ -290,8 +305,7 @@ class EntryTableRow extends StatelessWidget {
                         ? UniconsLine.check_circle
                         : UniconsLine.circle),
                 size: 20,
-                color:
-                    contained ? Colors.orange.shade600 : Colors.grey.shade600,
+                color: contained ? Colors.orange.shade600 : mcol.secondary,
               )
             ],
           ),

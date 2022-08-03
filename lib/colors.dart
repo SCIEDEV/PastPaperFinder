@@ -16,10 +16,10 @@ class MColors {
       isDark ? Colors.grey.shade700 : Colors.grey.shade400;
   Color get disabledButtonText =>
       isDark ? Colors.grey.shade700 : Colors.grey.shade500;
-  Color get sliderThumb => isDark ? Colors.grey.shade800 : Colors.grey.shade200;
+  Color get sliderThumb => isDark ? Colors.grey.shade800 : Colors.white;
   Color get sliderTrack => isDark ? Colors.grey[850]! : Colors.grey.shade200;
   Color get sliderTrackTickMark =>
-      isDark ? Colors.grey.shade700 : Colors.grey.shade300;
+      isDark ? Colors.grey.shade700 : Colors.grey.shade400;
   Color get errorBadgeBackground =>
       isDark ? Colors.red.shade300.withAlpha(32) : Colors.red.shade50;
   Color get errorBadgeText => isDark ? Colors.red.shade50 : Colors.red.shade900;
@@ -30,4 +30,9 @@ class MColors {
   Color get sideBarIcon => isDark ? Colors.grey.shade600 : Colors.grey.shade500;
   Color get accentText =>
       isDark ? Colors.orange.shade200 : Colors.orange.shade900;
+  Color get tableHeadingBackground =>
+      isDark ? Colors.grey.shade800 : Colors.white;
+  Color get secondaryIcon =>
+      isDark ? Colors.grey.shade600 : Colors.grey.shade400;
+  Color get destructive => isDark ? Colors.red.shade400 : Colors.red;
 }
