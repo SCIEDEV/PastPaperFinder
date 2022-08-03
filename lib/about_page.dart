@@ -7,8 +7,8 @@ import 'package:provider/provider.dart';
 import 'main.dart';
 
 class AboutPage extends StatelessWidget {
-  final String lastCommit = "3f3f4b3823f4bc221e3d50e7f580e673cf3b7a06";
-  final String version = "Development Version 0.5.1+8";
+  final String lastCommit = "352e86116e20f0e0c4966b65981cd0462ade5b12";
+  final String version = "Development Version 0.5.2+9";
   const AboutPage({
     Key? key,
   }) : super(key: key);

@@ -134,6 +134,7 @@ class _AppearanceButtonsState extends State<AppearanceButtons> {
             onPressed: () {
               setState(() {
                 context.read<Settings>().changeAppearance(0);
+                context.read<Appearance>().setAutoMode();
               });
             },
             child: Container(

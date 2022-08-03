@@ -31,7 +31,7 @@ class MColors {
   Color get accentText =>
       isDark ? Colors.orange.shade200 : Colors.orange.shade900;
   Color get tableHeadingBackground =>
-      isDark ? Colors.grey.shade800 : Colors.white;
+      isDark ? Colors.grey.shade800 : Colors.grey.shade100;
   Color get secondaryIcon =>
       isDark ? Colors.grey.shade600 : Colors.grey.shade400;
   Color get destructive => isDark ? Colors.red.shade400 : Colors.red;

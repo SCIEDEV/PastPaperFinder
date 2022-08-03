@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:past_paper/about_page.dart';
 import 'package:past_paper/downloads_page.dart';
@@ -179,8 +180,18 @@ class CollectionStates with ChangeNotifier {
 class Appearance with ChangeNotifier {
   bool _darkMode = false;
   bool get darkMode => _darkMode;
+  Appearance() {
+    Brightness brightness = SchedulerBinding.instance.window.platformBrightness;
+    _darkMode = brightness == Brightness.dark;
+  }
   void changeMode(bool mode) {
     _darkMode = mode;
+    notifyListeners();
+  }
+
+  void setAutoMode() {
+    Brightness brightness = SchedulerBinding.instance.window.platformBrightness;
+    _darkMode = brightness == Brightness.dark;
     notifyListeners();
   }
 }
