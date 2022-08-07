@@ -47,10 +47,11 @@ class DownloadsPage extends StatelessWidget {
                     context.read<DownloadStates>().cancelAllDownloads();
                   },
                 ),
-                const SizedBox(width: 12),
-                CustomButton(
-                    title: AppLocalizations.of(context)!.showDownloadedButton,
-                    onPressed: () {}),
+                // TODO show downloaded button
+                // const SizedBox(width: 12),
+                // CustomButton(
+                //     title: AppLocalizations.of(context)!.showDownloadedButton,
+                //     onPressed: () {}),
                 const Spacer(),
                 Text(
                   AppLocalizations.of(context)!.tapToCancelHint,

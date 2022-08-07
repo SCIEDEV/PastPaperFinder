@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:unicons/unicons.dart';
 import 'batch_download.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'colors.dart';
 import 'package:provider/provider.dart';
 import 'main.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AboutPage extends StatelessWidget {
-  final String lastCommit = "d40c1be27719181643cb5d8c45394736e57b6bc1";
-  final String version = "0.6.1+11";
+  final String lastCommit = "54553666a3f4f583895be21bfeb140d0cdd1056b";
+  final String version = "0.6.2+12";
   const AboutPage({
     Key? key,
   }) : super(key: key);
@@ -185,12 +184,5 @@ class AboutPage extends StatelessWidget {
         ],
       ),
     );
-  }
-}
-
-Future<void> _launchUrl(String url) async {
-  final Uri u = Uri.parse(url);
-  if (!await launchUrl(u)) {
-    throw 'Could not launch $u';
   }
 }

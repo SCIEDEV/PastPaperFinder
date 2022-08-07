@@ -157,9 +157,7 @@ class _LanguageButtonsState extends State<LanguageButtons> {
               constraints: const BoxConstraints(minHeight: 36),
               isSelected: context.watch<LocaleProvider>().selected,
               onPressed: (index) {
-                context
-                    .read<LocaleProvider>()
-                    .setLocale(languages.values.toList()[index]);
+                context.read<LocaleProvider>().setLocale(index);
                 context.read<LocaleProvider>().setSelected(index);
               },
               borderRadius: BorderRadius.circular(8),

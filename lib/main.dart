@@ -16,6 +16,7 @@ import 'colors.dart';
 import 'paper_filter.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main() async {
   if (Platform.isLinux || Platform.isMacOS || Platform.isWindows) {
@@ -33,15 +34,26 @@ void main() async {
       await windowManager.focus();
     });
   }
+
+  final prefs = await SharedPreferences.getInstance();
+  await prefs.setInt('appearance', prefs.getInt('appearance') ?? 0);
+  await prefs.setString('path', prefs.getString('path') ?? "");
+  await prefs.setInt('simultaneous', prefs.getInt('simultaneous') ?? 3);
+  await prefs.setInt('language', prefs.getInt('language') ?? -1);
+
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider(create: (_) => BatchPreferences()),
     ChangeNotifierProvider(create: (_) => SidebarStates()),
     ChangeNotifierProvider(create: (_) => BrowsePreferences()),
     ChangeNotifierProvider(create: (_) => CollectionStates()),
     ChangeNotifierProvider(create: (_) => DownloadStates()),
-    ChangeNotifierProvider(create: (_) => Settings()),
-    ChangeNotifierProvider(create: (_) => Appearance()),
-    ChangeNotifierProvider(create: (_) => LocaleProvider()),
+    ChangeNotifierProvider(
+        create: (_) => Settings(prefs.getInt('appearance')!,
+            prefs.getString('path')!, prefs.getInt('simultaneous')!)),
+    ChangeNotifierProvider(
+        create: (_) => Appearance(prefs.getInt('appearance')!)),
+    ChangeNotifierProvider(
+        create: (_) => LocaleProvider(prefs.getInt('language')!)),
     ChangeNotifierProvider(create: (_) => SponsorProvider()),
   ], child: const MyApp()));
 }
@@ -140,11 +152,26 @@ class MyApp extends StatelessWidget {
 }
 
 class LocaleProvider with ChangeNotifier {
+  final languages = const [
+    Locale('en'),
+    Locale.fromSubtags(languageCode: 'zh', scriptCode: 'Hans'),
+    Locale.fromSubtags(languageCode: 'zh', scriptCode: 'Hant')
+  ];
+  LocaleProvider(int language) {
+    if (language != -1) {
+      _locale = languages[language];
+      for (int i = 0; i < languages.length; i++) {
+        _selected[i] = i == language;
+      }
+    }
+  }
   Locale? _locale;
   Locale? get locale => _locale;
-  void setLocale(Locale locale) {
-    _locale = locale;
+  void setLocale(int locale) async {
+    _locale = languages[locale];
     notifyListeners();
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setInt('language', locale);
   }
 
   void clearLocale() {
@@ -152,7 +179,7 @@ class LocaleProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  final List<bool> _selected = [false, false, false];
+  final List<bool> _selected = [true, false, false];
   List<bool> get selected => _selected;
   void setSelected(int index) {
     for (int i = 0; i < _selected.length; i++) {
@@ -227,12 +254,27 @@ class CollectionStates with ChangeNotifier {
 }
 
 class Appearance with ChangeNotifier {
+  Appearance(int appearance) {
+    switch (appearance) {
+      case 0:
+        Brightness brightness =
+            SchedulerBinding.instance.window.platformBrightness;
+        _darkMode = brightness == Brightness.dark;
+        break;
+      case 1:
+        _darkMode = false;
+        break;
+      case 2:
+        _darkMode = true;
+        break;
+      default:
+        Brightness brightness =
+            SchedulerBinding.instance.window.platformBrightness;
+        _darkMode = brightness == Brightness.dark;
+    }
+  }
   bool _darkMode = false;
   bool get darkMode => _darkMode;
-  Appearance() {
-    Brightness brightness = SchedulerBinding.instance.window.platformBrightness;
-    _darkMode = brightness == Brightness.dark;
-  }
   void changeMode(bool mode) {
     _darkMode = mode;
     notifyListeners();
@@ -442,11 +484,18 @@ class BrowsePreferences with ChangeNotifier {
 }
 
 class Settings with ChangeNotifier {
+  Settings(int appearance, String path, int simultaneous) {
+    _appearance = appearance;
+    _path = path;
+    _simultaneous = simultaneous;
+    notifyListeners();
+  }
   int _appearance = 0;
   int get appearance => _appearance;
-  void changeAppearance(int appearance) {
+  void changeAppearance(int appearance) async {
     _appearance = appearance;
     notifyListeners();
+    (await SharedPreferences.getInstance()).setInt('appearance', appearance);
   }
 
   String _path = "";
@@ -460,6 +509,7 @@ class Settings with ChangeNotifier {
       }
       _path = specifiedPath;
       notifyListeners();
+      (await SharedPreferences.getInstance()).setString('path', specifiedPath);
     }
   }
 
@@ -470,23 +520,29 @@ class Settings with ChangeNotifier {
 
   int _simultaneous = 3;
   int get simultaneous => _simultaneous;
-  void changeSimultaneous(int simultaneous) {
+  void changeSimultaneous(int simultaneous) async {
     _simultaneous = simultaneous;
     notifyListeners();
+    (await SharedPreferences.getInstance())
+        .setInt('simultaneous', simultaneous);
   }
 
-  void increaseSimultaneous() {
+  void increaseSimultaneous() async {
     if (simultaneous < 6) {
       _simultaneous++;
     }
     notifyListeners();
+    (await SharedPreferences.getInstance())
+        .setInt('simultaneous', simultaneous);
   }
 
-  void decreaseSimultaneous() {
+  void decreaseSimultaneous() async {
     if (simultaneous > 1) {
       _simultaneous--;
     }
     notifyListeners();
+    (await SharedPreferences.getInstance())
+        .setInt('simultaneous', simultaneous);
   }
 }
 
