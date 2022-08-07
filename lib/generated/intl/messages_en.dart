@@ -39,6 +39,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("About Past Paper Finder"),
         "addToCollectionButton":
             MessageLookupByLibrary.simpleMessage("Add to Collection"),
+        "alipayButton": MessageLookupByLibrary.simpleMessage("Alipay"),
         "appearanceTag": MessageLookupByLibrary.simpleMessage("Appearance"),
         "autoButton": MessageLookupByLibrary.simpleMessage("Auto"),
         "batchSidebar": MessageLookupByLibrary.simpleMessage("Batch"),
@@ -61,7 +62,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "downloadAllButton":
             MessageLookupByLibrary.simpleMessage("Download all"),
         "downloadButton": MessageLookupByLibrary.simpleMessage("Download"),
+        "downloadFailedMessage": MessageLookupByLibrary.simpleMessage(
+            "Download path not specified. Please select a path in Settings page."),
         "downloadFailedProgress":
+            MessageLookupByLibrary.simpleMessage("Download failed"),
+        "downloadFailedTitle":
             MessageLookupByLibrary.simpleMessage("Download failed"),
         "downloadPathTag":
             MessageLookupByLibrary.simpleMessage("Download path"),
@@ -93,6 +98,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "paperTypeTag": MessageLookupByLibrary.simpleMessage("Paper type"),
         "papersHeading": MessageLookupByLibrary.simpleMessage("Papers"),
         "papersSelectedTag": m2,
+        "paypalButton": MessageLookupByLibrary.simpleMessage("PayPal"),
         "progressHeading": MessageLookupByLibrary.simpleMessage("Progress"),
         "qpType": MessageLookupByLibrary.simpleMessage("Question paper"),
         "qrType": MessageLookupByLibrary.simpleMessage("Transcript"),
@@ -138,6 +144,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Specimen Mark Scheme"),
         "specimenPaperItem":
             MessageLookupByLibrary.simpleMessage("Specimen Paper"),
+        "sponsorNote": MessageLookupByLibrary.simpleMessage(
+            "If you wish to appear in the sponsors list, please send a email to micfong2@outlook.com with the amount donated, time of donation, your name (or nickname you want to show), and your avatar. Thank you for your donation!"),
         "sponsorTag": MessageLookupByLibrary.simpleMessage("Sponsor me"),
         "springItem":
             MessageLookupByLibrary.simpleMessage("Spring (February - March)"),
@@ -162,6 +170,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "viewSelectionButton":
             MessageLookupByLibrary.simpleMessage("View Selection"),
         "waitingProgress": MessageLookupByLibrary.simpleMessage("Waiting"),
+        "wechatpayButton": MessageLookupByLibrary.simpleMessage("WeChat Pay"),
         "winterItem":
             MessageLookupByLibrary.simpleMessage("Winter (October - November)"),
         "yearRangeTag": MessageLookupByLibrary.simpleMessage("Year range")

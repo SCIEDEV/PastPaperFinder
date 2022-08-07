@@ -129,5 +129,13 @@
     "versionTag": "Development version",
     "commitTag": "Last commit ",
     "createdByTag": "Created by Micfong as a part of SCIE.DEV",
-    "sponsorTag": "Sponsor me"
+    "sponsorTag": "Sponsor me",
+
+    "downloadFailedTitle": "Download failed",
+    "downloadFailedMessage": "Download path not specified. Please select a path in Settings page.",
+    
+    "paypalButton": "PayPal",
+    "wechatpayButton": "WeChat Pay",
+    "alipayButton": "Alipay",
+    "sponsorNote": "If you wish to appear in the sponsors list, please send a email to micfong2@outlook.com with the amount donated, time of donation, your name (or nickname you want to show), and your avatar. Thank you for your donation!"
 }

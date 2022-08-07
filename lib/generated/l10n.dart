@@ -990,6 +990,66 @@ class S {
       args: [],
     );
   }
+
+  /// `Download failed`
+  String get downloadFailedTitle {
+    return Intl.message(
+      'Download failed',
+      name: 'downloadFailedTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Download path not specified. Please select a path in Settings page.`
+  String get downloadFailedMessage {
+    return Intl.message(
+      'Download path not specified. Please select a path in Settings page.',
+      name: 'downloadFailedMessage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `PayPal`
+  String get paypalButton {
+    return Intl.message(
+      'PayPal',
+      name: 'paypalButton',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `WeChat Pay`
+  String get wechatpayButton {
+    return Intl.message(
+      'WeChat Pay',
+      name: 'wechatpayButton',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Alipay`
+  String get alipayButton {
+    return Intl.message(
+      'Alipay',
+      name: 'alipayButton',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `If you wish to appear in the sponsors list, please send a email to micfong2@outlook.com with the amount donated, time of donation, your name (or nickname you want to show), and your avatar. Thank you for your donation!`
+  String get sponsorNote {
+    return Intl.message(
+      'If you wish to appear in the sponsors list, please send a email to micfong2@outlook.com with the amount donated, time of donation, your name (or nickname you want to show), and your avatar. Thank you for your donation!',
+      name: 'sponsorNote',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

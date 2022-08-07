@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:past_paper/downloads_page.dart';
 import 'package:past_paper/main.dart';
+import 'package:past_paper/widgets.dart';
 import 'package:unicons/unicons.dart';
 import 'batch_download.dart';
 import 'package:provider/provider.dart';
@@ -35,15 +36,23 @@ class CollectionPage extends StatelessWidget {
                   title: AppLocalizations.of(context)!.downloadAllButton,
                   primary: true,
                   onPressed: () {
-                    context.read<DownloadStates>().downloadCollections(
-                        context.read<CollectionStates>().collection);
-                    context.read<CollectionStates>().removeAll();
-                    downloadFiles(globalContext);
+                    if (context.read<Settings>().path == "") {
+                      context.read<DownloadStates>().setShowDownloadFailedOn(2);
+                    } else {
+                      context.read<DownloadStates>().downloadCollections(
+                          context.read<CollectionStates>().collection);
+                      context.read<CollectionStates>().removeAll();
+                      downloadFiles(globalContext);
+                    }
                   },
                 ),
               ],
             ),
             Container(height: 16),
+            if (context.watch<DownloadStates>().showDownloadFailedOn == 2) ...[
+              const PathNotSpecifiedBanner(),
+              Container(height: 16),
+            ],
             Row(
               children: [
                 CustomButton(

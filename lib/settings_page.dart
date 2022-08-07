@@ -108,38 +108,78 @@ class SettingsPage extends StatelessWidget {
                         fontWeight: FontWeight.w500,
                         color: mcol.primary)),
               ),
-              Expanded(
+              const Expanded(
                 flex: 6,
-                child: Row(children: [
-                  CustomButton(
-                      title: "English",
-                      onPressed: () {
-                        context
-                            .read<LocaleProvider>()
-                            .setLocale(const Locale('en'));
-                      }),
-                  const SizedBox(width: 12),
-                  CustomButton(
-                      title: "简体中文",
-                      onPressed: () {
-                        context.read<LocaleProvider>().setLocale(
-                            const Locale.fromSubtags(
-                                languageCode: 'zh', scriptCode: 'Hans'));
-                      }),
-                  const SizedBox(width: 12),
-                  CustomButton(
-                      title: "繁体中文",
-                      onPressed: () {
-                        context.read<LocaleProvider>().setLocale(
-                            const Locale.fromSubtags(
-                                languageCode: 'zh', scriptCode: 'Hant'));
-                      }),
-                ]),
+                child: LanguageButtons(),
               ),
               Expanded(flex: 2, child: Container()),
             ],
           ),
         ]));
+  }
+}
+
+class LanguageButtons extends StatefulWidget {
+  const LanguageButtons({Key? key}) : super(key: key);
+
+  @override
+  State<LanguageButtons> createState() => _LanguageButtonsState();
+}
+
+class _LanguageButtonsState extends State<LanguageButtons> {
+  @override
+  Widget build(BuildContext context) {
+    MColors mcol = MColors(context.watch<Appearance>().darkMode);
+    const languages = {
+      "English": Locale("en"),
+      "简体中文": Locale.fromSubtags(languageCode: 'zh', scriptCode: 'Hans'),
+      "繁体中文": Locale.fromSubtags(languageCode: 'zh', scriptCode: 'Hant')
+    };
+    return Row(
+      children: [
+        Container(
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(8),
+              color: mcol.buttonBackground,
+              boxShadow: const [
+                BoxShadow(
+                    color: Color(0x1018281A),
+                    blurRadius: 8,
+                    offset: Offset(0, 4),
+                    spreadRadius: -2),
+                BoxShadow(
+                    color: Color(0x1018280F),
+                    blurRadius: 4,
+                    offset: Offset(0, 2),
+                    spreadRadius: -2)
+              ]),
+          child: ToggleButtons(
+              constraints: const BoxConstraints(minHeight: 36),
+              isSelected: context.watch<LocaleProvider>().selected,
+              onPressed: (index) {
+                context
+                    .read<LocaleProvider>()
+                    .setLocale(languages.values.toList()[index]);
+                context.read<LocaleProvider>().setSelected(index);
+              },
+              borderRadius: BorderRadius.circular(8),
+              borderColor: mcol.buttonBorder,
+              fillColor: Colors.orange,
+              selectedColor: Colors.white,
+              color: mcol.primary,
+              selectedBorderColor: Colors.orange.shade300,
+              children: [
+                for (var i in languages.keys)
+                  Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                    child: Text(i,
+                        style: const TextStyle(
+                            fontSize: 14, fontWeight: FontWeight.w500)),
+                  )
+              ]),
+        ),
+      ],
+    );
   }
 }
 

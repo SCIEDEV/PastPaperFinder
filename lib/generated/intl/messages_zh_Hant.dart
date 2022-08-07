@@ -37,6 +37,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "aboutTitle":
             MessageLookupByLibrary.simpleMessage("關於 Past Paper Finder"),
         "addToCollectionButton": MessageLookupByLibrary.simpleMessage("添加至收集箱"),
+        "alipayButton": MessageLookupByLibrary.simpleMessage("支付宝"),
         "appearanceTag": MessageLookupByLibrary.simpleMessage("外觀"),
         "autoButton": MessageLookupByLibrary.simpleMessage("自動"),
         "batchSidebar": MessageLookupByLibrary.simpleMessage("批量下載"),
@@ -56,7 +57,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "darkButton": MessageLookupByLibrary.simpleMessage("深色"),
         "downloadAllButton": MessageLookupByLibrary.simpleMessage("全部下載"),
         "downloadButton": MessageLookupByLibrary.simpleMessage("下載"),
+        "downloadFailedMessage":
+            MessageLookupByLibrary.simpleMessage("您未指定下載路徑，請在設置頁面選擇一個路徑。"),
         "downloadFailedProgress": MessageLookupByLibrary.simpleMessage("下載失敗"),
+        "downloadFailedTitle": MessageLookupByLibrary.simpleMessage("下載失敗"),
         "downloadPathTag": MessageLookupByLibrary.simpleMessage("下載路徑"),
         "downloadsSidebar": MessageLookupByLibrary.simpleMessage("下載隊列"),
         "downloadsTitle": MessageLookupByLibrary.simpleMessage("下載隊列"),
@@ -82,6 +86,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "paperTypeTag": MessageLookupByLibrary.simpleMessage("試卷類型"),
         "papersHeading": MessageLookupByLibrary.simpleMessage("試卷數"),
         "papersSelectedTag": m2,
+        "paypalButton": MessageLookupByLibrary.simpleMessage("PayPal"),
         "progressHeading": MessageLookupByLibrary.simpleMessage("下載進度"),
         "qpType": MessageLookupByLibrary.simpleMessage("問卷"),
         "qrType": MessageLookupByLibrary.simpleMessage("抄本"),
@@ -118,6 +123,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "specimenMarkSchemeItem":
             MessageLookupByLibrary.simpleMessage("樣例評分標準"),
         "specimenPaperItem": MessageLookupByLibrary.simpleMessage("樣例問卷"),
+        "sponsorNote": MessageLookupByLibrary.simpleMessage(
+            "如果您希望讓您的姓名（或暱稱）出現在支持列表中，請發送郵件至 micfong2@outlook.com，包含支持金額，支持時間，您的姓名（或暱稱），以及您的頭像。感謝您的支持！"),
         "sponsorTag": MessageLookupByLibrary.simpleMessage("支持一下"),
         "springItem": MessageLookupByLibrary.simpleMessage("春季（二月至三月）"),
         "suType": MessageLookupByLibrary.simpleMessage("課綱更新"),
@@ -134,6 +141,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "versionTag": MessageLookupByLibrary.simpleMessage("開發版"),
         "viewSelectionButton": MessageLookupByLibrary.simpleMessage("查看已選試卷"),
         "waitingProgress": MessageLookupByLibrary.simpleMessage("等待中"),
+        "wechatpayButton": MessageLookupByLibrary.simpleMessage("微信支付"),
         "winterItem": MessageLookupByLibrary.simpleMessage("冬季（十月至十一月）"),
         "yearRangeTag": MessageLookupByLibrary.simpleMessage("年份")
       };

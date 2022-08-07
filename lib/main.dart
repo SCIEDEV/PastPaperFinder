@@ -42,6 +42,7 @@ void main() async {
     ChangeNotifierProvider(create: (_) => Settings()),
     ChangeNotifierProvider(create: (_) => Appearance()),
     ChangeNotifierProvider(create: (_) => LocaleProvider()),
+    ChangeNotifierProvider(create: (_) => SponsorProvider()),
   ], child: const MyApp()));
 }
 
@@ -150,6 +151,15 @@ class LocaleProvider with ChangeNotifier {
     _locale = null;
     notifyListeners();
   }
+
+  final List<bool> _selected = [false, false, false];
+  List<bool> get selected => _selected;
+  void setSelected(int index) {
+    for (int i = 0; i < _selected.length; i++) {
+      _selected[i] = (i == index);
+    }
+    notifyListeners();
+  }
 }
 
 class SidebarStates with ChangeNotifier {
@@ -157,6 +167,15 @@ class SidebarStates with ChangeNotifier {
   int get currentSelection => _currentSelection;
   void changeSelection(int index) {
     _currentSelection = index;
+    notifyListeners();
+  }
+}
+
+class SponsorProvider with ChangeNotifier {
+  int _currentSponsor = 0;
+  int get currentSponsor => _currentSponsor;
+  void changeSponsor(int index) {
+    _currentSponsor = index;
     notifyListeners();
   }
 }
@@ -235,6 +254,13 @@ class DownloadStates with ChangeNotifier {
   Set<Map> get downloading => _downloading;
   bool _isDownloading = false;
   bool get isDownloading => _isDownloading;
+  int _showDownloadFailedOn = -1;
+  int get showDownloadFailedOn => _showDownloadFailedOn;
+
+  void setShowDownloadFailedOn(int index) {
+    _showDownloadFailedOn = index;
+    notifyListeners();
+  }
 
   void addDownloading(List<String> obj) {
     _downloading.add({"path": obj, "progress": "Downloading"});

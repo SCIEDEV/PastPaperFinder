@@ -109,27 +109,77 @@ class AboutPage extends StatelessWidget {
                         color: mcol.primary)),
               ),
               Expanded(
-                flex: 6,
-                child: Row(
+                flex: 8,
+                child: Column(
                   children: [
-                    CustomButton(
-                        title: "Open Collective",
-                        leading: UniconsLine.heart,
-                        onPressed: () {
-                          _launchUrl(
-                              'https://opencollective.com/sciedev/projects/past-paper-finder');
-                        }),
-                    const SizedBox(width: 12),
-                    CustomButton(
-                        title: "爱发电",
-                        leading: UniconsLine.bolt_alt,
-                        onPressed: () {
-                          _launchUrl('https://afdian.net/@micfong');
-                        }),
+                    Row(
+                      children: [
+                        CustomButton(
+                            title: AppLocalizations.of(context)!.paypalButton,
+                            leading: UniconsLine.paypal,
+                            onPressed: () {}),
+                        const SizedBox(width: 12),
+                        CustomButton(
+                            title:
+                                AppLocalizations.of(context)!.wechatpayButton,
+                            leading: UniconsLine.comment,
+                            onPressed: () {
+                              if (context
+                                      .read<SponsorProvider>()
+                                      .currentSponsor ==
+                                  1) {
+                                context
+                                    .read<SponsorProvider>()
+                                    .changeSponsor(-1);
+                              } else {
+                                context
+                                    .read<SponsorProvider>()
+                                    .changeSponsor(1);
+                              }
+                            }),
+                        const SizedBox(width: 12),
+                        CustomButton(
+                            title: AppLocalizations.of(context)!.alipayButton,
+                            leading: UniconsLine.money_bill,
+                            onPressed: () {
+                              if (context
+                                      .read<SponsorProvider>()
+                                      .currentSponsor ==
+                                  2) {
+                                context
+                                    .read<SponsorProvider>()
+                                    .changeSponsor(-1);
+                              } else {
+                                context
+                                    .read<SponsorProvider>()
+                                    .changeSponsor(2);
+                              }
+                            }),
+                      ],
+                    ),
+                    if (context.watch<SponsorProvider>().currentSponsor >=
+                        1) ...[
+                      const SizedBox(height: 12),
+                      Row(
+                        children: [
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(8),
+                            child: Image(
+                              image: AssetImage(context
+                                          .watch<SponsorProvider>()
+                                          .currentSponsor ==
+                                      1
+                                  ? "assets/wechatpay.jpg"
+                                  : "assets/alipay.jpg"),
+                              width: 355,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ]
                   ],
                 ),
-              ),
-              Expanded(flex: 2, child: Container()),
+              )
             ],
           ),
         ],

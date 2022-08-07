@@ -81,9 +81,8 @@ Future<List<List<String>>> getPapers(CollectionItem filter) async {
   path.add(filter.subject);
   List<List<String>> result = [];
   if (map.values.first.length == 0) {
-    // Really want to just throw and return >:(
+    // TODO: filter paper even if year folders are not available
   } else {
-    // NORMAL CASE: this subject is classified by year
     for (int i = filter.beginYear; i <= filter.endYear; i++) {
       path.add(i.toString());
       List? sublist = map[i.toString()];

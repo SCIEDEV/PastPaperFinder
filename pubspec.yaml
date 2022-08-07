@@ -48,9 +48,7 @@ flutter:
   uses-material-design: true
 
   assets:
-    - assets/alevel.json
-    - assets/igcse.json
-    - assets/appicon.png
+    - assets/
 
   fonts:
     - family: JetBrains Mono

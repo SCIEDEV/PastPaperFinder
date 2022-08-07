@@ -35,4 +35,8 @@ class MColors {
   Color get secondaryIcon =>
       isDark ? Colors.grey.shade600 : Colors.grey.shade400;
   Color get destructive => isDark ? Colors.red.shade400 : Colors.red;
+  Color get errorBannerBackground =>
+      isDark ? Colors.red.shade300.withAlpha(32) : Colors.red.shade50;
+  Color get errorBannerBorder =>
+      isDark ? Colors.red.shade300.withAlpha(32) : Colors.red.shade100;
 }

@@ -7,6 +7,7 @@ import 'package:provider/provider.dart';
 import 'dart:math' as math;
 import 'paper_filter.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'widgets.dart';
 
 class BatchDownloadPage extends StatelessWidget {
   const BatchDownloadPage({
@@ -498,29 +499,42 @@ class BatchDownloadPage extends StatelessWidget {
               primary: true,
               onPressed: accessible
                   ? () {
-                      context.read<DownloadStates>().setDownloads(
-                          getPapers(CollectionItem(
-                              DateTime.now().toString(),
-                              context.read<BatchPreferences>().syllabus,
-                              context.read<BatchPreferences>().subject,
-                              context.read<BatchPreferences>().beginYear,
-                              context.read<BatchPreferences>().endYear,
-                              context.read<BatchPreferences>().seasons.toList(),
-                              context
-                                  .read<BatchPreferences>()
-                                  .paperNumbers
-                                  .toList(),
-                              context
-                                  .read<BatchPreferences>()
-                                  .paperTypes
-                                  .toList(),
-                              0)),
-                          globalContext);
+                      if (context.read<Settings>().path == "") {
+                        context
+                            .read<DownloadStates>()
+                            .setShowDownloadFailedOn(0);
+                      } else {
+                        context.read<DownloadStates>().setDownloads(
+                            getPapers(CollectionItem(
+                                DateTime.now().toString(),
+                                context.read<BatchPreferences>().syllabus,
+                                context.read<BatchPreferences>().subject,
+                                context.read<BatchPreferences>().beginYear,
+                                context.read<BatchPreferences>().endYear,
+                                context
+                                    .read<BatchPreferences>()
+                                    .seasons
+                                    .toList(),
+                                context
+                                    .read<BatchPreferences>()
+                                    .paperNumbers
+                                    .toList(),
+                                context
+                                    .read<BatchPreferences>()
+                                    .paperTypes
+                                    .toList(),
+                                0)),
+                            globalContext);
+                      }
                     }
                   : null,
             ),
           ],
-        )
+        ),
+        if (context.watch<DownloadStates>().showDownloadFailedOn == 0) ...[
+          Container(height: 16),
+          const PathNotSpecifiedBanner(),
+        ],
       ]),
     );
   }

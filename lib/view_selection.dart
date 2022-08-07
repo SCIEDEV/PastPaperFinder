@@ -8,6 +8,7 @@ import 'package:provider/provider.dart';
 import 'batch_download.dart';
 import 'colors.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'widgets.dart';
 
 class ViewSelectionPage extends StatelessWidget {
   const ViewSelectionPage({Key? key, required this.globalContext})
@@ -47,17 +48,25 @@ class ViewSelectionPage extends StatelessWidget {
                   title: AppLocalizations.of(context)!.downloadAllButton,
                   primary: true,
                   onPressed: () {
-                    context.read<DownloadStates>().addDownloads(context
-                        .read<BrowsePreferences>()
-                        .selectedPath
-                        .toList());
-                    context.read<BrowsePreferences>().removeAllSelected();
-                    downloadFiles(globalContext);
+                    if (context.read<Settings>().path == "") {
+                      context.read<DownloadStates>().setShowDownloadFailedOn(1);
+                    } else {
+                      context.read<DownloadStates>().addDownloads(context
+                          .read<BrowsePreferences>()
+                          .selectedPath
+                          .toList());
+                      context.read<BrowsePreferences>().removeAllSelected();
+                      downloadFiles(globalContext);
+                    }
                   },
                 ),
               ],
             ),
             const SizedBox(height: 16),
+            if (context.watch<DownloadStates>().showDownloadFailedOn == 1) ...[
+              const PathNotSpecifiedBanner(),
+              Container(height: 16),
+            ],
             Row(
               children: [
                 CustomButton(

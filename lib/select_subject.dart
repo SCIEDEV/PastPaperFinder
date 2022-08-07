@@ -128,14 +128,14 @@ class SubjectTableHeading extends StatelessWidget {
             flex: 1,
             child: Text(
               AppLocalizations.of(context)!.subjectCodeHeading,
-              style: TextStyle(
+              style: const TextStyle(
                   color: Colors.grey,
                   fontSize: 12,
                   fontWeight: FontWeight.w500),
             ),
           ),
-          Spacer(flex: 1),
-          SizedBox(
+          const Spacer(flex: 1),
+          const SizedBox(
             width: 20,
           )
         ],

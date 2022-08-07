@@ -108,5 +108,13 @@
     "versionTag": "开发版",
     "commitTag": "上次提交为 ",
     "createdByTag": "由 Micfong 作为 SCIE.DEV 的一员开发",
-    "sponsorTag": "支持一下"
+    "sponsorTag": "支持一下",
+
+    "downloadFailedTitle": "下载失败",
+    "downloadFailedMessage": "您未指定下载路径，请在设置页面选择一个路径。",
+    
+    "paypalButton": "PayPal",
+    "wechatpayButton": "微信支付",
+    "alipayButton": "支付宝",
+    "sponsorNote": "如果您希望让您的姓名（或昵称）出现在支持列表中，请发送邮件至 micfong2@outlook.com，包含支持金额，支持时间，您的姓名（或昵称），以及您的头像。感谢您的支持！"
 }
