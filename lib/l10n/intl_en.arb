@@ -5,6 +5,7 @@
     "downloadsSidebar": "Downloads",
     "settingsSidebar": "Settings",
     "aboutSidebar": "About",
+    "testingSidebar": "Alpha Test",
     
     "batchTitle": "Batch Downloads",
     "syllabusTag": "Syllabus",
@@ -126,7 +127,7 @@
     "selectDownloadPathButton": "Select download path",
 
     "aboutTitle": "About Past Paper Finder",
-    "versionTag": "Development version",
+    "versionTag": "Alpha version",
     "commitTag": "Last commit ",
     "createdByTag": "Created by Micfong as a part of SCIE.DEV",
     "sponsorTag": "Sponsor me",
@@ -137,5 +138,24 @@
     "paypalButton": "PayPal",
     "wechatpayButton": "WeChat Pay",
     "alipayButton": "Alipay",
-    "sponsorNote": "If you wish to appear in the sponsors list, please send a email to micfong2@outlook.com with the amount donated, time of donation, your name (or nickname you want to show), and your avatar. Thank you for your donation!"
+    "sponsorNote": "If you wish to appear in the sponsors list, please send a email to micfong2@outlook.com with the amount donated, time of donation, your name (or nickname you want to show), and your avatar. Thank you for your donation!",
+
+    "testingTitle": "Alpha Test",
+    "aboutTestingTag": "About testing",
+    "testingBannerTitle": "You're in test",
+    "testingBannerContent": "Thank you for participating in Past Paper Finder Alpha test!",
+    "testingBadge": "Alpha Testing Stage",
+    "aboutTestingContent": "This stage is under heavy development, so expect breaking changes and unstable behaviors.",
+    "bugAndFeatureTag": "Bug reports & Feature requests",
+    "bugAndFeatureContent1": "Alpha versions are designed to be updating frequently, so please report as many bugs (or request as many features) as possible!",
+    "bugAndFeatureContent2": "Feel free to report them to Micfong by WeChat directly (recommended), or by email at micfong2@outlook.com.",
+    "roadmapTag": "Roadmap",
+    "roadmapContent": "This is the updating roadmap of Past Paper Finder.",
+    "roadmapContent1": "Development",
+    "roadmapContent2": "Alpha Testing",
+    "roadmapContent3": "Beta Testing",
+    "roadmapContent4": "Release",
+    "updatesTag": "Updates",
+    "updatesContent": "Updates are expected to be released very frequently. Please do often check for updates.",
+    "updatesButton": "View Latest Version"
 }

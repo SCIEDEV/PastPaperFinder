@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:past_paper/about_page.dart';
 import 'package:past_paper/downloads_page.dart';
 import 'package:past_paper/settings_page.dart';
+import 'package:past_paper/testing.dart';
 import 'package:window_manager/window_manager.dart';
 import 'sidebar.dart';
 import 'batch_download.dart';
@@ -133,6 +134,11 @@ class MyApp extends StatelessWidget {
                                       .currentSelection ==
                                   5) ...[
                                 const AboutPage(),
+                              ] else if (context
+                                      .watch<SidebarStates>()
+                                      .currentSelection ==
+                                  6) ...[
+                                const TestingPage(),
                               ] else ...[
                                 const Padding(
                                   padding: EdgeInsets.all(24.0),
@@ -309,6 +315,12 @@ class DownloadStates with ChangeNotifier {
     notifyListeners();
   }
 
+  void cancelAll() {
+    _downloading.clear();
+    _downloads.clear();
+    notifyListeners();
+  }
+
   void removeDownloading(String obj) {
     _downloading.removeWhere(
       (element) => element["path"].last == obj,
@@ -358,11 +370,6 @@ class DownloadStates with ChangeNotifier {
 
   void addDownloads(List<List<String>> entries) {
     _downloads.addAll(entries);
-    notifyListeners();
-  }
-
-  void cancelAllDownloads() {
-    _downloads.clear();
     notifyListeners();
   }
 

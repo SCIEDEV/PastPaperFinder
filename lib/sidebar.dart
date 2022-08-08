@@ -22,6 +22,7 @@ class Sidebar extends StatelessWidget {
     List<List<dynamic>> bottomItems = [
       [AppLocalizations.of(context)!.settingsSidebar, UniconsLine.setting],
       [AppLocalizations.of(context)!.aboutSidebar, UniconsLine.info_circle],
+      [AppLocalizations.of(context)!.testingSidebar, UniconsLine.flask],
     ];
 
     MColors mcol = MColors(context.watch<Appearance>().darkMode);

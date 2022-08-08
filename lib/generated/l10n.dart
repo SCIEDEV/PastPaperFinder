@@ -110,6 +110,16 @@ class S {
     );
   }
 
+  /// `Alpha Test`
+  String get testingSidebar {
+    return Intl.message(
+      'Alpha Test',
+      name: 'testingSidebar',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Batch Downloads`
   String get batchTitle {
     return Intl.message(
@@ -951,10 +961,10 @@ class S {
     );
   }
 
-  /// `Development version`
+  /// `Alpha version`
   String get versionTag {
     return Intl.message(
-      'Development version',
+      'Alpha version',
       name: 'versionTag',
       desc: '',
       args: [],
@@ -1046,6 +1056,186 @@ class S {
     return Intl.message(
       'If you wish to appear in the sponsors list, please send a email to micfong2@outlook.com with the amount donated, time of donation, your name (or nickname you want to show), and your avatar. Thank you for your donation!',
       name: 'sponsorNote',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Alpha Test`
+  String get testingTitle {
+    return Intl.message(
+      'Alpha Test',
+      name: 'testingTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `About testing`
+  String get aboutTestingTag {
+    return Intl.message(
+      'About testing',
+      name: 'aboutTestingTag',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You're in test`
+  String get testingBannerTitle {
+    return Intl.message(
+      'You\'re in test',
+      name: 'testingBannerTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Thank you for participating in Past Paper Finder Alpha test!`
+  String get testingBannerContent {
+    return Intl.message(
+      'Thank you for participating in Past Paper Finder Alpha test!',
+      name: 'testingBannerContent',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Alpha Testing Stage`
+  String get testingBadge {
+    return Intl.message(
+      'Alpha Testing Stage',
+      name: 'testingBadge',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `This stage is under heavy development, so expect breaking changes and unstable behaviors.`
+  String get aboutTestingContent {
+    return Intl.message(
+      'This stage is under heavy development, so expect breaking changes and unstable behaviors.',
+      name: 'aboutTestingContent',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Bug reports & Feature requests`
+  String get bugAndFeatureTag {
+    return Intl.message(
+      'Bug reports & Feature requests',
+      name: 'bugAndFeatureTag',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Alpha versions are designed to be updating frequently, so please report as many bugs (or request as many features) as possible!`
+  String get bugAndFeatureContent1 {
+    return Intl.message(
+      'Alpha versions are designed to be updating frequently, so please report as many bugs (or request as many features) as possible!',
+      name: 'bugAndFeatureContent1',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Feel free to report them to Micfong by WeChat directly (recommended), or by email at micfong2@outlook.com.`
+  String get bugAndFeatureContent2 {
+    return Intl.message(
+      'Feel free to report them to Micfong by WeChat directly (recommended), or by email at micfong2@outlook.com.',
+      name: 'bugAndFeatureContent2',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Roadmap`
+  String get roadmapTag {
+    return Intl.message(
+      'Roadmap',
+      name: 'roadmapTag',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `This is the updating roadmap of Past Paper Finder.`
+  String get roadmapContent {
+    return Intl.message(
+      'This is the updating roadmap of Past Paper Finder.',
+      name: 'roadmapContent',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Development`
+  String get roadmapContent1 {
+    return Intl.message(
+      'Development',
+      name: 'roadmapContent1',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Alpha Testing`
+  String get roadmapContent2 {
+    return Intl.message(
+      'Alpha Testing',
+      name: 'roadmapContent2',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Beta Testing`
+  String get roadmapContent3 {
+    return Intl.message(
+      'Beta Testing',
+      name: 'roadmapContent3',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Release`
+  String get roadmapContent4 {
+    return Intl.message(
+      'Release',
+      name: 'roadmapContent4',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Updates`
+  String get updatesTag {
+    return Intl.message(
+      'Updates',
+      name: 'updatesTag',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Updates are expected to be released very frequently. Please do often check for updates.`
+  String get updatesContent {
+    return Intl.message(
+      'Updates are expected to be released very frequently. Please do often check for updates.',
+      name: 'updatesContent',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `View Latest Version`
+  String get updatesButton {
+    return Intl.message(
+      'View Latest Version',
+      name: 'updatesButton',
       desc: '',
       args: [],
     );

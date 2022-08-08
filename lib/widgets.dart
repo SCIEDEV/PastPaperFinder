@@ -25,9 +25,11 @@ class PathNotSpecifiedBanner extends StatelessWidget {
                 style: TextStyle(
                     color: mcol.errorBadgeText, fontWeight: FontWeight.w500)),
             const SizedBox(width: 16),
-            Text(
-              AppLocalizations.of(context)!.downloadFailedMessage,
-              style: TextStyle(color: mcol.errorBadgeText),
+            Flexible(
+              child: Text(
+                AppLocalizations.of(context)!.downloadFailedMessage,
+                style: TextStyle(color: mcol.errorBadgeText),
+              ),
             ),
             const Spacer(),
             MaterialButton(
@@ -36,6 +38,38 @@ class PathNotSpecifiedBanner extends StatelessWidget {
                   context.read<DownloadStates>().setShowDownloadFailedOn(-1);
                 },
                 child: const Icon(UniconsLine.times, color: Colors.red)),
+          ],
+        ));
+  }
+}
+
+class TestingBanner extends StatelessWidget {
+  const TestingBanner({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    MColors mcol = MColors(context.watch<Appearance>().darkMode);
+    return Container(
+        padding: const EdgeInsets.all(16),
+        decoration: BoxDecoration(
+            color: mcol.badgeBackground,
+            borderRadius: BorderRadius.circular(8),
+            border: Border.all(color: mcol.badgeBorder)),
+        child: Row(
+          children: [
+            const Icon(UniconsLine.trophy, color: Colors.orange),
+            const SizedBox(width: 16),
+            Text(AppLocalizations.of(context)!.testingBannerTitle,
+                style: TextStyle(
+                    color: mcol.badgeText, fontWeight: FontWeight.w500)),
+            const SizedBox(width: 16),
+            Flexible(
+              child: Text(
+                AppLocalizations.of(context)!.testingBannerContent,
+                style: TextStyle(color: mcol.badgeText),
+                softWrap: true,
+              ),
+            ),
           ],
         ));
   }

@@ -34,6 +34,9 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "aboutSidebar": MessageLookupByLibrary.simpleMessage("关于"),
+        "aboutTestingContent":
+            MessageLookupByLibrary.simpleMessage("大量开发工作仍在进行中，所以软件可能发生不稳定的错误。"),
+        "aboutTestingTag": MessageLookupByLibrary.simpleMessage("关于测试版"),
         "aboutTitle":
             MessageLookupByLibrary.simpleMessage("关于 Past Paper Finder"),
         "addToCollectionButton": MessageLookupByLibrary.simpleMessage("添加至收集箱"),
@@ -44,6 +47,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "batchTitle": MessageLookupByLibrary.simpleMessage("批量下载"),
         "browseSidebar": MessageLookupByLibrary.simpleMessage("检索试卷"),
         "browseTitle": MessageLookupByLibrary.simpleMessage("检索试卷"),
+        "bugAndFeatureContent1": MessageLookupByLibrary.simpleMessage(
+            "Alpha 测试正是为了版本快速迭代而设计的，所以请尽多反馈错误漏洞和新功能请求！"),
+        "bugAndFeatureContent2": MessageLookupByLibrary.simpleMessage(
+            "请报告此类信息至 Micfong 的微信（推荐），或发送邮件至 micfong2@outlook.com。"),
+        "bugAndFeatureTag": MessageLookupByLibrary.simpleMessage("报告漏洞与请求功能"),
         "cancelAllButton": MessageLookupByLibrary.simpleMessage("全部取消"),
         "ciType": MessageLookupByLibrary.simpleMessage("机密说明"),
         "collectedTimeHeading": MessageLookupByLibrary.simpleMessage("收集时间"),
@@ -94,6 +102,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "removeAllButton": MessageLookupByLibrary.simpleMessage("全部移除"),
         "revealDownloadsFolder":
             MessageLookupByLibrary.simpleMessage("打开下载文件夹"),
+        "roadmapContent": MessageLookupByLibrary.simpleMessage(
+            "以下为 Past Paper Finder 的迭代路线图。"),
+        "roadmapContent1": MessageLookupByLibrary.simpleMessage("开发阶段"),
+        "roadmapContent2": MessageLookupByLibrary.simpleMessage("Alpha 测试"),
+        "roadmapContent3": MessageLookupByLibrary.simpleMessage("Beta 测试"),
+        "roadmapContent4": MessageLookupByLibrary.simpleMessage("正式版发布"),
+        "roadmapTag": MessageLookupByLibrary.simpleMessage("迭代路线图"),
         "rpType": MessageLookupByLibrary.simpleMessage("口语测评"),
         "seasonSelectedMessage": m3,
         "seasonsTag": MessageLookupByLibrary.simpleMessage("考试季"),
@@ -136,9 +151,19 @@ class MessageLookup extends MessageLookupByLibrary {
         "syllabusTag": MessageLookupByLibrary.simpleMessage("考纲"),
         "tapToCancelHint": MessageLookupByLibrary.simpleMessage("单击以取消任意下载"),
         "tapToRemoveHint": MessageLookupByLibrary.simpleMessage("单击以移除任意项"),
+        "testingBadge": MessageLookupByLibrary.simpleMessage("Alpha 测试阶段"),
+        "testingBannerContent": MessageLookupByLibrary.simpleMessage(
+            "感谢您参加 Past Paper Finder Alpha 测试！"),
+        "testingBannerTitle": MessageLookupByLibrary.simpleMessage("正在使用测试版"),
+        "testingSidebar": MessageLookupByLibrary.simpleMessage("Alpha 测试"),
+        "testingTitle": MessageLookupByLibrary.simpleMessage("Alpha 测试版"),
         "tnType": MessageLookupByLibrary.simpleMessage("考官备注"),
         "typeHeading": MessageLookupByLibrary.simpleMessage("类型"),
-        "versionTag": MessageLookupByLibrary.simpleMessage("开发版"),
+        "updatesButton": MessageLookupByLibrary.simpleMessage("查看最新版本"),
+        "updatesContent": MessageLookupByLibrary.simpleMessage(
+            "我将会频繁发布更新，所以请经常来检查是否正在使用最新版本。"),
+        "updatesTag": MessageLookupByLibrary.simpleMessage("更新"),
+        "versionTag": MessageLookupByLibrary.simpleMessage("Alpha 版"),
         "viewSelectionButton": MessageLookupByLibrary.simpleMessage("查看已选试卷"),
         "waitingProgress": MessageLookupByLibrary.simpleMessage("等待中"),
         "wechatpayButton": MessageLookupByLibrary.simpleMessage("微信支付"),

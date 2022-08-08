@@ -5,6 +5,7 @@
     "downloadsSidebar": "下載隊列",
     "settingsSidebar": "設置",
     "aboutSidebar": "關於",
+    "testingSidebar": "Alpha 測試",
 
     "batchTitle": "批量下載",
     "syllabusTag": "考綱",
@@ -105,7 +106,7 @@
     "selectDownloadPathButton": "選擇下載路徑",
 
     "aboutTitle": "關於 Past Paper Finder",
-    "versionTag": "開發版",
+    "versionTag": "Alpha 版",
     "commitTag": "上次提交為 ",
     "createdByTag": "由 Micfong 作為 SCIE.DEV 的一員開發",
     "sponsorTag": "支持一下",
@@ -116,5 +117,24 @@
     "paypalButton": "PayPal",
     "wechatpayButton": "微信支付",
     "alipayButton": "支付宝",
-    "sponsorNote": "如果您希望讓您的姓名（或暱稱）出現在支持列表中，請發送郵件至 micfong2@outlook.com，包含支持金額，支持時間，您的姓名（或暱稱），以及您的頭像。感謝您的支持！"
+    "sponsorNote": "如果您希望讓您的姓名（或暱稱）出現在支持列表中，請發送郵件至 micfong2@outlook.com，包含支持金額，支持時間，您的姓名（或暱稱），以及您的頭像。感謝您的支持！",
+
+    "testingTitle": "Alpha 測試版",
+    "aboutTestingTag": "關於測試版",
+    "testingBannerTitle": "正在使用測試版",
+    "testingBannerContent": "感謝您參加 Past Paper Finder Alpha 測試！",
+    "testingBadge": "Alpha 測試階段",
+    "aboutTestingContent": "大量開發工作仍在進行中，所以軟件可能發生不穩定的錯誤。",
+    "bugAndFeatureTag": "報告漏洞與請求功能",
+    "bugAndFeatureContent1": "Alpha 測試正是為了版本快速迭代而設計的，所以請盡多反饋錯誤漏洞和新功能請求！",
+    "bugAndFeatureContent2": "請報告此類信息至 Micfong 的微信（推薦），或發送郵件至 micfong2@outlook.com。",
+    "roadmapTag": "迭代路線圖",
+    "roadmapContent": "以下為 Past Paper Finder 的迭代路線圖。",
+    "roadmapContent1": "開發階段",
+    "roadmapContent2": "Alpha 測試",
+    "roadmapContent3": "Beta 測試",
+    "roadmapContent4": "正式版發佈",
+    "updatesTag": "更新",
+    "updatesContent": "我將會頻繁發佈更新，所以請經常來檢查是否正在使用最新版本。",
+    "updatesButton": "查看最新版本"
 }

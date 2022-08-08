@@ -44,7 +44,7 @@ class DownloadsPage extends StatelessWidget {
                   title: AppLocalizations.of(context)!.cancelAllButton,
                   destructive: true,
                   onPressed: () {
-                    context.read<DownloadStates>().cancelAllDownloads();
+                    context.read<DownloadStates>().cancelAll();
                   },
                 ),
                 // TODO show downloaded button

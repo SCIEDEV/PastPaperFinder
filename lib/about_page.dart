@@ -7,8 +7,8 @@ import 'main.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AboutPage extends StatelessWidget {
-  final String lastCommit = "54553666a3f4f583895be21bfeb140d0cdd1056b";
-  final String version = "0.6.2+12";
+  final String lastCommit = "450b0bf3a13eb2fedd27d2a2c72ed4b6d4a37953";
+  final String version = "0.7.0+13";
   const AboutPage({
     Key? key,
   }) : super(key: key);
@@ -113,11 +113,11 @@ class AboutPage extends StatelessWidget {
                   children: [
                     Row(
                       children: [
-                        CustomButton(
-                            title: AppLocalizations.of(context)!.paypalButton,
-                            leading: UniconsLine.paypal,
-                            onPressed: () {}),
-                        const SizedBox(width: 12),
+                        // CustomButton(
+                        //     title: AppLocalizations.of(context)!.paypalButton,
+                        //     leading: UniconsLine.paypal,
+                        //     onPressed: () {}),
+                        // const SizedBox(width: 12),
                         CustomButton(
                             title:
                                 AppLocalizations.of(context)!.wechatpayButton,

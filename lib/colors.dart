@@ -25,6 +25,8 @@ class MColors {
   Color get errorBadgeText => isDark ? Colors.red.shade50 : Colors.red.shade900;
   Color get badgeBackground =>
       isDark ? Colors.orange.shade300.withAlpha(32) : Colors.orange.shade50;
+  Color get badgeBorder =>
+      isDark ? Colors.orange.shade300.withAlpha(32) : Colors.orange.shade100;
   Color get badgeText =>
       isDark ? Colors.orange.shade50 : Colors.orange.shade900;
   Color get sideBarIcon => isDark ? Colors.grey.shade600 : Colors.grey.shade500;
