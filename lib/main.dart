@@ -380,7 +380,7 @@ class DownloadStates with ChangeNotifier {
     notifyListeners();
   }
 
-  void downloadCollections(Set<CollectionItem> collection) async {
+  Future<void> downloadCollections(Set<CollectionItem> collection) async {
     for (CollectionItem item in collection) {
       List<List<String>> papers = await getPapers(item);
       addDownloads(papers);

@@ -35,13 +35,15 @@ class CollectionPage extends StatelessWidget {
                 CustomButton(
                   title: AppLocalizations.of(context)!.downloadAllButton,
                   primary: true,
-                  onPressed: () {
+                  onPressed: () async {
                     if (context.read<Settings>().path == "") {
                       context.read<DownloadStates>().setShowDownloadFailedOn(2);
                     } else {
-                      context.read<DownloadStates>().downloadCollections(
+                      await context.read<DownloadStates>().downloadCollections(
                           context.read<CollectionStates>().collection);
+                      // ignore: use_build_context_synchronously
                       context.read<CollectionStates>().removeAll();
+                      // ignore: use_build_context_synchronously
                       downloadFiles(globalContext);
                     }
                   },
