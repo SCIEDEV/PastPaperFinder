@@ -52,6 +52,9 @@ flutter:
     - assets/
 
   fonts:
+    - family: Source Han Sans
+      fonts:
+        - asset: assets/fonts/SourceHanSansSC-VF.otf
     - family: JetBrains Mono
       fonts:
         - asset: assets/fonts/JetBrainsMono-Regular.ttf

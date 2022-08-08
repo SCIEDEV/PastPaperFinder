@@ -171,7 +171,9 @@ class LocaleProvider with ChangeNotifier {
       }
     }
   }
-  Locale? _locale;
+
+  // TODO: will switch back to system language after font issue resolved
+  Locale? _locale = const Locale('en');
   Locale? get locale => _locale;
   void setLocale(int locale) async {
     _locale = languages[locale];

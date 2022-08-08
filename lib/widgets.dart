@@ -25,19 +25,27 @@ class PathNotSpecifiedBanner extends StatelessWidget {
                 style: TextStyle(
                     color: mcol.errorBadgeText, fontWeight: FontWeight.w500)),
             const SizedBox(width: 16),
-            Flexible(
+            Expanded(
+              flex: 99,
               child: Text(
                 AppLocalizations.of(context)!.downloadFailedMessage,
                 style: TextStyle(color: mcol.errorBadgeText),
               ),
             ),
             const Spacer(),
-            MaterialButton(
-                minWidth: 0,
-                onPressed: () {
-                  context.read<DownloadStates>().setShowDownloadFailedOn(-1);
-                },
-                child: const Icon(UniconsLine.times, color: Colors.red)),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                MaterialButton(
+                    minWidth: 0,
+                    onPressed: () {
+                      context
+                          .read<DownloadStates>()
+                          .setShowDownloadFailedOn(-1);
+                    },
+                    child: const Icon(UniconsLine.times, color: Colors.red)),
+              ],
+            ),
           ],
         ));
   }

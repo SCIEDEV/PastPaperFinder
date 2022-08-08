@@ -7,8 +7,8 @@ import 'main.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AboutPage extends StatelessWidget {
-  final String lastCommit = "b738dd6e8912951642f23263afcc19ec7ffe7ecb";
-  final String version = "0.7.1+14";
+  final String lastCommit = "9ca153c7b338b71bd27f3fb69775152114671feb";
+  final String version = "0.7.2+15";
   const AboutPage({
     Key? key,
   }) : super(key: key);
