@@ -7,6 +7,7 @@ import 'package:dio/dio.dart';
 import 'colors.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class DownloadsPage extends StatelessWidget {
   const DownloadsPage({
@@ -33,7 +34,9 @@ class DownloadsPage extends StatelessWidget {
                 const Spacer(),
                 CustomButton(
                   title: AppLocalizations.of(context)!.revealDownloadsFolder,
-                  onPressed: () {},
+                  onPressed: () {
+                    safeLaunchUrl('file:${context.read<Settings>().path}');
+                  },
                 ),
               ],
             ),
@@ -367,4 +370,11 @@ Future<void> downloadFiles(BuildContext context) async {
     downloadFile(context, saveTo);
   }
   context.read<DownloadStates>().setIsDownloading(false);
+}
+
+Future<void> safeLaunchUrl(String url) async {
+  final Uri uri = Uri.parse(url);
+  if (!await launchUrl(uri)) {
+    throw 'Could not launch $uri';
+  }
 }
