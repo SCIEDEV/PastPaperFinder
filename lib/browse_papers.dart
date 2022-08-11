@@ -38,9 +38,12 @@ class BrowsePapersPage extends StatelessWidget {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => ViewSelectionPage(
-                              globalContext: globalContext,
-                            ),
+                        builder: (context) {
+                          context.read<SidebarStates>().setContext(context);
+                          return ViewSelectionPage(
+                            globalContext: globalContext,
+                          );
+                        },
                         fullscreenDialog: true));
               },
             ),

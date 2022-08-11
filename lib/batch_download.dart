@@ -124,7 +124,12 @@ class BatchDownloadPage extends StatelessWidget {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => const SelectSubjectPage(),
+                                builder: (context) {
+                                  context
+                                      .read<SidebarStates>()
+                                      .setContext(context);
+                                  return const SelectSubjectPage();
+                                },
                                 fullscreenDialog: true));
                       },
                       placeholder:

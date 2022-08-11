@@ -122,6 +122,14 @@ class SidebarItem extends StatelessWidget {
             highlightElevation: 0,
             focusElevation: 0,
             onPressed: () {
+              List<BuildContext> remainingContexts =
+                  context.read<SidebarStates>().contexts;
+              if (remainingContexts.isNotEmpty) {
+                for (BuildContext i in remainingContexts) {
+                  Navigator.pop(i);
+                }
+                context.read<SidebarStates>().clearContext();
+              }
               context.read<SidebarStates>().changeSelection(index);
             },
             child: Padding(

@@ -30,6 +30,7 @@ class ViewSelectionPage extends StatelessWidget {
               children: [
                 MaterialButton(
                   onPressed: () {
+                    context.read<SidebarStates>().removeContext();
                     Navigator.pop(context);
                   },
                   minWidth: 32,

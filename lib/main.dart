@@ -200,6 +200,22 @@ class LocaleProvider with ChangeNotifier {
 class SidebarStates with ChangeNotifier {
   int _currentSelection = 0;
   int get currentSelection => _currentSelection;
+  final List<BuildContext> _contexts = [];
+  List<BuildContext> get contexts => _contexts;
+
+  void setContext(BuildContext context) {
+    _contexts.add(context);
+    // We do not want to notify listeners, since this happens during build.
+  }
+
+  void removeContext() {
+    _contexts.removeLast();
+  }
+
+  void clearContext() {
+    _contexts.clear();
+  }
+
   void changeSelection(int index) {
     _currentSelection = index;
     notifyListeners();
