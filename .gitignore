@@ -16,7 +16,7 @@ migrate_working_dir/
 *.iws
 .idea/
 
-# VS Code relateed
+# VS Code related
 .vscode/
 .VSCodeCounter/
 
