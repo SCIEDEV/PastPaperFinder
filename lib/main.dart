@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
@@ -36,11 +37,19 @@ void main() async {
     });
   }
 
+  WidgetsFlutterBinding.ensureInitialized();
+  DartPluginRegistrant.ensureInitialized();
+
   final prefs = await SharedPreferences.getInstance();
   await prefs.setInt('appearance', prefs.getInt('appearance') ?? 0);
   await prefs.setString('path', prefs.getString('path') ?? "");
   await prefs.setInt('simultaneous', prefs.getInt('simultaneous') ?? 3);
   await prefs.setInt('language', prefs.getInt('language') ?? -1);
+
+  int settingsAppearance = prefs.getInt('appearance')!;
+  String settingsPath = prefs.getString('path')!;
+  int settingsSimultaneous = prefs.getInt('simultaneous')!;
+  int settingsLanguage = prefs.getInt('language')!;
 
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider(create: (_) => BatchPreferences()),
@@ -49,12 +58,10 @@ void main() async {
     ChangeNotifierProvider(create: (_) => CollectionStates()),
     ChangeNotifierProvider(create: (_) => DownloadStates()),
     ChangeNotifierProvider(
-        create: (_) => Settings(prefs.getInt('appearance')!,
-            prefs.getString('path')!, prefs.getInt('simultaneous')!)),
-    ChangeNotifierProvider(
-        create: (_) => Appearance(prefs.getInt('appearance')!)),
-    ChangeNotifierProvider(
-        create: (_) => LocaleProvider(prefs.getInt('language')!)),
+        create: (_) =>
+            Settings(settingsAppearance, settingsPath, settingsSimultaneous)),
+    ChangeNotifierProvider(create: (_) => Appearance(settingsAppearance)),
+    ChangeNotifierProvider(create: (_) => LocaleProvider(settingsLanguage)),
     ChangeNotifierProvider(create: (_) => SponsorProvider()),
   ], child: const MyApp()));
 }
@@ -173,18 +180,13 @@ class LocaleProvider with ChangeNotifier {
   }
 
   // TODO: will switch back to system language after font issue resolved
-  Locale? _locale = const Locale('en');
-  Locale? get locale => _locale;
+  Locale _locale = const Locale('en');
+  Locale get locale => _locale;
   void setLocale(int locale) async {
     _locale = languages[locale];
     notifyListeners();
     final prefs = await SharedPreferences.getInstance();
     await prefs.setInt('language', locale);
-  }
-
-  void clearLocale() {
-    _locale = null;
-    notifyListeners();
   }
 
   final List<bool> _selected = [true, false, false];
