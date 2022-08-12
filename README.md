@@ -37,9 +37,10 @@ You may download Past Paper Finder from the [official website](https://pastpaper
 
 Although I hate to talk about this section, I'm extremely grateful you're considering supporting me. The developer is currently a high school student, so does not have financial resources to pay for hosting (especially for App Store submissions). Therefore, any support is greatly appreciated.
 
-
-<img src="assets/alipay.jpg" alt="Multilanguage" width="49%"/>
-<img src="assets/wechatpay.jpg" alt="Multilanguage" width="49%"/>
+<p float="left">
+<img src="assets/alipay.jpg" alt="Multilanguage" width="40%"/>
+<img src="assets/wechatpay.jpg" alt="Multilanguage" width="40%"/>
+</p>
 
 ## License
 
