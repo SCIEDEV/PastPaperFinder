@@ -1,6 +1,7 @@
 import 'package:unicons/unicons.dart';
 
 const Map<String, Map<String, dynamic>> igcseSubjects = {
+  "Accounting": {"code": "0452", "icon": UniconsLine.money_bill_stack},
   "Afrikaans - Second Language": {"code": "0548", "icon": UniconsLine.language},
   "Agriculture": {"code": "0600", "icon": UniconsLine.mountains},
   "Arabic - First Language": {"code": "0508", "icon": UniconsLine.language},
