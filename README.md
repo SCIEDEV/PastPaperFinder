@@ -2,6 +2,8 @@
 
 On Dec 12 2022, we archived this repository since we are now working on a refactored and extended version of Past Paper Finder: Past Paper Master. It is now under active private development within SCIE.DEV and will *hopefully* enter public test in early 2023. Stay tuned!
 
+We are closing all issued for now as they will be stressed in the new release.
+
 ---
 
 <h1>Past Paper Finder<img src="markdown/appicon.svg" alt="App Icon" width="128" align="right"/></h1>
