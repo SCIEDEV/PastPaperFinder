@@ -1,3 +1,9 @@
+# 📦 Archiving This Repository 📦
+
+On Dec 12 2022, we archived this repository since we are now working on a refactored and extended version of Past Paper Finder: Past Paper Master. It is now under active private development within SCIE.DEV and will *hopefully* enter public test in early 2023. Stay tuned!
+
+---
+
 <h1>Past Paper Finder<img src="markdown/appicon.svg" alt="App Icon" width="128" align="right"/></h1>
 
 Past Paper Finder is a past paper downloader for IGCSE and A-Level. It is designed to be as simple as possible and easy to use.
