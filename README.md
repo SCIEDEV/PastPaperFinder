@@ -4,6 +4,8 @@ On Dec 12 2022, we archived this repository since we are now working on a refact
 
 We are closing all issued for now as they will be stressed in the new release.
 
+**Update**: Past Paper Master is now available at https://github.com/SCIEDEV/PastPaperMaster
+
 ---
 
 <h1>Past Paper Finder<img src="markdown/appicon.svg" alt="App Icon" width="128" align="right"/></h1>
